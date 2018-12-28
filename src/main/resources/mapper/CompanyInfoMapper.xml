@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.CompanyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyInfo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+    <result column="GRADE" property="grade" jdbcType="DECIMAL" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="COMPANY_SHORT_NAME" property="companyShortName" jdbcType="VARCHAR" />
+    <result column="COMPANY_EN_NAME" property="companyEnName" jdbcType="VARCHAR" />
+    <result column="COMPANY_TYPE" property="companyType" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="WEBSITE_DOMAIN" property="websiteDomain" jdbcType="VARCHAR" />
+    <result column="SERVICE_PHONE" property="servicePhone" jdbcType="VARCHAR" />
+    <result column="ZIP_CODE" property="zipCode" jdbcType="VARCHAR" />
+    <result column="SERVICE_TYPE" property="serviceType" jdbcType="VARCHAR" />
+    <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+    <result column="LEGAL_PHONE" property="legalPhone" jdbcType="VARCHAR" />
+    <result column="LEGAL_EMAIL" property="legalEmail" jdbcType="VARCHAR" />
+    <result column="LEGAL_ID_NO" property="legalIdNo" jdbcType="VARCHAR" />
+    <result column="LINK_NAME" property="linkName" jdbcType="VARCHAR" />
+    <result column="LINK_PHONE" property="linkPhone" jdbcType="VARCHAR" />
+    <result column="LINK_EMAIL" property="linkEmail" jdbcType="VARCHAR" />
+    <result column="LINK_ID_NO" property="linkIdNo" jdbcType="VARCHAR" />
+    <result column="COMPANY_STATUS" property="companyStatus" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, PARENT_ID, GRADE, COMPANY_NAME, COMPANY_SHORT_NAME, COMPANY_EN_NAME, COMPANY_TYPE, 
+    ADDRESS, WEBSITE_DOMAIN, SERVICE_PHONE, ZIP_CODE, SERVICE_TYPE, LEGAL_NAME, LEGAL_PHONE, 
+    LEGAL_EMAIL, LEGAL_ID_NO, LINK_NAME, LINK_PHONE, LINK_EMAIL, LINK_ID_NO, COMPANY_STATUS, 
+    REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from GL_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from GL_COMPANY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from GL_COMPANY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyInfoExample" >
+    delete from GL_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyInfo" >
+    insert into GL_COMPANY (ID, PARENT_ID, GRADE, 
+      COMPANY_NAME, COMPANY_SHORT_NAME, COMPANY_EN_NAME, 
+      COMPANY_TYPE, ADDRESS, WEBSITE_DOMAIN, 
+      SERVICE_PHONE, ZIP_CODE, SERVICE_TYPE, 
+      LEGAL_NAME, LEGAL_PHONE, LEGAL_EMAIL, 
+      LEGAL_ID_NO, LINK_NAME, LINK_PHONE, 
+      LINK_EMAIL, LINK_ID_NO, COMPANY_STATUS, 
+      REMARK)
+    values (#{id,jdbcType=DECIMAL}, #{parentId,jdbcType=DECIMAL}, #{grade,jdbcType=DECIMAL}, 
+      #{companyName,jdbcType=VARCHAR}, #{companyShortName,jdbcType=VARCHAR}, #{companyEnName,jdbcType=VARCHAR}, 
+      #{companyType,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{websiteDomain,jdbcType=VARCHAR}, 
+      #{servicePhone,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR}, #{serviceType,jdbcType=VARCHAR}, 
+      #{legalName,jdbcType=VARCHAR}, #{legalPhone,jdbcType=VARCHAR}, #{legalEmail,jdbcType=VARCHAR}, 
+      #{legalIdNo,jdbcType=VARCHAR}, #{linkName,jdbcType=VARCHAR}, #{linkPhone,jdbcType=VARCHAR}, 
+      #{linkEmail,jdbcType=VARCHAR}, #{linkIdNo,jdbcType=VARCHAR}, #{companyStatus,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyInfo"
+          useGeneratedKeys="true" keyProperty="Id" >
+    insert into GL_COMPANY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="grade != null" >
+        GRADE,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="companyShortName != null" >
+        COMPANY_SHORT_NAME,
+      </if>
+      <if test="companyEnName != null" >
+        COMPANY_EN_NAME,
+      </if>
+      <if test="companyType != null" >
+        COMPANY_TYPE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="websiteDomain != null" >
+        WEBSITE_DOMAIN,
+      </if>
+      <if test="servicePhone != null" >
+        SERVICE_PHONE,
+      </if>
+      <if test="zipCode != null" >
+        ZIP_CODE,
+      </if>
+      <if test="serviceType != null" >
+        SERVICE_TYPE,
+      </if>
+      <if test="legalName != null" >
+        LEGAL_NAME,
+      </if>
+      <if test="legalPhone != null" >
+        LEGAL_PHONE,
+      </if>
+      <if test="legalEmail != null" >
+        LEGAL_EMAIL,
+      </if>
+      <if test="legalIdNo != null" >
+        LEGAL_ID_NO,
+      </if>
+      <if test="linkName != null" >
+        LINK_NAME,
+      </if>
+      <if test="linkPhone != null" >
+        LINK_PHONE,
+      </if>
+      <if test="linkEmail != null" >
+        LINK_EMAIL,
+      </if>
+      <if test="linkIdNo != null" >
+        LINK_ID_NO,
+      </if>
+      <if test="companyStatus != null" >
+        COMPANY_STATUS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyShortName != null" >
+        #{companyShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEnName != null" >
+        #{companyEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null" >
+        #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="websiteDomain != null" >
+        #{websiteDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePhone != null" >
+        #{servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null" >
+        #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPhone != null" >
+        #{legalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="legalEmail != null" >
+        #{legalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="legalIdNo != null" >
+        #{legalIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="linkName != null" >
+        #{linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null" >
+        #{linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkEmail != null" >
+        #{linkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="linkIdNo != null" >
+        #{linkIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyStatus != null" >
+        #{companyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyInfoExample" resultType="java.lang.Integer" >
+    select count(*) from GL_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update GL_COMPANY
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.parentId != null" >
+        PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.grade != null" >
+        GRADE = #{record.grade,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyName != null" >
+        COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyShortName != null" >
+        COMPANY_SHORT_NAME = #{record.companyShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyEnName != null" >
+        COMPANY_EN_NAME = #{record.companyEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyType != null" >
+        COMPANY_TYPE = #{record.companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.websiteDomain != null" >
+        WEBSITE_DOMAIN = #{record.websiteDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePhone != null" >
+        SERVICE_PHONE = #{record.servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipCode != null" >
+        ZIP_CODE = #{record.zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceType != null" >
+        SERVICE_TYPE = #{record.serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalName != null" >
+        LEGAL_NAME = #{record.legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalPhone != null" >
+        LEGAL_PHONE = #{record.legalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalEmail != null" >
+        LEGAL_EMAIL = #{record.legalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalIdNo != null" >
+        LEGAL_ID_NO = #{record.legalIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkName != null" >
+        LINK_NAME = #{record.linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkPhone != null" >
+        LINK_PHONE = #{record.linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkEmail != null" >
+        LINK_EMAIL = #{record.linkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkIdNo != null" >
+        LINK_ID_NO = #{record.linkIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyStatus != null" >
+        COMPANY_STATUS = #{record.companyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update GL_COMPANY
+    set ID = #{record.id,jdbcType=DECIMAL},
+      PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
+      GRADE = #{record.grade,jdbcType=DECIMAL},
+      COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
+      COMPANY_SHORT_NAME = #{record.companyShortName,jdbcType=VARCHAR},
+      COMPANY_EN_NAME = #{record.companyEnName,jdbcType=VARCHAR},
+      COMPANY_TYPE = #{record.companyType,jdbcType=VARCHAR},
+      ADDRESS = #{record.address,jdbcType=VARCHAR},
+      WEBSITE_DOMAIN = #{record.websiteDomain,jdbcType=VARCHAR},
+      SERVICE_PHONE = #{record.servicePhone,jdbcType=VARCHAR},
+      ZIP_CODE = #{record.zipCode,jdbcType=VARCHAR},
+      SERVICE_TYPE = #{record.serviceType,jdbcType=VARCHAR},
+      LEGAL_NAME = #{record.legalName,jdbcType=VARCHAR},
+      LEGAL_PHONE = #{record.legalPhone,jdbcType=VARCHAR},
+      LEGAL_EMAIL = #{record.legalEmail,jdbcType=VARCHAR},
+      LEGAL_ID_NO = #{record.legalIdNo,jdbcType=VARCHAR},
+      LINK_NAME = #{record.linkName,jdbcType=VARCHAR},
+      LINK_PHONE = #{record.linkPhone,jdbcType=VARCHAR},
+      LINK_EMAIL = #{record.linkEmail,jdbcType=VARCHAR},
+      LINK_ID_NO = #{record.linkIdNo,jdbcType=VARCHAR},
+      COMPANY_STATUS = #{record.companyStatus,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyInfo" >
+    update GL_COMPANY
+    <set >
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="grade != null" >
+        GRADE = #{grade,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyShortName != null" >
+        COMPANY_SHORT_NAME = #{companyShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEnName != null" >
+        COMPANY_EN_NAME = #{companyEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null" >
+        COMPANY_TYPE = #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="websiteDomain != null" >
+        WEBSITE_DOMAIN = #{websiteDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePhone != null" >
+        SERVICE_PHONE = #{servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        ZIP_CODE = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null" >
+        LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPhone != null" >
+        LEGAL_PHONE = #{legalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="legalEmail != null" >
+        LEGAL_EMAIL = #{legalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="legalIdNo != null" >
+        LEGAL_ID_NO = #{legalIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="linkName != null" >
+        LINK_NAME = #{linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null" >
+        LINK_PHONE = #{linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkEmail != null" >
+        LINK_EMAIL = #{linkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="linkIdNo != null" >
+        LINK_ID_NO = #{linkIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyStatus != null" >
+        COMPANY_STATUS = #{companyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyInfo" >
+    update GL_COMPANY
+    set PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      GRADE = #{grade,jdbcType=DECIMAL},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      COMPANY_SHORT_NAME = #{companyShortName,jdbcType=VARCHAR},
+      COMPANY_EN_NAME = #{companyEnName,jdbcType=VARCHAR},
+      COMPANY_TYPE = #{companyType,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      WEBSITE_DOMAIN = #{websiteDomain,jdbcType=VARCHAR},
+      SERVICE_PHONE = #{servicePhone,jdbcType=VARCHAR},
+      ZIP_CODE = #{zipCode,jdbcType=VARCHAR},
+      SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+      LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+      LEGAL_PHONE = #{legalPhone,jdbcType=VARCHAR},
+      LEGAL_EMAIL = #{legalEmail,jdbcType=VARCHAR},
+      LEGAL_ID_NO = #{legalIdNo,jdbcType=VARCHAR},
+      LINK_NAME = #{linkName,jdbcType=VARCHAR},
+      LINK_PHONE = #{linkPhone,jdbcType=VARCHAR},
+      LINK_EMAIL = #{linkEmail,jdbcType=VARCHAR},
+      LINK_ID_NO = #{linkIdNo,jdbcType=VARCHAR},
+      COMPANY_STATUS = #{companyStatus,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectCompanyCount" resultType="java.lang.Integer">
+    select count(*) from GL_COMPANY
+  </select>
+</mapper>

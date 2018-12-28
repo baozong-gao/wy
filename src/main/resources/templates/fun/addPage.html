@@ -1,0 +1,160 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+
+<div layout:fragment="content">
+<div class="pageTitle">
+    系统管理 <i class="dot"></i> 新增权限
+</div>
+
+<div class="content">
+    <form action="" id="form">
+        <div class="title">填写权限信息<span class="title_sub">（*为必填项）</span></div>
+        <ul>
+            <li>
+                <label for="">名称：</label>
+                <input  name="name" type="text" placeholder="请输入角色名称">
+                <i class="warn">*</i>
+            </li>
+            <li>
+                <label for="">等级：</label>
+                <!-- <input  name="role_fa" type="text" placeholder="请输入角色父级"> -->
+                <select  class="status" title="请选择角色等级" name="grade" id="">
+                    <option value="">请选择角色等级</option>
+                    <option value="A">一级</option>
+                    <option value="B">二级</option>
+                    <option value="C">三级</option>
+                </select>
+                <i class="warn">*</i>
+            </li>
+            <li>
+                <label for="">父级：</label>
+                <!-- <input  name="role_grade" type="text" placeholder="请输入角色等级"> -->
+                <select  class="status" title="请选择角色父级" name="parentId" id="rolelevel">
+                    <option value="">请先选择角色等级</option>
+                </select>
+                <i class="warn">*</i>
+            </li>
+            <li>
+                <label for="">URL：</label>
+                <input  name="uri" type="text" placeholder="请输入URL">
+                <i class="warn">*</i>
+            </li>
+            <li>
+                <label for="">权限码：</label>
+                <input  name="code" type="text" placeholder="请输入权限码">
+                <i class="warn">*</i>
+            </li>
+            <li>
+                <label for="">logo：</label>
+                <input  name="logo" type="text" placeholder="请输入logo">
+                <i class="warn">*</i>
+            </li>
+        </ul>
+        <div class="title line unselect hetong depart">
+            <span>状态：</span>
+            <input type="radio" id="open" value="NORMAL" name="status" checked>
+            <label for="open">启用</label>
+            <input type="radio" id="close" value="CLOSE" name="status">
+            <label for="close">关闭</label>
+        </div>
+        <div class="title line unselect hetong depart">
+            <span>类型：</span>
+            <input type="radio" id="levelCom" value="COMPANY" name="type">
+            <label for="levelCom">公司</label>
+            <input type="radio" id="levelPla" value="PLATFORM" name="type">
+            <label for="levelPla">平台</label>
+        </div>
+        <button type="button" class="save" onclick="submitClick();">保存</button>
+    </form>
+</div>
+
+
+
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/system_add.css">
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+
+<script src="/js/base.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    $('[name="grade"]').on('change',function(e){
+        console.log(this.value);
+        getSub(this.value);
+    });
+    function getSub(str) {
+        var data = {};
+        $.ajax({
+            url:'/fun/searchparent/'+str,
+            dataType:'json',
+            data:data,
+            type:'POST',
+            success:function(obj){
+                var content = '';
+                for(var i in obj) {
+                    content += '<option value="' + obj[i].id + '">' + obj[i].name + '</option>';
+                }
+                $('#rolelevel').html(content);
+            },error: function(){ //失败
+                layer.alert("服务器内部错误");
+            }
+        });
+    }
+    $(function () {
+//        getSub('A');
+    });
+
+    var _itemList = ['name','uri','code','logo'];
+    function submitClick() {
+        var _itemDic = {};
+        for(var i in _itemList){
+            var key = _itemList[i];
+            var value = $('input[name='+key+']').val().trim();
+            if(value.length == 0){
+                layer.msg($('input[name='+key+']').attr('placeholder'));
+                return;
+            }
+            _itemDic[key] = value;
+        }
+        var parentId = $('[name="parentId"]').val().trim();
+        var grade = $('[name="grade"]').val().trim();
+        if(grade.length == 0){
+            layer.msg("请选择角色等级");
+            return;
+        }
+        _itemDic['grade'] = grade;
+        if(parentId.length == 0){
+            layer.msg("请选择角色父级");
+            return;
+        }
+        _itemDic['parentId'] = parentId;
+        _itemDic['type'] = 'COMPANY';
+        _itemDic['status'] = $('input[name=status]:checked').val().trim();
+        $.ajax({
+            url:'/fun/add',
+            dataType:'json',
+            data:_itemDic,
+            type:'POST',
+            success:function(obj){
+                if(obj.code === '200'){
+                    layer.msg('添加成功');
+                    window.history.back();
+                }else{
+                    layer.msg(obj.msg);
+                }
+            },error: function(){ //失败
+                layer.alert("服务器内部错误");
+            }
+        });
+    }
+</script>
+</div>
+</body>
+</html>

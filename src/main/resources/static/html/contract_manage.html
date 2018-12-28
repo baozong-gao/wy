@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/contract_manage.css">
+</head>
+<body>
+<div class="pageTitle">
+  合同管理 <i class="dot"></i> 商户账户
+</div>
+
+<div class="content">
+  <div class="toolDiv">
+    <div class="row1">
+      <span>搜索合同</span>
+      <input type="text" placeholder="请输入公司名称">
+      <input type="text" placeholder="公司联系人">
+      <select required class="status" placeholder="请选择开通状态" name="" id="">
+        <option value="" data-hidden="true" disabled selected hidden>请选择开通状态</option>
+        <option value="2">正常</option>
+        <option value="3">关闭</option>
+      </select>
+      <select required class="status" placeholder="请选择开通状态" name="" id="">
+        <option value="" data-hidden="true" disabled selected hidden>请选择开通状态</option>
+        <option value="2">正常</option>
+        <option value="3">关闭</option>
+      </select>
+      <button class="query-btn"><i class="query"></i>查询</button>
+      <button class="clear-btn">清空</button>
+    </div>
+    <div class="row2">
+      <button class="add" onclick="window.location.href = 'merchant_add.html';"><i></i>新增</button>
+      <button class="edit"><i></i>修改</button>
+    </div>
+  </div>
+
+  <table border="1px" cellpadding="0" cellspacing="0">
+    <tr>
+      <th>全选</th>
+      <th>序号</th>
+      <th>合同编号</th>
+      <th>合同房屋</th>
+      <th>合同开始时间</th>
+      <th>合同结束时间</th>
+      <th>签订双方</th>
+      <th>合同状态</th>
+      <th>合同备注</th>
+    </tr>
+    <tr>
+      <td ><input class="chance" type="checkbox" value="" name="selectItem"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" value="" name="selectItem"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+  <div class="pagination">
+    <ul>
+      <li class="nav"><a href="#"><</a></li>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li class="nav"><a href="#">></a></li>
+    </ul>
+    <div class="jump">
+      第<input type="text" value="1">页
+    </div>
+  </div>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.js"></script>
+<script src="../lib/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

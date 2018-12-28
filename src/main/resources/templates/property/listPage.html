@@ -1,0 +1,169 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        业态管理 <i class="dot"></i> 业态管理
+    </div>
+    <div class="content">
+        <form id="searchForm" class="toolDiv" method="post" >
+            <div class="row1" id="searchPanel">
+                <span>搜索业态</span>
+                <input style="width: 120px" type="text" name="propertyName" placeholder="请输入业态名称">
+                <input style="width: 120px" type="text" name="linkName" placeholder="请输入联系人">
+                <select class="status " id="propertyType" name="propertyType" title="请选择业态类型">
+                    <option selected hidden value="" style="color: #999">请选择</option>
+                    <option value="BUSINESS">商业楼宇</option>
+                    <option value="RESIDENCE">居民住宅</option>
+                    <option value="HOTEL">酒店公寓</option>
+                </select>
+                <button type="button" class="query-btn" data-type="reload" id="queryBtn"><i class="query"></i>查询
+                </button>
+                <button type="button" class="clear-btn" onclick="resetData();">清空</button>
+            </div>
+            <div class="row2" id="toolbar">
+                <button type="button" class="add" onclick="window.location.href = '/property/addpage';"><i></i>新增</button>
+                <button type="button" class="edit btn-type" data-type="editItem"><i></i>修改</button>
+                <button type="button" class="delete btn-type" data-type="deleteItem"><i></i>删除</button>
+            </div>
+        </form>
+        <table class="layui-hide" id="demo"></table>
+    </div>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/yetai_manage.css">
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="/js/base.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            layui.use('table', function () {
+                var table = layui.table;
+                var data = [
+                    {type: 'checkbox'}
+                    , {field: 'id', title: 'ID', sort: true}
+                    , {field: 'companyName', title: '公司名称'}
+                    , {field: 'propertyName', title: '业态名称'}
+                    , {field: 'propertyType', title: '业态类型',templet: function(d){
+                            if(d.propertyType === 'BUSINESS'){
+                                return '商业楼宇';
+                            }else if(d.propertyType === 'RESIDENCE'){
+                                return '居民住宅';
+                            }else if(d.propertyType === 'HOTEL'){
+                                return '酒店公寓';
+                            }else {
+                                return d.propertyType;
+                            }
+                        }}
+                    , {field: 'propertyAddress', title: '业态地址'}
+                    , {field: 'linkName', title: '业态联系人'}
+                    , {field: 'linkMobile', title: '联系人电话'}
+                    , {field: 'remark', title: '业态备注'}
+                ];
+                //展示已知数据
+                table.render({
+                    elem: '#demo'
+                    , url: '/property/search'
+                    , method: 'post'
+                    , cols: [data]
+//                ,skin: 'line' //表格风格
+                    , even: true
+                    , page: true //是否显示分页
+//                    , limits: [5, 10, 20]
+//                    , limit: 5 //每页默认显示的数量
+                    , request: {
+                        limitName: 'rows'
+                    }
+                    , response: {
+                        dataName: 'data',
+                        dataSecName: 'rows',
+                        statusCode: 200,
+                        countName: 'total'
+                    }
+                    , id: 'testReload'
+                });
+
+                var $ = layui.$, active = {
+                    reload: function () {
+                        //执行重载
+                        table.reload('testReload', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                            , where: {
+                                propertyName: $('input[name="propertyName"]').val(),
+                                linkName: $('input[name="linkName"]').val(),
+                                propertyType: $('.status').val(),
+                            }
+                        });
+                    },
+                    editItem: function () { //获取选中数据
+                        var checkStatus = table.checkStatus('testReload')
+                                , data = checkStatus.data;
+                        if (data.length == 0) {
+                            layer.msg('请选择一个对象');
+                            return;
+                        }
+                        if (data.length > 1) {
+                            layer.msg('不能选择多个对象');
+                            return;
+                        }
+                        window.location.href = '/property/updatepage/' + data[0].id;
+                    },
+                    deleteItem: function () {
+                        var checkStatus = table.checkStatus('testReload')
+                                , data = checkStatus.data;
+                        if (data.length == 0) {
+                            layer.msg('请选择一个对象');
+                            return;
+                        }
+                        if (data.length > 1) {
+                            layer.msg('不能选择多个对象');
+                            return;
+                        }
+                        layer.confirm('确定要删除该业态吗？',{
+                            btn:['是','否']
+                        },function () {
+                            $.ajax({
+                                url: '/property/delete/' + data[0].id,
+                                dataType: 'json',
+                                data: {},
+                                type: 'POST',
+                                success: function (obj) {
+                                    if (obj.code === '200') {
+                                        layer.msg('删除成功');
+                                        //window.location.reload();
+                                        resetData();
+                                    } else {
+                                        layer.msg(obj.msg);
+                                    }
+                                }, error: function () { //失败
+                                    layer.alert("服务器内部错误");
+                                }
+                            });
+                        })
+                    }
+                };
+
+                $('#queryBtn ,.btn-type').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+
+            });
+
+        });
+        function resetData() {
+            $('#searchForm')[0].reset();
+            $('#queryBtn').click();
+        }
+    </script>
+</div>
+</body>
+</html>

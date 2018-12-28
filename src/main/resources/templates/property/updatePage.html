@@ -1,0 +1,196 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+    <link rel="icon" href="../../static/img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../static/img/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="pageTitle">
+        业态管理 <i class="dot"></i> 修改业态
+    </div>
+    <div class="content">
+        <form action="" id="propertyForm">
+            <ul>
+                <li>
+                    <label for="">公司名称：</label>
+                    <input name="companyName" readonly type="text">
+                </li>
+                <li>
+                    <label for="propertyType" class="propertyType">业态类型：</label>
+                    <select  class="selectpicker" title="请选择业态类型" name="propertyType" id="propertyType" th:placeholder="请选择业态类型" disabled="true">
+                        <option value="BUSINESS">商业楼宇</option>
+                        <option value="RESIDENCE">居民住宅</option>
+                        <option value="HOTEL">酒店</option>
+                    </select>
+                    <i class="warn">*</i>
+                </li>
+            </ul>
+            <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+            <ul>
+                <li>
+                    <label for="">业态名称：</label>
+                    <input name="propertyName" type="text" placeholder="请输入业态名称">
+                    <i class="warn">*</i>
+                </li>
+                <li>
+                    <label for="">业态简称：</label>
+                    <input name="propertyShortName" type="text" placeholder="请输入业态简称">
+                    <i class="warn">*</i>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label for="">业态地址：</label>
+                    <input name="propertyAddress" type="text" placeholder="请输入业态地址">
+                    <i class="warn">*</i>
+                </li>
+                <li><label for="">客服电话：</label><input name="servicePhone" type="text" placeholder="请输入客服电话" id="servicePhone">
+                    <i class="warn">*</i>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label for="">产权所有人类型：</label>
+                    <select  class="selectpicker" title="请选择业态类型" name="ownerType" id="ownerType" th:placeholder="请选择产权所有人类型" >
+                        <option value="INDIVIDUAL">个人</option>
+                        <option value="COMPANY">公司</option>
+                    </select>
+                    <i class="warn">*</i>
+                </li>
+                <li>
+                    <label for="">产权所有人姓名：</label>
+                    <input name="ownerName" type="text" placeholder="请输入产权所有人姓名" id="ownerName">
+                    <i class="warn">*</i>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label for="">联系人：</label>
+                    <input name="linkName" type="text" placeholder="请输入联系人姓名">
+                    <i class="warn">*</i>
+                </li>
+                <li>
+                    <label for="">联系人电话：</label>
+                    <input name="linkMobile" type="text" placeholder="请输入联系人电话" id="linkMobile">
+                    <i class="warn">*</i>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label for="linkEmail">邮箱：</label>
+                    <input name="linkEmail" type="text" placeholder="请输入邮箱" id="linkEmail">
+                </li>
+            </ul>
+            <ul>
+                <li class="area">
+                    <label for="">备注：</label>
+                    <textarea name="remark" id="" cols="5" rows="5" placeholder="请输入备注"></textarea>
+                </li>
+            </ul>
+            <button type="button" class="save" onclick="submitClick();">保存</button>
+        </form>
+    </div>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/yetai_add.css">
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+
+    <script src="/js/base.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $(function(){
+            var initObj = [[${rout}]];
+            var companyName = [[${companyName}]];
+            $('input[name="propertyName"]').val(initObj.propertyName);
+            $('input[name="propertyShortName"]').val(initObj.propertyShortName);
+            $('input[name="propertyAddress"]').val(initObj.propertyAddress);
+            $('input[name="servicePhone"]').val(initObj.servicePhone);
+            $('input[name="linkName"]').val(initObj.linkName);
+            $('input[name="linkMobile"]').val(initObj.linkMobile);
+            $('input[name="linkEmail"]').val(initObj.linkEmail);
+            $('textarea[name="remark"]').val(initObj.remark);
+            $('input[name="companyName"]').val(companyName);
+            $('#propertyType').val(initObj.propertyType);
+            $('#ownerType').val(initObj.ownerType);
+            $('#ownerName').val(initObj.ownerName);
+        });
+        var _itemList = ['propertyType','propertyName','propertyShortName','propertyAddress','servicePhone','ownerType','ownerName','linkName','linkMobile'];
+        function submitClick() {
+            var _itemDic = {};
+            for(var i in _itemList){
+                var key = _itemList[i];
+                var value = $.trim($('#propertyForm  li [name='+key+']').val());
+                if(value.length == 0){
+                    layer.msg($('#propertyForm  li [name='+key+']').attr('placeholder'));
+                    return;
+                }
+                _itemDic[key] = value;
+            }
+            var remark = $('textarea[name="remark"]').val();
+            var linkEmail = $('#linkEmail').val();
+            var initObj = [[${rout}]];
+            _itemDic.remark = remark;
+            _itemDic.linkEmail = linkEmail;
+            _itemDic.id = initObj.id;
+            var check = false;
+            var phoneAndMob = /(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$/;
+            if(phoneAndMob.test($('#servicePhone').val())){
+                check = true;
+            }else{
+                layer.msg("请输入正确的客服电话");
+                check = false;
+                $('#servicePhone').val("");
+                $('#servicePhone').focus();
+                return;
+            }
+            if(phoneAndMob.test($('#linkMobile').val())){
+                check = true;
+            }else{
+                layer.msg("请输入正确的联系人电话");
+                check = false;
+                $('#linkMobile').val("");
+                $('#linkMobile').focus();
+                return;
+            }
+            var email = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+            if(email.test($('#linkEmail').val())||$('#linkEmail').val()==""){
+                check = true;
+            }else{
+                layer.msg("请输入正确的邮箱");
+                check = false;
+                $('#linkEmail').val("");
+                $('#linkEmail').focus();
+                return;
+            }
+            if(check=true){
+                $.ajax({
+                    url: '/property/update',
+                    dataType: 'json',
+                    data: _itemDic,
+                    type: 'POST',
+                    success: function (obj) {
+                        if (obj.code === '200') {
+                            layer.msg('修改成功');
+                            window.history.back();
+                        } else {
+                            layer.msg(obj.msg);
+                        }
+                    }, error: function () { //失败
+                        layer.alert("服务器内部错误");
+                    }
+                });
+            }
+
+        }
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/merchant_add.css">
+</head>
+<body>
+<div class="pageTitle">
+  公司管理 <i class="dot"></i> 新增公司
+</div>
+<div class="content">
+  <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+   <ul>
+    <li><label >公司名称：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <i class="warn">*</i>
+    </li>
+    <li><label >客服电话：</label><input name="" type="text" placeholder="请输入法人联系电话">
+      <i class="warn">*</i>
+    </li>
+    <li class="addr"><label >公司地址：</label><input name="pwd" type="text"  placeholder="请输入公司域名">
+      <i class="warn">*</i>
+    </li>
+  </ul>
+   <div class="title line">法人信息</div>
+   <ul>
+    <li><label >法人姓名：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <i class="warn">*</i>
+    </li>
+    <li><label >手机号：</label><input name="" type="text" placeholder="请输入法人联系电话">
+      <i class="warn">*</i>
+    </li>
+    <li><label >身份证号：</label><input name="pwd" type="text"  placeholder="请输入公司域名">
+      <i class="warn">*</i>
+    </li>
+    <li><label >邮箱：</label><input name="email" type="text" placeholder="请输入角色邮箱">
+      <i class="warn">*</i>
+    </li>
+  </ul>
+  <div class="title line">
+    联系人信息
+    <i class="shuxian"></i>
+    <input type="checkbox" id="equalFaren">
+    <label for="equalFaren">同法人信息</label>
+  </div>
+   <ul>
+    <li><label >联系人：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <i class="warn">*</i>
+    </li>
+    <li><label >手机号：</label><input name="" type="text" placeholder="请输入法人联系电话">
+      <i class="warn">*</i>
+    </li>
+    <li><label >身份证号：</label><input name="pwd" type="text"  placeholder="请输入公司域名">
+      <i class="warn">*</i>
+    </li>
+    <li><label >邮箱：</label><input name="email" type="text" placeholder="请输入角色邮箱">
+      <i class="warn">*</i>
+    </li>
+  </ul>
+  <div class="title line identity">证件信息</div>
+   <ul>
+    <li>
+      <input type="file" accept="image/*" id="file_Xuke" multiple  onchange="fileChange(this);" value="" style="display:none;">
+      <img id="img_file_Xuke" src="../img/add_photos@2x.png" alt="">
+      <i></i>
+      <span>营业许可证</span>
+    </li>
+    <li>
+      <input type="file" accept="image/*" id="file_Front" multiple onchange="fileChange(this);" value="" style="display:none;">
+      <img id="img_file_Front" src="../img/add_photos@2x.png" alt="">
+      <i></i>
+      <span>身份证正面</span>
+    </li>
+    <li>
+      <input type="file" accept="image/*" id="file_Back" multiple onchange="fileChange(this);" value="" style="display:none;">
+      <img id="img_file_Back" src="../img/add_photos@2x.png" alt="">
+      <i></i>
+      <span>身份证反面</span>
+    </li>
+  </ul>
+  <button class="submit">完成</button>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+  function clearInputFile(f){
+    if(f.value){
+        try{
+            f.value = ''; //for IE11, latest Chrome/Firefox/Opera...
+        }catch(err){
+        }
+        if(f.value){ //for IE5 ~ IE10
+            var form = document.createElement('form'), ref = f.nextSibling, p = f.parentNode;
+            form.appendChild(f);
+            form.reset();
+            p.insertBefore(f,ref);
+        }
+    }
+  }
+  $(function(){
+    function bindClickEvent(id){
+        var obj = document.getElementById(id);
+        var obj2 = document.getElementById('img_'+id);
+        obj2.addEventListener("click", function (e) {
+            if (obj) {
+                console.log(1);
+                obj.click();
+            }
+            // console.log(2,obj2,obj);
+            e.preventDefault();
+        }, false);
+        // console.log(1,obj2,obj);
+    }
+
+    bindClickEvent("file_Xuke");
+    bindClickEvent("file_Front");
+    bindClickEvent("file_Back");
+
+    $('.identity + ul>li>i').click(function(){
+      console.log(this);
+      // var inputObj =
+      var inputFile = $(this).parent().find('input')[0];
+      clearInputFile(inputFile);
+      $(this).parent().find('img').attr("src","../img/add_photos@2x.png");
+      $(this).hide();
+    });
+  });
+
+    function fileChange(obj) {
+        var file = obj.files[0]
+        var temp = obj.files[0].name;
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            var urlData = this.result;
+            var imgObjId = "img_"+$(obj).attr("id");
+            var $imgobj = $("#"+imgObjId);
+            $imgobj.attr("src",urlData);
+            $imgobj.parent().find('i').show();
+        };
+    }
+</script>
+</body>
+</html>

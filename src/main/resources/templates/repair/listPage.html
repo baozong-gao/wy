@@ -1,0 +1,279 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        物业服务 <i class="dot"></i> 报修管理
+    </div>
+
+    <div class="content">
+        <form id="searchForm" method="post" class="toolDiv">
+            <div id="searchPanel" class="row1">
+                <span>搜索报修</span>
+                <input type="text" name="name" placeholder="请输入报修单号">
+                <select class="" title="请输入报修类型">
+                    <option value="">请输入报修类型</option>
+                </select>
+                <select class="" title="请选择报修项目">
+                    <option value="">请选择报修项目</option>
+                </select>
+                <select class="" title="请选择状态">
+                    <option value="">请选择状态</option>
+                </select>
+                <button type="button" class="query-btn" data-type="reload" id="queryBtn"><i class="query"></i>查询</button>
+                <button type="button" class="clear-btn" onclick="resetData();">清空</button>
+            </div>
+            <div class="row2">
+                <select class="" title="请选择业态">
+                    <option value="">请选择业态</option>
+                </select>
+                <input type="text" name="name" placeholder="请输入楼号">
+                <input type="text" name="name" placeholder="请输入房间号">
+                <input type="text" name="name" placeholder="请输入报修人姓名">
+            </div>
+            <!--<div class="row3" id="toolbar">-->
+                <!--<div class="row4">-->
+                    <!--<button type="button" class="edit" data-type="editItem"><i></i>修改</button>-->
+                    <!--<button type="button" class="delete" data-type="deleteItem"><i></i>删除</button>-->
+                <!--</div>-->
+                <!--<div class="row5">-->
+                    <!--<button type="button" class="generatedBills" data-Type="generatedBills">生成应收账单</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        </form>
+
+        <table class="layui-hide" id="revenueBillsTbl" lay-filter="demo"></table>
+    </div>
+
+    <!--<script type="text/html" id="barDemo">-->
+        <!--<button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="favorable">优惠</button>-->
+        <!--<button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="audit">审核</button>-->
+        <!--<button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="details">详情</button>-->
+    <!--</script>-->
+
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/repair_manage.css">
+    <style>
+        .layui-table-box, .layui-table-view {
+            position: relative;
+            overflow: scroll;
+            width: 100%;
+        }
+        .layui-table-box, .layui-table-view::-webkit-scrollbar,
+        .layui-table-box, .layui-table-view::-webkit-scrollbar-track,
+        .layui-table-box, .layui-table-view::-webkit-scrollbar-thumb
+        {
+            /*width: 0px;*/
+            /*height: 0px;*/
+            background-color: rgba(255, 255, 255, 0);
+        }
+
+    </style>
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/js/regular.js"></script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">详情</a>
+    </script>
+    <script type="text/javascript" th:inline="javascript">
+        var $dateChoose = null;
+        layui.use(['table','laydate'], function(){
+            var table = layui.table;
+            var data = [
+                {field: 'id', title: '序号'}
+                ,{field: 'feeType', title: '报修单号',templet:function (d) {
+                    if(d.feeType === "FWZJ"){
+                        return "房屋租金"
+                    }else if(d.feeType === "FWYJ"){
+                        return "房屋押金"
+                    }else if(d.feeType === "FWDJ"){
+                        return "房屋定金"
+                    }else if(d.feeType === "WYF"){
+                        return "物业费"
+                    }else if(d.feeType === "TCF"){
+                        return "停车费"
+                    }else if(d.feeType === "WXF"){
+                        return "维修费"
+                    }else if(d.feeType === "OTHER"){
+                        return "其他费用"
+                    }else{
+                        return "未知"
+                    }
+                }}
+                ,{field: 'ownerName', title: '报修类型',templet:function(d){
+                    if(d.roomType === "RESIDENCE"){
+                        return d.ownerName;
+                    }else{
+                        return d.principleName;
+                    }
+                }}
+                ,{field: 'propertyName', title: '报修项目'}
+                ,{field: 'buildingName', title: '状态'}
+                ,{field: '', title: '费用金额(元)',templet:function (d) {
+                    return d.feeAmount/100
+                }}
+                ,{field: 'contractId', title: '业态'}
+                ,{field: 'feePhase', title: '标题'}
+                ,{field: 'receivableDate', title: '联系人'}
+                ,{field: '', title: '联系电话',templet:function (d) {
+                    if(d.feeStatus === "INITIAL"){
+                        return "新生成初始"
+                    }else if(d.feeStatus === "AUDIT"){
+                        return "已修改"
+                    }else if(d.feeStatus === "CHECKED"){
+                        return "已审核"
+                    }else if(d.feeStatus === "BILLED"){
+                        return "已进入应收账单"
+                    }else if(d.feeStatus === "OVERDUE"){
+                        return "已逾期"
+                    }else {
+                        return "未知"
+                    }
+                }}
+                ,{field: 'id', title: '报修区域', sort: true}
+                ,{field: 'feeType', title: '受理时间',templet:function (d) {
+                    if(d.feeType === "FWZJ"){
+                        return "房屋租金"
+                    }else if(d.feeType === "FWYJ"){
+                        return "房屋押金"
+                    }else if(d.feeType === "FWDJ"){
+                        return "房屋定金"
+                    }else if(d.feeType === "WYF"){
+                        return "物业费"
+                    }else if(d.feeType === "TCF"){
+                        return "停车费"
+                    }else if(d.feeType === "WXF"){
+                        return "维修费"
+                    }else if(d.feeType === "OTHER"){
+                        return "其他费用"
+                    }else{
+                        return "未知"
+                    }
+                }}
+                ,{field: 'ownerName', title: '上门开始时间',templet:function(d){
+                    if(d.roomType === "RESIDENCE"){
+                        return d.ownerName;
+                    }else{
+                        return d.principleName;
+                    }
+                }}
+                ,{field: 'propertyName', title: '上门截至时间'}
+                ,{field: 'buildingName', title: '状态'}
+                ,{field: '', title: '费用金额(元)',templet:function (d) {
+                    return d.feeAmount/100
+                }}
+                ,{field: 'contractId', title: '业态'}
+                ,{field: 'feePhase', title: '标题'}
+                ,{field: 'receivableDate', title: '描述说明'}
+                ,{field: '', title: '操作',width:80,toolbar:'#barDemo'}
+            ];
+            table.render({
+                elem: '#revenueBillsTbl'
+                ,url:'/contractFees/search'
+                ,method: 'post'
+                ,cols:[data]
+                ,even: true
+                ,page: true
+                ,request:{
+                    limitName: 'rows'
+                }
+                ,response:{
+                    dataName:'data',
+                    dataSecName:'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                ,id:'reloadTbl'
+            });
+
+            //监听工具条
+            table.on('tool(demo)', function(obj){
+                var data = obj.data;
+                if(obj.event === 'detail'){
+                    window.location.href = "/repair/updatepage/"+data.id;
+                }
+            });
+
+            var $ = layui.$, active = {
+                reload: function(){
+                    //执行重载
+                    table.reload('reloadTbl', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: {
+                            companyId: $('#company').val(),
+                            name: $('input[name="name"]').val(),
+                        }
+                    });
+                },
+                editItem: function(){ //获取选中数据
+                    var checkStatus =  checkStatus('reloadTbl')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    window.location.href = '/user/updatepage/'+data[0].id;
+                },
+                deleteItem: function () {
+                    var checkStatus = table.checkStatus('reloadTbl')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    layer.confirm('确定要删除该用户吗？',{
+                        btn:['是','否']
+                    },function () {
+                        $.ajax({
+//                            url:'/user/delete/'+data[0].id,
+                            dataType:'json',
+                            data:{},
+                            type:'POST',
+                            success:function(obj){
+                                if(obj.code === '200'){
+                                    layer.msg('删除成功');
+//                                window.location.reload();
+                                    resetData();
+                                }else{
+                                    layer.msg(obj.msg);
+                                }
+                            },error: function(){ //失败
+                                layer.alert("服务器内部错误");
+                            }
+                        });
+                    })
+                },
+                isAll: function(){ //验证是否全选
+                    var checkStatus = table.checkStatus('idTest');
+                    layer.msg(checkStatus.isAll ? '全选': '未全选')
+                }
+            };
+
+//            $('#queryBtn , .btn-type').on('click', function(){
+//                var type = $(this).data('type');
+//                active[type] ? active[type].call(this) : '';
+//            });
+
+        });
+
+
+    </script>
+</div>
+</body>
+</html>

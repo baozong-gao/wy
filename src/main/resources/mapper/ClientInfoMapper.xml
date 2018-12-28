@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.ClientInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="CLIENT_TYPE" property="clientType" jdbcType="VARCHAR" />
+    <result column="IN_NAME" property="inName" jdbcType="VARCHAR" />
+    <result column="IN_EN_NAME" property="inEnName" jdbcType="VARCHAR" />
+    <result column="IN_AGE" property="inAge" jdbcType="DECIMAL" />
+    <result column="IN_SEXUAL" property="inSexual" jdbcType="VARCHAR" />
+    <result column="IN_MOBILE" property="inMobile" jdbcType="VARCHAR" />
+    <result column="IN_COUNTRY" property="inCountry" jdbcType="VARCHAR" />
+    <result column="IN_ORIG" property="inOrig" jdbcType="VARCHAR" />
+    <result column="IN_ORIG_ADDRESS" property="inOrigAddress" jdbcType="VARCHAR" />
+    <result column="IN_LIVE_ADDRESS" property="inLiveAddress" jdbcType="VARCHAR" />
+    <result column="IN_ID_TYPE" property="inIdType" jdbcType="VARCHAR" />
+    <result column="IN_ID_NO" property="inIdNo" jdbcType="VARCHAR" />
+    <result column="CM_NAME" property="cmName" jdbcType="VARCHAR" />
+    <result column="CM_EN_NAME" property="cmEnName" jdbcType="VARCHAR" />
+    <result column="CM_OUT_NAME" property="cmOutName" jdbcType="VARCHAR" />
+    <result column="CM_SIZE" property="cmSize" jdbcType="DECIMAL" />
+    <result column="CM_TYPE" property="cmType" jdbcType="VARCHAR" />
+    <result column="CM_CATAGORY" property="cmCatagory" jdbcType="VARCHAR" />
+    <result column="CM_MAIN_BUSINESS" property="cmMainBusiness" jdbcType="VARCHAR" />
+    <result column="CM_ADDRESS" property="cmAddress" jdbcType="VARCHAR" />
+    <result column="CM_REGISTER_AMOUNT" property="cmRegisterAmount" jdbcType="VARCHAR" />
+    <result column="CM_REGISTER_ADDRESS" property="cmRegisterAddress" jdbcType="VARCHAR" />
+    <result column="CM_COMPANY_NO" property="cmCompanyNo" jdbcType="VARCHAR" />
+    <result column="CM_LEGAL_NAME" property="cmLegalName" jdbcType="VARCHAR" />
+    <result column="CM_LEGAL_PHONE" property="cmLegalPhone" jdbcType="VARCHAR" />
+    <result column="CM_LEGAL_EMAIL" property="cmLegalEmail" jdbcType="VARCHAR" />
+    <result column="CM_LINK_NAME" property="cmLinkName" jdbcType="VARCHAR" />
+    <result column="CM_LINK_PHONE" property="cmLinkPhone" jdbcType="VARCHAR" />
+    <result column="CM_LINK_EMAIL" property="cmLinkEmail" jdbcType="VARCHAR" />
+    <result column="VIP_FLAG" property="vipFlag" jdbcType="CHAR" />
+    <result column="VIP_NO" property="vipNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap1" type="com.shenxin.core.smartpropertymanagement.persist.entity.ClientAccountInfo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_TYPE" property="accountType" jdbcType="VARCHAR" />
+    <result column="CARD_NO" property="cardNo" jdbcType="VARCHAR" />
+    <result column="CARD_HOLDER_NAME" property="cardHolderName" jdbcType="VARCHAR" />
+    <result column="CARD_BANK_NAME" property="cardBankName" jdbcType="VARCHAR" />
+    <result column="CARD_BANK_NO" property="cardBankNo" jdbcType="VARCHAR" />
+    <result column="CARD_BANK_EN_NAME" property="cardBankEnName" jdbcType="VARCHAR" />
+    <result column="CARD_BRANCH_NAME" property="cardBranchName" jdbcType="VARCHAR" />
+    <result column="CARD_BRANCH_NO" property="cardBranchNo" jdbcType="VARCHAR" />
+    <result column="CONTACT_INFO" property="contactInfo" jdbcType="VARCHAR" />
+    <result column="TAX_INFO" property="taxInfo" jdbcType="VARCHAR" />
+    <result column="ID_TYPE" property="idType" jdbcType="VARCHAR" />
+    <result column="ID_NO" property="idNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, CLIENT_TYPE, IN_NAME, IN_EN_NAME, IN_AGE, IN_SEXUAL, IN_MOBILE, IN_COUNTRY, 
+    IN_ORIG, IN_ORIG_ADDRESS, IN_LIVE_ADDRESS, IN_ID_TYPE, IN_ID_NO, CM_NAME, CM_EN_NAME, 
+    CM_OUT_NAME, CM_SIZE, CM_TYPE, CM_CATAGORY, CM_MAIN_BUSINESS, CM_ADDRESS, CM_REGISTER_AMOUNT, 
+    CM_REGISTER_ADDRESS, CM_COMPANY_NO, CM_LEGAL_NAME, CM_LEGAL_PHONE, CM_LEGAL_EMAIL, 
+    CM_LINK_NAME, CM_LINK_PHONE, CM_LINK_EMAIL, VIP_FLAG, VIP_NO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CLIENT_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from CLIENT_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from CLIENT_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfoExample" >
+    delete from CLIENT_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfo" >
+    insert into CLIENT_INFO (ID, COMPANY_ID, CLIENT_TYPE, 
+      IN_NAME, IN_EN_NAME, IN_AGE, 
+      IN_SEXUAL, IN_MOBILE, IN_COUNTRY, 
+      IN_ORIG, IN_ORIG_ADDRESS, IN_LIVE_ADDRESS, 
+      IN_ID_TYPE, IN_ID_NO, CM_NAME, 
+      CM_EN_NAME, CM_OUT_NAME, CM_SIZE, 
+      CM_TYPE, CM_CATAGORY, CM_MAIN_BUSINESS, 
+      CM_ADDRESS, CM_REGISTER_AMOUNT, CM_REGISTER_ADDRESS, 
+      CM_COMPANY_NO, CM_LEGAL_NAME, CM_LEGAL_PHONE, 
+      CM_LEGAL_EMAIL, CM_LINK_NAME, CM_LINK_PHONE, 
+      CM_LINK_EMAIL, VIP_FLAG, VIP_NO
+      )
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{clientType,jdbcType=VARCHAR}, 
+      #{inName,jdbcType=VARCHAR}, #{inEnName,jdbcType=VARCHAR}, #{inAge,jdbcType=DECIMAL}, 
+      #{inSexual,jdbcType=VARCHAR}, #{inMobile,jdbcType=VARCHAR}, #{inCountry,jdbcType=VARCHAR}, 
+      #{inOrig,jdbcType=VARCHAR}, #{inOrigAddress,jdbcType=VARCHAR}, #{inLiveAddress,jdbcType=VARCHAR}, 
+      #{inIdType,jdbcType=VARCHAR}, #{inIdNo,jdbcType=VARCHAR}, #{cmName,jdbcType=VARCHAR}, 
+      #{cmEnName,jdbcType=VARCHAR}, #{cmOutName,jdbcType=VARCHAR}, #{cmSize,jdbcType=DECIMAL}, 
+      #{cmType,jdbcType=VARCHAR}, #{cmCatagory,jdbcType=VARCHAR}, #{cmMainBusiness,jdbcType=VARCHAR}, 
+      #{cmAddress,jdbcType=VARCHAR}, #{cmRegisterAmount,jdbcType=VARCHAR}, #{cmRegisterAddress,jdbcType=VARCHAR}, 
+      #{cmCompanyNo,jdbcType=VARCHAR}, #{cmLegalName,jdbcType=VARCHAR}, #{cmLegalPhone,jdbcType=VARCHAR}, 
+      #{cmLegalEmail,jdbcType=VARCHAR}, #{cmLinkName,jdbcType=VARCHAR}, #{cmLinkPhone,jdbcType=VARCHAR}, 
+      #{cmLinkEmail,jdbcType=VARCHAR}, #{vipFlag,jdbcType=CHAR}, #{vipNo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfo" >
+    insert into CLIENT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="clientType != null" >
+        CLIENT_TYPE,
+      </if>
+      <if test="inName != null" >
+        IN_NAME,
+      </if>
+      <if test="inEnName != null" >
+        IN_EN_NAME,
+      </if>
+      <if test="inAge != null" >
+        IN_AGE,
+      </if>
+      <if test="inSexual != null" >
+        IN_SEXUAL,
+      </if>
+      <if test="inMobile != null" >
+        IN_MOBILE,
+      </if>
+      <if test="inCountry != null" >
+        IN_COUNTRY,
+      </if>
+      <if test="inOrig != null" >
+        IN_ORIG,
+      </if>
+      <if test="inOrigAddress != null" >
+        IN_ORIG_ADDRESS,
+      </if>
+      <if test="inLiveAddress != null" >
+        IN_LIVE_ADDRESS,
+      </if>
+      <if test="inIdType != null" >
+        IN_ID_TYPE,
+      </if>
+      <if test="inIdNo != null" >
+        IN_ID_NO,
+      </if>
+      <if test="cmName != null" >
+        CM_NAME,
+      </if>
+      <if test="cmEnName != null" >
+        CM_EN_NAME,
+      </if>
+      <if test="cmOutName != null" >
+        CM_OUT_NAME,
+      </if>
+      <if test="cmSize != null" >
+        CM_SIZE,
+      </if>
+      <if test="cmType != null" >
+        CM_TYPE,
+      </if>
+      <if test="cmCatagory != null" >
+        CM_CATAGORY,
+      </if>
+      <if test="cmMainBusiness != null" >
+        CM_MAIN_BUSINESS,
+      </if>
+      <if test="cmAddress != null" >
+        CM_ADDRESS,
+      </if>
+      <if test="cmRegisterAmount != null" >
+        CM_REGISTER_AMOUNT,
+      </if>
+      <if test="cmRegisterAddress != null" >
+        CM_REGISTER_ADDRESS,
+      </if>
+      <if test="cmCompanyNo != null" >
+        CM_COMPANY_NO,
+      </if>
+      <if test="cmLegalName != null" >
+        CM_LEGAL_NAME,
+      </if>
+      <if test="cmLegalPhone != null" >
+        CM_LEGAL_PHONE,
+      </if>
+      <if test="cmLegalEmail != null" >
+        CM_LEGAL_EMAIL,
+      </if>
+      <if test="cmLinkName != null" >
+        CM_LINK_NAME,
+      </if>
+      <if test="cmLinkPhone != null" >
+        CM_LINK_PHONE,
+      </if>
+      <if test="cmLinkEmail != null" >
+        CM_LINK_EMAIL,
+      </if>
+      <if test="vipFlag != null" >
+        VIP_FLAG,
+      </if>
+      <if test="vipNo != null" >
+        VIP_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="clientType != null" >
+        #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="inName != null" >
+        #{inName,jdbcType=VARCHAR},
+      </if>
+      <if test="inEnName != null" >
+        #{inEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="inAge != null" >
+        #{inAge,jdbcType=DECIMAL},
+      </if>
+      <if test="inSexual != null" >
+        #{inSexual,jdbcType=VARCHAR},
+      </if>
+      <if test="inMobile != null" >
+        #{inMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="inCountry != null" >
+        #{inCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="inOrig != null" >
+        #{inOrig,jdbcType=VARCHAR},
+      </if>
+      <if test="inOrigAddress != null" >
+        #{inOrigAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="inLiveAddress != null" >
+        #{inLiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="inIdType != null" >
+        #{inIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="inIdNo != null" >
+        #{inIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cmName != null" >
+        #{cmName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmEnName != null" >
+        #{cmEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmOutName != null" >
+        #{cmOutName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmSize != null" >
+        #{cmSize,jdbcType=DECIMAL},
+      </if>
+      <if test="cmType != null" >
+        #{cmType,jdbcType=VARCHAR},
+      </if>
+      <if test="cmCatagory != null" >
+        #{cmCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="cmMainBusiness != null" >
+        #{cmMainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="cmAddress != null" >
+        #{cmAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cmRegisterAmount != null" >
+        #{cmRegisterAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="cmRegisterAddress != null" >
+        #{cmRegisterAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cmCompanyNo != null" >
+        #{cmCompanyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLegalName != null" >
+        #{cmLegalName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLegalPhone != null" >
+        #{cmLegalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLegalEmail != null" >
+        #{cmLegalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLinkName != null" >
+        #{cmLinkName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLinkPhone != null" >
+        #{cmLinkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLinkEmail != null" >
+        #{cmLinkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="vipFlag != null" >
+        #{vipFlag,jdbcType=CHAR},
+      </if>
+      <if test="vipNo != null" >
+        #{vipNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfoExample" resultType="java.lang.Integer" >
+    select count(*) from CLIENT_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update CLIENT_INFO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.clientType != null" >
+        CLIENT_TYPE = #{record.clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inName != null" >
+        IN_NAME = #{record.inName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inEnName != null" >
+        IN_EN_NAME = #{record.inEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inAge != null" >
+        IN_AGE = #{record.inAge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.inSexual != null" >
+        IN_SEXUAL = #{record.inSexual,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inMobile != null" >
+        IN_MOBILE = #{record.inMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inCountry != null" >
+        IN_COUNTRY = #{record.inCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inOrig != null" >
+        IN_ORIG = #{record.inOrig,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inOrigAddress != null" >
+        IN_ORIG_ADDRESS = #{record.inOrigAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inLiveAddress != null" >
+        IN_LIVE_ADDRESS = #{record.inLiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inIdType != null" >
+        IN_ID_TYPE = #{record.inIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inIdNo != null" >
+        IN_ID_NO = #{record.inIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmName != null" >
+        CM_NAME = #{record.cmName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmEnName != null" >
+        CM_EN_NAME = #{record.cmEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmOutName != null" >
+        CM_OUT_NAME = #{record.cmOutName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmSize != null" >
+        CM_SIZE = #{record.cmSize,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cmType != null" >
+        CM_TYPE = #{record.cmType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmCatagory != null" >
+        CM_CATAGORY = #{record.cmCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmMainBusiness != null" >
+        CM_MAIN_BUSINESS = #{record.cmMainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmAddress != null" >
+        CM_ADDRESS = #{record.cmAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmRegisterAmount != null" >
+        CM_REGISTER_AMOUNT = #{record.cmRegisterAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmRegisterAddress != null" >
+        CM_REGISTER_ADDRESS = #{record.cmRegisterAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmCompanyNo != null" >
+        CM_COMPANY_NO = #{record.cmCompanyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmLegalName != null" >
+        CM_LEGAL_NAME = #{record.cmLegalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmLegalPhone != null" >
+        CM_LEGAL_PHONE = #{record.cmLegalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmLegalEmail != null" >
+        CM_LEGAL_EMAIL = #{record.cmLegalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmLinkName != null" >
+        CM_LINK_NAME = #{record.cmLinkName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmLinkPhone != null" >
+        CM_LINK_PHONE = #{record.cmLinkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmLinkEmail != null" >
+        CM_LINK_EMAIL = #{record.cmLinkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vipFlag != null" >
+        VIP_FLAG = #{record.vipFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.vipNo != null" >
+        VIP_NO = #{record.vipNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update CLIENT_INFO
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      CLIENT_TYPE = #{record.clientType,jdbcType=VARCHAR},
+      IN_NAME = #{record.inName,jdbcType=VARCHAR},
+      IN_EN_NAME = #{record.inEnName,jdbcType=VARCHAR},
+      IN_AGE = #{record.inAge,jdbcType=DECIMAL},
+      IN_SEXUAL = #{record.inSexual,jdbcType=VARCHAR},
+      IN_MOBILE = #{record.inMobile,jdbcType=VARCHAR},
+      IN_COUNTRY = #{record.inCountry,jdbcType=VARCHAR},
+      IN_ORIG = #{record.inOrig,jdbcType=VARCHAR},
+      IN_ORIG_ADDRESS = #{record.inOrigAddress,jdbcType=VARCHAR},
+      IN_LIVE_ADDRESS = #{record.inLiveAddress,jdbcType=VARCHAR},
+      IN_ID_TYPE = #{record.inIdType,jdbcType=VARCHAR},
+      IN_ID_NO = #{record.inIdNo,jdbcType=VARCHAR},
+      CM_NAME = #{record.cmName,jdbcType=VARCHAR},
+      CM_EN_NAME = #{record.cmEnName,jdbcType=VARCHAR},
+      CM_OUT_NAME = #{record.cmOutName,jdbcType=VARCHAR},
+      CM_SIZE = #{record.cmSize,jdbcType=DECIMAL},
+      CM_TYPE = #{record.cmType,jdbcType=VARCHAR},
+      CM_CATAGORY = #{record.cmCatagory,jdbcType=VARCHAR},
+      CM_MAIN_BUSINESS = #{record.cmMainBusiness,jdbcType=VARCHAR},
+      CM_ADDRESS = #{record.cmAddress,jdbcType=VARCHAR},
+      CM_REGISTER_AMOUNT = #{record.cmRegisterAmount,jdbcType=VARCHAR},
+      CM_REGISTER_ADDRESS = #{record.cmRegisterAddress,jdbcType=VARCHAR},
+      CM_COMPANY_NO = #{record.cmCompanyNo,jdbcType=VARCHAR},
+      CM_LEGAL_NAME = #{record.cmLegalName,jdbcType=VARCHAR},
+      CM_LEGAL_PHONE = #{record.cmLegalPhone,jdbcType=VARCHAR},
+      CM_LEGAL_EMAIL = #{record.cmLegalEmail,jdbcType=VARCHAR},
+      CM_LINK_NAME = #{record.cmLinkName,jdbcType=VARCHAR},
+      CM_LINK_PHONE = #{record.cmLinkPhone,jdbcType=VARCHAR},
+      CM_LINK_EMAIL = #{record.cmLinkEmail,jdbcType=VARCHAR},
+      VIP_FLAG = #{record.vipFlag,jdbcType=CHAR},
+      VIP_NO = #{record.vipNo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfo" >
+    update CLIENT_INFO
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="clientType != null" >
+        CLIENT_TYPE = #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="inName != null" >
+        IN_NAME = #{inName,jdbcType=VARCHAR},
+      </if>
+      <if test="inEnName != null" >
+        IN_EN_NAME = #{inEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="inAge != null" >
+        IN_AGE = #{inAge,jdbcType=DECIMAL},
+      </if>
+      <if test="inSexual != null" >
+        IN_SEXUAL = #{inSexual,jdbcType=VARCHAR},
+      </if>
+      <if test="inMobile != null" >
+        IN_MOBILE = #{inMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="inCountry != null" >
+        IN_COUNTRY = #{inCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="inOrig != null" >
+        IN_ORIG = #{inOrig,jdbcType=VARCHAR},
+      </if>
+      <if test="inOrigAddress != null" >
+        IN_ORIG_ADDRESS = #{inOrigAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="inLiveAddress != null" >
+        IN_LIVE_ADDRESS = #{inLiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="inIdType != null" >
+        IN_ID_TYPE = #{inIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="inIdNo != null" >
+        IN_ID_NO = #{inIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cmName != null" >
+        CM_NAME = #{cmName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmEnName != null" >
+        CM_EN_NAME = #{cmEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmOutName != null" >
+        CM_OUT_NAME = #{cmOutName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmSize != null" >
+        CM_SIZE = #{cmSize,jdbcType=DECIMAL},
+      </if>
+      <if test="cmType != null" >
+        CM_TYPE = #{cmType,jdbcType=VARCHAR},
+      </if>
+      <if test="cmCatagory != null" >
+        CM_CATAGORY = #{cmCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="cmMainBusiness != null" >
+        CM_MAIN_BUSINESS = #{cmMainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="cmAddress != null" >
+        CM_ADDRESS = #{cmAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cmRegisterAmount != null" >
+        CM_REGISTER_AMOUNT = #{cmRegisterAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="cmRegisterAddress != null" >
+        CM_REGISTER_ADDRESS = #{cmRegisterAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cmCompanyNo != null" >
+        CM_COMPANY_NO = #{cmCompanyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLegalName != null" >
+        CM_LEGAL_NAME = #{cmLegalName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLegalPhone != null" >
+        CM_LEGAL_PHONE = #{cmLegalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLegalEmail != null" >
+        CM_LEGAL_EMAIL = #{cmLegalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLinkName != null" >
+        CM_LINK_NAME = #{cmLinkName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLinkPhone != null" >
+        CM_LINK_PHONE = #{cmLinkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cmLinkEmail != null" >
+        CM_LINK_EMAIL = #{cmLinkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="vipFlag != null" >
+        VIP_FLAG = #{vipFlag,jdbcType=CHAR},
+      </if>
+      <if test="vipNo != null" >
+        VIP_NO = #{vipNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfo" >
+    update CLIENT_INFO
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      CLIENT_TYPE = #{clientType,jdbcType=VARCHAR},
+      IN_NAME = #{inName,jdbcType=VARCHAR},
+      IN_EN_NAME = #{inEnName,jdbcType=VARCHAR},
+      IN_AGE = #{inAge,jdbcType=DECIMAL},
+      IN_SEXUAL = #{inSexual,jdbcType=VARCHAR},
+      IN_MOBILE = #{inMobile,jdbcType=VARCHAR},
+      IN_COUNTRY = #{inCountry,jdbcType=VARCHAR},
+      IN_ORIG = #{inOrig,jdbcType=VARCHAR},
+      IN_ORIG_ADDRESS = #{inOrigAddress,jdbcType=VARCHAR},
+      IN_LIVE_ADDRESS = #{inLiveAddress,jdbcType=VARCHAR},
+      IN_ID_TYPE = #{inIdType,jdbcType=VARCHAR},
+      IN_ID_NO = #{inIdNo,jdbcType=VARCHAR},
+      CM_NAME = #{cmName,jdbcType=VARCHAR},
+      CM_EN_NAME = #{cmEnName,jdbcType=VARCHAR},
+      CM_OUT_NAME = #{cmOutName,jdbcType=VARCHAR},
+      CM_SIZE = #{cmSize,jdbcType=DECIMAL},
+      CM_TYPE = #{cmType,jdbcType=VARCHAR},
+      CM_CATAGORY = #{cmCatagory,jdbcType=VARCHAR},
+      CM_MAIN_BUSINESS = #{cmMainBusiness,jdbcType=VARCHAR},
+      CM_ADDRESS = #{cmAddress,jdbcType=VARCHAR},
+      CM_REGISTER_AMOUNT = #{cmRegisterAmount,jdbcType=VARCHAR},
+      CM_REGISTER_ADDRESS = #{cmRegisterAddress,jdbcType=VARCHAR},
+      CM_COMPANY_NO = #{cmCompanyNo,jdbcType=VARCHAR},
+      CM_LEGAL_NAME = #{cmLegalName,jdbcType=VARCHAR},
+      CM_LEGAL_PHONE = #{cmLegalPhone,jdbcType=VARCHAR},
+      CM_LEGAL_EMAIL = #{cmLegalEmail,jdbcType=VARCHAR},
+      CM_LINK_NAME = #{cmLinkName,jdbcType=VARCHAR},
+      CM_LINK_PHONE = #{cmLinkPhone,jdbcType=VARCHAR},
+      CM_LINK_EMAIL = #{cmLinkEmail,jdbcType=VARCHAR},
+      VIP_FLAG = #{vipFlag,jdbcType=CHAR},
+      VIP_NO = #{vipNo,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <insert id="insertClient" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfo"
+          useGeneratedKeys="true" keyProperty="Id">
+    insert into CLIENT_INFO (ID,COMPANY_ID,CLIENT_TYPE,IN_NAME,IN_EN_NAME,CM_ADDRESS,CM_REGISTER_AMOUNT,CM_COMPANY_NO,CM_CATAGORY,CM_MAIN_BUSINESS,
+    CM_LEGAL_NAME,CM_LEGAL_PHONE,CM_LEGAL_EMAIL,CM_LINK_NAME,CM_LINK_PHONE,CM_LINK_EMAIL)
+    <selectKey resultType="decimal" keyProperty="id" order="BEFORE">
+      select TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(CLIENT_ID_SEQ.nextval) as ID from dual
+    </selectKey>
+    VALUES (#{id,jdbcType=DECIMAL},#{companyId,jdbcType=DECIMAL},#{clientType,jdbcType=VARCHAR},#{inName,jdbcType=VARCHAR},#{inEnName,jdbcType=VARCHAR},
+    #{cmAddress,jdbcType=VARCHAR},#{cmRegisterAmount,jdbcType=VARCHAR},#{cmCompanyNo,jdbcType=VARCHAR},#{cmCatagory,jdbcType=VARCHAR},#{cmMainBusiness,jdbcType=VARCHAR},
+    #{cmLegalName,jdbcType=VARCHAR},#{cmLegalPhone,jdbcType=VARCHAR},#{cmLegalEmail,jdbcType=VARCHAR},#{cmLinkName,jdbcType=VARCHAR},#{cmLinkPhone,jdbcType=VARCHAR},
+    #{cmLinkEmail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertClinentAccount" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientAccountInfo">
+    insert into CLIENT_ACCOUNT_INFO (ID,COMPANY_ID,CLIENT_ID,ACCOUNT_TYPE,CARD_NO,CARD_HOLDER_NAME,CARD_BANK_NAME,CARD_BRANCH_NAME,CARD_BRANCH_NO,TAX_INFO,CONTACT_INFO)
+    VALUES (TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(CLIENT_ACCOUNT_SEQ.nextval),#{companyId,jdbcType=DECIMAL},#{clientId,jdbcType=DECIMAL},#{accountType,jdbcType=VARCHAR},#{cardNo,jdbcType=VARCHAR},#{cardHolderName,jdbcType=VARCHAR},
+    #{cardBankName,jdbcType=VARCHAR},#{cardBranchName,jdbcType=VARCHAR},#{cardBranchNo,jdbcType=VARCHAR},#{taxInfo,jdbcType=VARCHAR},#{contactInfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertClientPrivate" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientInfo"
+          useGeneratedKeys="true" keyProperty="Id">
+    insert into CLIENT_INFO (ID,COMPANY_ID,CLIENT_TYPE,IN_NAME,IN_EN_NAME,IN_SEXUAL,IN_AGE,IN_MOBILE,IN_ORIG,IN_ID_TYPE,IN_COUNTRY,IN_ORIG_ADDRESS)
+    <selectKey resultType="decimal" keyProperty="id" order="BEFORE">
+      select TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(CLIENT_ID_SEQ.nextval) as ID from dual
+    </selectKey>
+    VALUES (#{id,jdbcType=DECIMAL},#{companyId,jdbcType=DECIMAL},#{clientType,jdbcType=VARCHAR},#{inName,jdbcType=VARCHAR},#{inEnName,jdbcType=VARCHAR},#{inSexual,jdbcType=VARCHAR},#{inAge,jdbcType=VARCHAR},#{inMobile,jdbcType=VARCHAR}
+    ,#{inOrig,jdbcType=VARCHAR},#{inIdType,jdbcType=VARCHAR},#{inCountry,jdbcType=VARCHAR},#{inOrigAddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertClinentAccountPrivate" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientAccountInfo">
+    insert into CLIENT_ACCOUNT_INFO(ID,COMPANY_ID,CLIENT_ID,ACCOUNT_TYPE,CARD_NO,CARD_HOLDER_NAME,CONTACT_INFO,ID_NO,CARD_BANK_NAME,CARD_BRANCH_NAME,
+    CARD_BRANCH_NO)
+    VALUES (TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(CLIENT_ACCOUNT_SEQ.nextval),#{companyId,jdbcType=DECIMAL},#{clientId,jdbcType=DECIMAL},#{accountType,jdbcType=VARCHAR},#{cardNo,jdbcType=DECIMAL},#{cardHolderName,jdbcType=VARCHAR},#{contactInfo,jdbcType=VARCHAR}
+    ,#{idNo,jdbcType=DECIMAL},#{cardBankName,jdbcType=VARCHAR},#{cardBranchName,jdbcType=VARCHAR},#{cardBranchNo,jdbcType=DECIMAL})
+  </insert>
+  <select id="selectClientAccount" parameterType="java.math.BigDecimal" resultMap="BaseResultMap1">
+    select * from CLIENT_ACCOUNT_INFO where CLIENT_ID = #{clientId,jdbcType=DECIMAL}
+  </select>
+  <update id="updateClientAccountInfo" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ClientAccountInfo">
+    UPDATE CLIENT_ACCOUNT_INFO
+    SET ACCOUNT_TYPE = #{accountType,jdbcType=VARCHAR},
+    CARD_NO = #{cardNo,jdbcType=VARCHAR},
+    CARD_HOLDER_NAME = #{cardHolderName,jdbcType=VARCHAR},
+    CARD_BANK_NAME = #{cardBankName,jdbcType=VARCHAR},
+    CARD_BANK_NO = #{cardBankNo,jdbcType=VARCHAR},
+    CARD_BANK_EN_NAME = #{cardBankEnName,jdbcType=VARCHAR},
+    CARD_BRANCH_NAME = #{cardBranchName,jdbcType=VARCHAR},
+    CARD_BRANCH_NO = #{cardBranchNo,jdbcType=VARCHAR},
+    CONTACT_INFO = #{contactInfo,jdbcType=VARCHAR},
+    TAX_INFO = #{taxInfo,jdbcType=VARCHAR},
+    ID_TYPE = #{idType,jdbcType=VARCHAR},
+    ID_NO = #{idNo,jdbcType=VARCHAR}
+    where CLIENT_ID = #{clientId,jdbcType=DECIMAL}
+  </update>
+</mapper>

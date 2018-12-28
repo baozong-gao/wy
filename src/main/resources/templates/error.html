@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title> error page</title>
+</head>
+<body>
+
+<h1> [[${error}]] </h1>
+
+<h5>[[${timestamp}]]</h5>
+<h5>[[${status}]]</h5>
+<h5>[[${message}]]</h5>
+<h5>[[${path}]]</h5>
+<script type="text/javascript" th:inline="javascript">
+</script>
+</body>
+</html>

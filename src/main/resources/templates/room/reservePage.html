@@ -1,0 +1,136 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        合同管理 <i class="dot"></i> 租客登记
+    </div>
+    <div class="content">
+        <form>
+        <div class="title">预定信息<span class="title_sub">（*为必填项）</span></div>
+        <div>
+            <ul>
+                <li>
+                    <label for="roomDesc">房间信息：</label>
+                    <input type="text" class="specialInput" id="roomDesc" name="roomDesc" readonly="readonly" style="border: 1px solid #B8D6FF;">
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label for="bookerName">预订人：</label>
+                    <input type="text" id="bookerName" name="bookerName" placeholder="请输入预定人姓名">
+                    <i class="warn">*</i>
+                </li>
+                <li>
+                    <label for="bookerMobile">手机号：</label>
+                    <input type="text" id="bookerMobile" name="bookerMobile" placeholder="请输入预订人手机号">
+                    <i class="warn">*</i>
+                </li>
+            </ul>
+            <ul>
+                <li style="position: relative">
+                    <label for="feeRemark">预定金额：</label>
+                    <input type="text" id="feeRemark" name="feeRemark" placeholder="请输入预订金额">
+                    <span style="position: absolute;right: 54px">元</span>
+                    <i class="warn">*</i>
+                </li>
+                <li>
+                    <label for="lastSignDate">最晚签约日：</label>
+                    <input type="text" id="lastSignDate" name="lastSignDate" placeholder="请选择最晚签约日">
+                    <i class="warn">*</i>
+                </li>
+            </ul>
+            <ul>
+                <li class="area">
+                    <label for="remark">备注：</label>
+                    <textarea cols="5" rows="5" id="remark" name="remark" placeholder="请输入备注信息，输入后租客可见。" style="width: 550px;height: 60px;padding-top: 8px;padding-left: 10px;resize:none;border: 1px solid #ccc;"></textarea>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <input type="checkbox" id="notice"><span class="notice">我已经阅读并知晓《预定须知》</span>
+                </li>
+            </ul>
+            <ul class="btnUl">
+                <li>
+                    <button type="button" class="cancelBtn" onclick="cancelBtn();">取消</button>
+                </li>
+                <li>
+                    <button type="button" class="okBtn" onclick="okBtn();">确定</button>
+                </li>
+            </ul>
+        </div>
+        </form>
+    </div>
+    <head>
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/reserve_manage.css">
+        <script src="/js/jquery-2.1.4.js"></script>
+        <script src="/lib/layui/layui.all.js"></script>
+        <script src="/lib/bootstrap/js/bootstrap.js"></script>
+                <script src="/js/base.js"></script>
+        <script src="/js/regular.js"></script>
+    </head>
+    <script type="text/javascript" th:inline="javascript">
+        $(function () {
+            $('#roomDesc').val([[${rout}]].roomDesc);
+            layui.use(['laydate'],function () {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem:'#lastSignDate',
+                })
+            })
+        });
+
+        function cancelBtn() {
+            window.history.back();
+        }
+        var _itemList = ['bookerName','bookerMobile','feeRemark','lastSignDate'];
+
+        function okBtn(){
+            var _itemDic = {};
+            for(var i in _itemList){
+                var key = _itemList[i];
+                var value = $('input[name='+key+']').val().trim();
+                if(value.length == 0){
+                    layer.msg($('input[name='+key+']').attr('placeholder'));
+                    return;
+                }
+                _itemDic[key] = value;
+            }
+            var today = $('#lastSignDate').val();
+
+            var result = check($('#bookerMobile').val(),"PHONE") && check($('#feeRemark').val(),"DOWN_PAYMENT") && beEqualOrGreaterThanToday($('#lastSignDate').val());
+            if(result){
+                if(!$("#notice").is(":checked")){
+                    layer.msg("您还未阅读《预定须知》")
+                }else {
+                    _itemDic.companyId = [[${rout}]].companyId;
+                    _itemDic.feeAmount = $('#feeRemark').val()*100;
+                    _itemDic.bookingRemark = $('#remark').val();
+                    _itemDic.roomId = [[${rout}]].id;
+                    $.ajax({
+                        type:"POST",
+                        dataType:"JSON",
+                        data:_itemDic,
+                        url:"/contractInfo/insertContractInfoAndOthers",
+                        success:function (obj) {
+                            if(obj.code == "200"){
+                                layer.msg("预定成功");
+                                window.history.back();
+                            }else{
+                                layer.msg(obj.msg);
+                            }
+                        },error :function () {
+                            layer.msg("未知异常");
+                        }
+                    })
+                }
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

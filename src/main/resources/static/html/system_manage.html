@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/contract_manage.css">
+</head>
+<body>
+<div class="pageTitle">
+  系统管理 <i class="dot"></i> 功能维护
+</div>
+
+<div class="content">
+  <div class="toolDiv">
+    <div class="row1">
+      <span>搜索条件</span>
+      <input style="width: 120px" type="text" placeholder="ID号">
+      <input style="width: 120px"type="text" placeholder="名称">
+      <input style="width: 120px"type="text" placeholder="父级ID">
+      <input style="width: 120px"type="text" placeholder="权限码">
+      <select class="status" tititle="请选择等级" name="" id="">
+        <option value="2">1</option>
+        <option value="3">2</option>
+      </select>
+      <select class="status" title="请选择开通状态" name="" id="">
+        <option value="2">正常</option>
+        <option value="3">关闭</option>
+      </select>
+      <button class="query-btn"><i class="query"></i>查询</button>
+      <button class="clear-btn">清空</button>
+    </div>
+    <div class="row2">
+      <button class="add" onclick="window.location.href = 'merchant_add.html';"><i></i>新增</button>
+      <button class="edit"><i></i>修改</button>
+    </div>
+  </div>
+
+  <table border="1px" cellpadding="0" cellspacing="0">
+    <tr>
+      <th>全选</th>
+      <th>排序</th>
+      <th>ID</th>
+      <th>名称</th>
+      <th>父级ID</th>
+      <th>等级</th>
+      <th>URI</th>
+      <th>权限码</th>
+      <th>状态</th>
+    </tr>
+    <tr>
+      <td ><input class="chance" type="checkbox" value="" name="selectItem"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" value="" name="selectItem"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+  <div class="pagination">
+    <ul>
+      <li class="nav"><a href="#"><</a></li>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li class="nav"><a href="#">></a></li>
+    </ul>
+    <div class="jump">
+      第<input type="text" value="1">页
+    </div>
+  </div>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.js"></script>
+<script src="../lib/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

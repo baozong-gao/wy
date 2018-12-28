@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<ul class="leftPannel unselect" th:fragment="appBar">
+    <li th:each="m,i: ${session.menu}">
+        <div>
+            <div><i th:class="|icon ${m.logo}|"></i><span th:text=${m.funcName}/></div>
+        </div>
+        <ul>
+            <li th:each="sm,j: ${m.childMenuBOList}">
+                <a th:href="${sm.funcUrl}">
+                    <span th:text="${sm.funcName}"/>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>

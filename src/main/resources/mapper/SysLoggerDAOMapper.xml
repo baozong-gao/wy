@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.SysLoggerDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.SysLoggerDAO" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="OPERATE_DATE" property="operateDate" jdbcType="CHAR" />
+    <result column="OPERATE_TIME" property="operateTime" jdbcType="CHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="VARCHAR" />
+    <result column="FUNC_CLASS" property="funcClass" jdbcType="VARCHAR" />
+    <result column="FUNC_ACTION" property="funcAction" jdbcType="VARCHAR" />
+    <result column="FUNC_URL" property="funcUrl" jdbcType="VARCHAR" />
+    <result column="OPERATE_IP" property="operateIp" jdbcType="VARCHAR" />
+    <result column="OPERATE_RESULT" property="operateResult" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, OPERATE_DATE, OPERATE_TIME, COMPANY_ID, USER_ID, LOGIN_ID, FUNC_CLASS, FUNC_ACTION, 
+    FUNC_URL, OPERATE_IP, OPERATE_RESULT, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysLoggerDAOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_OPERATE_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_OPERATE_LOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from SYS_OPERATE_LOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysLoggerDAOExample" >
+    delete from SYS_OPERATE_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysLoggerDAO" >
+    insert into SYS_OPERATE_LOG (ID, OPERATE_DATE, OPERATE_TIME, 
+      COMPANY_ID, USER_ID, LOGIN_ID, 
+      FUNC_CLASS, FUNC_ACTION, FUNC_URL, 
+      OPERATE_IP, OPERATE_RESULT, REMARK
+      )
+    values (#{id,jdbcType=DECIMAL}, #{operateDate,jdbcType=CHAR}, #{operateTime,jdbcType=CHAR}, 
+      #{companyId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{loginId,jdbcType=VARCHAR}, 
+      #{funcClass,jdbcType=VARCHAR}, #{funcAction,jdbcType=VARCHAR}, #{funcUrl,jdbcType=VARCHAR}, 
+      #{operateIp,jdbcType=VARCHAR}, #{operateResult,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysLoggerDAO" >
+    insert into SYS_OPERATE_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="operateDate != null" >
+        OPERATE_DATE,
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="loginId != null" >
+        LOGIN_ID,
+      </if>
+      <if test="funcClass != null" >
+        FUNC_CLASS,
+      </if>
+      <if test="funcAction != null" >
+        FUNC_ACTION,
+      </if>
+      <if test="funcUrl != null" >
+        FUNC_URL,
+      </if>
+      <if test="operateIp != null" >
+        OPERATE_IP,
+      </if>
+      <if test="operateResult != null" >
+        OPERATE_RESULT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="operateDate != null" >
+        #{operateDate,jdbcType=CHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=CHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="funcClass != null" >
+        #{funcClass,jdbcType=VARCHAR},
+      </if>
+      <if test="funcAction != null" >
+        #{funcAction,jdbcType=VARCHAR},
+      </if>
+      <if test="funcUrl != null" >
+        #{funcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="operateIp != null" >
+        #{operateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operateResult != null" >
+        #{operateResult,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysLoggerDAOExample" resultType="java.lang.Integer" >
+    select count(*) from SYS_OPERATE_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_OPERATE_LOG
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.operateDate != null" >
+        OPERATE_DATE = #{record.operateDate,jdbcType=CHAR},
+      </if>
+      <if test="record.operateTime != null" >
+        OPERATE_TIME = #{record.operateTime,jdbcType=CHAR},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.loginId != null" >
+        LOGIN_ID = #{record.loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcClass != null" >
+        FUNC_CLASS = #{record.funcClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcAction != null" >
+        FUNC_ACTION = #{record.funcAction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcUrl != null" >
+        FUNC_URL = #{record.funcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateIp != null" >
+        OPERATE_IP = #{record.operateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateResult != null" >
+        OPERATE_RESULT = #{record.operateResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_OPERATE_LOG
+    set ID = #{record.id,jdbcType=DECIMAL},
+      OPERATE_DATE = #{record.operateDate,jdbcType=CHAR},
+      OPERATE_TIME = #{record.operateTime,jdbcType=CHAR},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      USER_ID = #{record.userId,jdbcType=DECIMAL},
+      LOGIN_ID = #{record.loginId,jdbcType=VARCHAR},
+      FUNC_CLASS = #{record.funcClass,jdbcType=VARCHAR},
+      FUNC_ACTION = #{record.funcAction,jdbcType=VARCHAR},
+      FUNC_URL = #{record.funcUrl,jdbcType=VARCHAR},
+      OPERATE_IP = #{record.operateIp,jdbcType=VARCHAR},
+      OPERATE_RESULT = #{record.operateResult,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysLoggerDAO" >
+    update SYS_OPERATE_LOG
+    <set >
+      <if test="operateDate != null" >
+        OPERATE_DATE = #{operateDate,jdbcType=CHAR},
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME = #{operateTime,jdbcType=CHAR},
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="loginId != null" >
+        LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="funcClass != null" >
+        FUNC_CLASS = #{funcClass,jdbcType=VARCHAR},
+      </if>
+      <if test="funcAction != null" >
+        FUNC_ACTION = #{funcAction,jdbcType=VARCHAR},
+      </if>
+      <if test="funcUrl != null" >
+        FUNC_URL = #{funcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="operateIp != null" >
+        OPERATE_IP = #{operateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operateResult != null" >
+        OPERATE_RESULT = #{operateResult,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysLoggerDAO" >
+    update SYS_OPERATE_LOG
+    set OPERATE_DATE = #{operateDate,jdbcType=CHAR},
+      OPERATE_TIME = #{operateTime,jdbcType=CHAR},
+      COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      FUNC_CLASS = #{funcClass,jdbcType=VARCHAR},
+      FUNC_ACTION = #{funcAction,jdbcType=VARCHAR},
+      FUNC_URL = #{funcUrl,jdbcType=VARCHAR},
+      OPERATE_IP = #{operateIp,jdbcType=VARCHAR},
+      OPERATE_RESULT = #{operateResult,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

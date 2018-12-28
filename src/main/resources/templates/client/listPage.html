@@ -1,0 +1,174 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        客户管理 <i class="dot"></i> 客户管理
+    </div>
+    <div class="content">
+        <form id="searchForm" class="toolDiv" method="post">
+            <div class="row1" id="searchPanel">
+                <span>搜索客户</span>
+                <input type="text" placeholder="请输入客户姓名" id="inName">
+                <input type="text" placeholder="请输入客户联系人" id="cmLinkName">
+                <select title="请选择客户类型" name="clientType" id="clientType">
+                    <option value="">请选择客户类型</option>
+                    <option value="COMPANY">公司</option>
+                    <option value="INDIVIDUAL">个人</option>
+                </select>
+                <button type="button" class="query-btn" id="queryBtn" data-type="reload"><i class="query"></i>查询</button>
+                <button type="button" class="clear-btn" onclick="resetData();">清空</button>
+            </div>
+            <div class="row2" id="toolbar">
+                <button type="button" class="add" onclick="window.location.href = '/client/addpage';"><i></i>新增</button>
+                <button type="button" class="edit btn-type" data-type="editItem"><i></i>修改</button>
+                <button type="button" class="delete btn-type" data-type="deleteItem"><i></i>删除</button>
+            </div>
+        </form>
+        <table class="layui-hide" id="clientTbl" ></table>
+    </div>
+
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/customer_manage.css">
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="/js/base.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script type="text/javascript">
+        $(function () {
+                    });
+
+        layui.use('table',function(){
+            var table = layui.table;
+
+            var data = [
+                {type:'checkbox'}
+                ,{field: 'id',title: "ID",sort: true}
+                ,{field: 'inName',title: "客户姓名"}
+                ,{field: 'clientType',title: "客户类型",sort:true,templet: function(d) {
+                    if(d.clientType === 'COMPANY'){
+                        return '公司';
+                    }if(d.clientType === 'INDIVIDUAL'){
+                        return '个人'
+                        }
+                    }}
+                ,{fixed:"right",align:"center",title:"操作",templet:function(d){
+                    return '<button class="detailBtn" onclick="detail('+d.id+')" style="color:#333333;border: 1px solid #333333;height:25px;width:45px;margin-left: 10px;margin-top: 2px;line-height: 22px">详情</button>'
+                    }}
+            ];
+
+            //数据库中读取已知数据
+            table.render({
+                elem: '#clientTbl'
+                ,url: '/client/search'
+                ,method: 'post'
+                ,cols: [data]
+                ,even: true
+                ,page: true
+//                ,limits: [5,10,20]
+                ,request:{
+                    limitName: 'rows'
+                }
+                ,response:{
+                    dataName:'data',
+                    dataSecName:'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                ,id:"testReload"
+            });
+
+            var $ = layui.$, active = {
+                reload: function(){
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: {
+                            inName : $('#inName').val(),
+                            cmLinkName : $('#cmLinkName').val(),
+                            clientType: $('#clientType').val(),
+                        }
+                    });
+                },
+                //修改
+                editItem: function () { //获取选中数据
+                    var checkStatus = table.checkStatus('testReload')
+                        , data = checkStatus.data;
+                    if(data.length >1){
+                        layer.msg("不能选择多个对象")
+                    }else if(data.length == 0){
+                        layer.msg("请选择一个对象")
+                    }else {
+                        var id = data[0].id
+                        window.location.href="/client/updatepage/"+id;
+                    }
+                },
+                //删除
+                deleteItem: function () {
+                    var checkStatus = table.checkStatus('testReload')
+                        , data = checkStatus.data;
+                    if(data.length >1){
+                        layer.msg("不能选择多个对象")
+                    }else if(data.length == 0){
+                        layer.msg("请选择一个对象")
+                    }else {
+                        layer.confirm("确定要删除该客户吗？",{
+                            btn:['是','否']
+                        },function(){
+                            $.ajax({
+                                url:'/client/delete/'+data[0].id,
+                                dataType:'json',
+                                data:{},
+                                type:'POST',
+                                success:function(obj){
+                                    if(obj.code === '200'){
+                                        layer.msg('删除成功');
+                                        resetData();
+                                    }else{
+                                        layer.msg(obj.msg);
+                                    }
+                                },error: function(){ //失败
+                                    layer.alert("服务器内部错误");
+                                }
+                            });
+                        })
+
+                    }
+                }
+            };
+
+            //查询
+            $('#queryBtn, .btn-type').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        });
+
+        function resetData(){
+            $('#searchForm')[0].reset();
+                        $('#queryBtn').click();
+        }
+
+        function detail(id) {
+            layer.open({
+                type: 2,
+                title: '客户详情',
+                shadeClose:true,
+                shade:0.5,
+                fixed:false,
+                area: ['800px', '90%'],
+                content: ['/client/detailpage/'+id]
+            });
+        }
+    </script>
+</div>
+</body>
+
+</html>

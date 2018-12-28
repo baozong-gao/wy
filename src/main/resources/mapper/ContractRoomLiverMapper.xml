@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.ContractRoomLiverMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.ContractRoomLiver" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="CONTRACT_ID" property="contractId" jdbcType="DECIMAL" />
+    <result column="ROOM_ID" property="roomId" jdbcType="DECIMAL" />
+    <result column="LIVER_NAME" property="liverName" jdbcType="VARCHAR" />
+    <result column="LIVER_SEX" property="liverSex" jdbcType="VARCHAR" />
+    <result column="LIVER_AGE" property="liverAge" jdbcType="DECIMAL" />
+    <result column="LIVER_MOBILE" property="liverMobile" jdbcType="VARCHAR" />
+    <result column="LIVER_ID_TYPE" property="liverIdType" jdbcType="VARCHAR" />
+    <result column="LIVER_ID_NO" property="liverIdNo" jdbcType="VARCHAR" />
+    <result column="RELATED_CLIENT_ID" property="relatedClientId" jdbcType="DECIMAL" />
+    <result column="OWNER_FLAG" property="ownerFlag" jdbcType="CHAR" />
+    <result column="RENTER_FLAG" property="renterFlag" jdbcType="CHAR" />
+    <result column="BILL_RECEIVER" property="billReceiver" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, CONTRACT_ID, ROOM_ID, LIVER_NAME, LIVER_SEX, LIVER_AGE, LIVER_MOBILE, 
+    LIVER_ID_TYPE, LIVER_ID_NO, RELATED_CLIENT_ID, OWNER_FLAG, RENTER_FLAG, BILL_RECEIVER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractRoomLiverExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CONTRACT_ROOM_LIVER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from CONTRACT_ROOM_LIVER
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from CONTRACT_ROOM_LIVER
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractRoomLiverExample" >
+    delete from CONTRACT_ROOM_LIVER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractRoomLiver" >
+    insert into CONTRACT_ROOM_LIVER (ID, COMPANY_ID, CONTRACT_ID, 
+      ROOM_ID, LIVER_NAME, LIVER_SEX, 
+      LIVER_AGE, LIVER_MOBILE, LIVER_ID_TYPE, 
+      LIVER_ID_NO, RELATED_CLIENT_ID, OWNER_FLAG, 
+      RENTER_FLAG, BILL_RECEIVER)
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{contractId,jdbcType=DECIMAL}, 
+      #{roomId,jdbcType=DECIMAL}, #{liverName,jdbcType=VARCHAR}, #{liverSex,jdbcType=VARCHAR}, 
+      #{liverAge,jdbcType=DECIMAL}, #{liverMobile,jdbcType=VARCHAR}, #{liverIdType,jdbcType=VARCHAR}, 
+      #{liverIdNo,jdbcType=VARCHAR}, #{relatedClientId,jdbcType=DECIMAL}, #{ownerFlag,jdbcType=CHAR}, 
+      #{renterFlag,jdbcType=CHAR}, #{billReceiver,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractRoomLiver" >
+    insert into CONTRACT_ROOM_LIVER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="contractId != null" >
+        CONTRACT_ID,
+      </if>
+      <if test="roomId != null" >
+        ROOM_ID,
+      </if>
+      <if test="liverName != null" >
+        LIVER_NAME,
+      </if>
+      <if test="liverSex != null" >
+        LIVER_SEX,
+      </if>
+      <if test="liverAge != null" >
+        LIVER_AGE,
+      </if>
+      <if test="liverMobile != null" >
+        LIVER_MOBILE,
+      </if>
+      <if test="liverIdType != null" >
+        LIVER_ID_TYPE,
+      </if>
+      <if test="liverIdNo != null" >
+        LIVER_ID_NO,
+      </if>
+      <if test="relatedClientId != null" >
+        RELATED_CLIENT_ID,
+      </if>
+      <if test="ownerFlag != null" >
+        OWNER_FLAG,
+      </if>
+      <if test="renterFlag != null" >
+        RENTER_FLAG,
+      </if>
+      <if test="billReceiver != null" >
+        BILL_RECEIVER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractId != null" >
+        #{contractId,jdbcType=DECIMAL},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=DECIMAL},
+      </if>
+      <if test="liverName != null" >
+        #{liverName,jdbcType=VARCHAR},
+      </if>
+      <if test="liverSex != null" >
+        #{liverSex,jdbcType=VARCHAR},
+      </if>
+      <if test="liverAge != null" >
+        #{liverAge,jdbcType=DECIMAL},
+      </if>
+      <if test="liverMobile != null" >
+        #{liverMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="liverIdType != null" >
+        #{liverIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="liverIdNo != null" >
+        #{liverIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedClientId != null" >
+        #{relatedClientId,jdbcType=DECIMAL},
+      </if>
+      <if test="ownerFlag != null" >
+        #{ownerFlag,jdbcType=CHAR},
+      </if>
+      <if test="renterFlag != null" >
+        #{renterFlag,jdbcType=CHAR},
+      </if>
+      <if test="billReceiver != null" >
+        #{billReceiver,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractRoomLiverExample" resultType="java.lang.Integer" >
+    select count(*) from CONTRACT_ROOM_LIVER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update CONTRACT_ROOM_LIVER
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contractId != null" >
+        CONTRACT_ID = #{record.contractId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.roomId != null" >
+        ROOM_ID = #{record.roomId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.liverName != null" >
+        LIVER_NAME = #{record.liverName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liverSex != null" >
+        LIVER_SEX = #{record.liverSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liverAge != null" >
+        LIVER_AGE = #{record.liverAge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.liverMobile != null" >
+        LIVER_MOBILE = #{record.liverMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liverIdType != null" >
+        LIVER_ID_TYPE = #{record.liverIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liverIdNo != null" >
+        LIVER_ID_NO = #{record.liverIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relatedClientId != null" >
+        RELATED_CLIENT_ID = #{record.relatedClientId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ownerFlag != null" >
+        OWNER_FLAG = #{record.ownerFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.renterFlag != null" >
+        RENTER_FLAG = #{record.renterFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.billReceiver != null" >
+        BILL_RECEIVER = #{record.billReceiver,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update CONTRACT_ROOM_LIVER
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      CONTRACT_ID = #{record.contractId,jdbcType=DECIMAL},
+      ROOM_ID = #{record.roomId,jdbcType=DECIMAL},
+      LIVER_NAME = #{record.liverName,jdbcType=VARCHAR},
+      LIVER_SEX = #{record.liverSex,jdbcType=VARCHAR},
+      LIVER_AGE = #{record.liverAge,jdbcType=DECIMAL},
+      LIVER_MOBILE = #{record.liverMobile,jdbcType=VARCHAR},
+      LIVER_ID_TYPE = #{record.liverIdType,jdbcType=VARCHAR},
+      LIVER_ID_NO = #{record.liverIdNo,jdbcType=VARCHAR},
+      RELATED_CLIENT_ID = #{record.relatedClientId,jdbcType=DECIMAL},
+      OWNER_FLAG = #{record.ownerFlag,jdbcType=CHAR},
+      RENTER_FLAG = #{record.renterFlag,jdbcType=CHAR},
+      BILL_RECEIVER = #{record.billReceiver,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractRoomLiver" >
+    update CONTRACT_ROOM_LIVER
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractId != null" >
+        CONTRACT_ID = #{contractId,jdbcType=DECIMAL},
+      </if>
+      <if test="roomId != null" >
+        ROOM_ID = #{roomId,jdbcType=DECIMAL},
+      </if>
+      <if test="liverName != null" >
+        LIVER_NAME = #{liverName,jdbcType=VARCHAR},
+      </if>
+      <if test="liverSex != null" >
+        LIVER_SEX = #{liverSex,jdbcType=VARCHAR},
+      </if>
+      <if test="liverAge != null" >
+        LIVER_AGE = #{liverAge,jdbcType=DECIMAL},
+      </if>
+      <if test="liverMobile != null" >
+        LIVER_MOBILE = #{liverMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="liverIdType != null" >
+        LIVER_ID_TYPE = #{liverIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="liverIdNo != null" >
+        LIVER_ID_NO = #{liverIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedClientId != null" >
+        RELATED_CLIENT_ID = #{relatedClientId,jdbcType=DECIMAL},
+      </if>
+      <if test="ownerFlag != null" >
+        OWNER_FLAG = #{ownerFlag,jdbcType=CHAR},
+      </if>
+      <if test="renterFlag != null" >
+        RENTER_FLAG = #{renterFlag,jdbcType=CHAR},
+      </if>
+      <if test="billReceiver != null" >
+        BILL_RECEIVER = #{billReceiver,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractRoomLiver" >
+    update CONTRACT_ROOM_LIVER
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      CONTRACT_ID = #{contractId,jdbcType=DECIMAL},
+      ROOM_ID = #{roomId,jdbcType=DECIMAL},
+      LIVER_NAME = #{liverName,jdbcType=VARCHAR},
+      LIVER_SEX = #{liverSex,jdbcType=VARCHAR},
+      LIVER_AGE = #{liverAge,jdbcType=DECIMAL},
+      LIVER_MOBILE = #{liverMobile,jdbcType=VARCHAR},
+      LIVER_ID_TYPE = #{liverIdType,jdbcType=VARCHAR},
+      LIVER_ID_NO = #{liverIdNo,jdbcType=VARCHAR},
+      RELATED_CLIENT_ID = #{relatedClientId,jdbcType=DECIMAL},
+      OWNER_FLAG = #{ownerFlag,jdbcType=CHAR},
+      RENTER_FLAG = #{renterFlag,jdbcType=CHAR},
+      BILL_RECEIVER = #{billReceiver,jdbcType=CHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

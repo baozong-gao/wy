@@ -1,0 +1,117 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<div layout:fragment="content">
+    <div class="pageTitle">
+        物业服务 <i class="dot"></i> 水电煤缴费
+    </div>
+
+    <div class="content">
+        <div class="select-items">
+            <span class="item select">水电煤超表</span>
+            <i></i>
+            <span class="item" >待生成账单</span>
+        </div>
+        <div class="bottom-content">
+            <div class="left-selects">
+                <div class="top-tool">
+                    <div class="left-part">
+                        <input type="text" class="search-name" placeholder="搜索小区名称">
+                    </div>
+                    <div class="floor-title">
+                        栋 / 层
+                    </div>
+                </div>
+                <div class="bottom-pannel">
+                    <div class="part left-part">
+                        <div class="yetai-title"><i></i>业态名称</div>
+                        <ul class="yetai-list">
+                            <li>惠华铭君城</li>
+                            <li class="select">天玺嘉园</li>
+                            <li>幸会小区</li>
+                            <li>幸会小区</li>
+                        </ul>
+                    </div>
+                    <ul class="part floor">
+                        <li class="select">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="searchForm" class="right-info" method="post">
+                <div class="toolDiv">
+                    <div id="searchPanel" class="row1">
+                        <span>搜索房间</span>
+                        <input type="text" name="name" placeholder="请输入房间号">
+                        <button type="button" class="query-btn" data-type="reload" id="queryBtn"><i class="query"></i>查询</button>
+                    </div>
+                    <ul class="check-items">
+                        <li><input type="checkbox" id="water"><label for="water">水</label></li>
+                        <li><input type="checkbox" id="elect"><label for="elect">电</label></li>
+                        <li><input type="checkbox" id="coal"><label for="coal">燃气</label></li>
+                        <li><input type="checkbox" id="hotwa"><label for="hotwa">热水</label></li>
+                    </ul>
+                    <div class="choose-items">
+                        <i></i>
+                        <span class="select">全部</span>
+                        <span>本月未抄</span>
+                        <span>本月已抄</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/wecpay.css">
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="/js/base.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var $yetai_list = $('.yetai-list');
+            $yetai_list.find('li').bind('click',function(){
+                $yetai_list.find('li.select').removeClass('select');
+                $(this).addClass('select');
+            });
+            var $floorselect = $('.bottom-pannel .floor');
+            $floorselect.find('li').bind('click',function(){
+                $floorselect.find('li.select').removeClass('select');
+                $(this).addClass('select');
+            });
+
+            var $select_items = $('.select-items');
+            $select_items.find('span').bind('click',function(){
+                $select_items.find('span.select').removeClass('select');
+                $(this).addClass('select');
+            });
+
+            var $choose_items = $('.choose-items');
+            $choose_items.find('span').bind('click',function(){
+                $choose_items.find('span.select').removeClass('select');
+                $(this).addClass('select');
+            });
+
+            $(".top-tool .left-part input").bind("keydown",function(e){
+                // 兼容FF和IE和Opera
+                var theEvent = e || window.event;
+                var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+                if (code == 13) {
+                    //回车执行查询
+                    console.log($(this).val());
+                }
+            });
+        });
+
+
+    </script>
+</div>
+</html>

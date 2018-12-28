@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.ContractTemplateDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.ContractTemplateDAO" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="CONTRACT_TYPE" property="contractType" jdbcType="VARCHAR" />
+    <result column="CONTRACT_TEMPLATE_NAME" property="contractTemplateName" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_DOC_LOCATION" property="templateDocLocation" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, CONTRACT_TYPE, CONTRACT_TEMPLATE_NAME, TEMPLATE_DOC_LOCATION, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractTemplateDAOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CONTRACT_TEMPLATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from CONTRACT_TEMPLATE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from CONTRACT_TEMPLATE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractTemplateDAOExample" >
+    delete from CONTRACT_TEMPLATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractTemplateDAO" >
+    insert into CONTRACT_TEMPLATE (ID, COMPANY_ID, CONTRACT_TYPE, 
+      CONTRACT_TEMPLATE_NAME, TEMPLATE_DOC_LOCATION, 
+      REMARK)
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{contractType,jdbcType=VARCHAR}, 
+      #{contractTemplateName,jdbcType=VARCHAR}, #{templateDocLocation,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractTemplateDAO" >
+    insert into CONTRACT_TEMPLATE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="contractType != null" >
+        CONTRACT_TYPE,
+      </if>
+      <if test="contractTemplateName != null" >
+        CONTRACT_TEMPLATE_NAME,
+      </if>
+      <if test="templateDocLocation != null" >
+        TEMPLATE_DOC_LOCATION,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractType != null" >
+        #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTemplateName != null" >
+        #{contractTemplateName,jdbcType=VARCHAR},
+      </if>
+      <if test="templateDocLocation != null" >
+        #{templateDocLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractTemplateDAOExample" resultType="java.lang.Integer" >
+    select count(*) from CONTRACT_TEMPLATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update CONTRACT_TEMPLATE
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contractType != null" >
+        CONTRACT_TYPE = #{record.contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractTemplateName != null" >
+        CONTRACT_TEMPLATE_NAME = #{record.contractTemplateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templateDocLocation != null" >
+        TEMPLATE_DOC_LOCATION = #{record.templateDocLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update CONTRACT_TEMPLATE
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      CONTRACT_TYPE = #{record.contractType,jdbcType=VARCHAR},
+      CONTRACT_TEMPLATE_NAME = #{record.contractTemplateName,jdbcType=VARCHAR},
+      TEMPLATE_DOC_LOCATION = #{record.templateDocLocation,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractTemplateDAO" >
+    update CONTRACT_TEMPLATE
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractType != null" >
+        CONTRACT_TYPE = #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTemplateName != null" >
+        CONTRACT_TEMPLATE_NAME = #{contractTemplateName,jdbcType=VARCHAR},
+      </if>
+      <if test="templateDocLocation != null" >
+        TEMPLATE_DOC_LOCATION = #{templateDocLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractTemplateDAO" >
+    update CONTRACT_TEMPLATE
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      CONTRACT_TYPE = #{contractType,jdbcType=VARCHAR},
+      CONTRACT_TEMPLATE_NAME = #{contractTemplateName,jdbcType=VARCHAR},
+      TEMPLATE_DOC_LOCATION = #{templateDocLocation,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

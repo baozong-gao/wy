@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.EmployeeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.EmployeeInfo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="DEPARTMENT_ID" property="departmentId" jdbcType="DECIMAL" />
+    <result column="EMPLOYEE_TYPE" property="employeeType" jdbcType="VARCHAR" />
+    <result column="EMPLOYEE_ROLE" property="employeeRole" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="AGE" property="age" jdbcType="DECIMAL" />
+    <result column="EDUCATION" property="education" jdbcType="VARCHAR" />
+    <result column="DEPARTMENT_CHAIRMAN" property="departmentChairman" jdbcType="CHAR" />
+    <result column="APP_USER" property="appUser" jdbcType="CHAR" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="VARCHAR" />
+    <result column="LOGIN_PASSWD" property="loginPasswd" jdbcType="VARCHAR" />
+    <result column="PASSSWD_SALT" property="passswdSalt" jdbcType="VARCHAR" />
+    <result column="EMPLOYEE_STATUS" property="employeeStatus" jdbcType="VARCHAR" />
+    <result column="WX_OPEN_ID" property="wxOpenId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, DEPARTMENT_ID, EMPLOYEE_TYPE, EMPLOYEE_ROLE, NAME, MOBILE, SEX, AGE, 
+    EDUCATION, DEPARTMENT_CHAIRMAN, APP_USER, LOGIN_ID, LOGIN_PASSWD, PASSSWD_SALT, EMPLOYEE_STATUS, 
+    WX_OPEN_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.EmployeeInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from COMPANY_EMPLOYEE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from COMPANY_EMPLOYEE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from COMPANY_EMPLOYEE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.EmployeeInfoExample" >
+    delete from COMPANY_EMPLOYEE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.EmployeeInfo" >
+    insert into COMPANY_EMPLOYEE (ID, COMPANY_ID, DEPARTMENT_ID, 
+      EMPLOYEE_TYPE, EMPLOYEE_ROLE, NAME, 
+      MOBILE, SEX, AGE, EDUCATION, 
+      DEPARTMENT_CHAIRMAN, APP_USER, LOGIN_ID, 
+      LOGIN_PASSWD, PASSSWD_SALT, EMPLOYEE_STATUS, 
+      WX_OPEN_ID)
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{departmentId,jdbcType=DECIMAL}, 
+      #{employeeType,jdbcType=VARCHAR}, #{employeeRole,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=DECIMAL}, #{education,jdbcType=VARCHAR}, 
+      #{departmentChairman,jdbcType=CHAR}, #{appUser,jdbcType=CHAR}, #{loginId,jdbcType=VARCHAR}, 
+      #{loginPasswd,jdbcType=VARCHAR}, #{passswdSalt,jdbcType=VARCHAR}, #{employeeStatus,jdbcType=VARCHAR}, 
+      #{wxOpenId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.EmployeeInfo" >
+    insert into COMPANY_EMPLOYEE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="departmentId != null" >
+        DEPARTMENT_ID,
+      </if>
+      <if test="employeeType != null" >
+        EMPLOYEE_TYPE,
+      </if>
+      <if test="employeeRole != null" >
+        EMPLOYEE_ROLE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="age != null" >
+        AGE,
+      </if>
+      <if test="education != null" >
+        EDUCATION,
+      </if>
+      <if test="departmentChairman != null" >
+        DEPARTMENT_CHAIRMAN,
+      </if>
+      <if test="appUser != null" >
+        APP_USER,
+      </if>
+      <if test="loginId != null" >
+        LOGIN_ID,
+      </if>
+      <if test="loginPasswd != null" >
+        LOGIN_PASSWD,
+      </if>
+      <if test="passswdSalt != null" >
+        PASSSWD_SALT,
+      </if>
+      <if test="employeeStatus != null" >
+        EMPLOYEE_STATUS,
+      </if>
+      <if test="wxOpenId != null" >
+        WX_OPEN_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=DECIMAL},
+      </if>
+      <if test="employeeType != null" >
+        #{employeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeRole != null" >
+        #{employeeRole,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=DECIMAL},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentChairman != null" >
+        #{departmentChairman,jdbcType=CHAR},
+      </if>
+      <if test="appUser != null" >
+        #{appUser,jdbcType=CHAR},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPasswd != null" >
+        #{loginPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="passswdSalt != null" >
+        #{passswdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeStatus != null" >
+        #{employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenId != null" >
+        #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.EmployeeInfoExample" resultType="java.lang.Integer" >
+    select count(*) from COMPANY_EMPLOYEE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update COMPANY_EMPLOYEE
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.departmentId != null" >
+        DEPARTMENT_ID = #{record.departmentId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.employeeType != null" >
+        EMPLOYEE_TYPE = #{record.employeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeRole != null" >
+        EMPLOYEE_ROLE = #{record.employeeRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        SEX = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null" >
+        AGE = #{record.age,jdbcType=DECIMAL},
+      </if>
+      <if test="record.education != null" >
+        EDUCATION = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentChairman != null" >
+        DEPARTMENT_CHAIRMAN = #{record.departmentChairman,jdbcType=CHAR},
+      </if>
+      <if test="record.appUser != null" >
+        APP_USER = #{record.appUser,jdbcType=CHAR},
+      </if>
+      <if test="record.loginId != null" >
+        LOGIN_ID = #{record.loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginPasswd != null" >
+        LOGIN_PASSWD = #{record.loginPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passswdSalt != null" >
+        PASSSWD_SALT = #{record.passswdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeStatus != null" >
+        EMPLOYEE_STATUS = #{record.employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxOpenId != null" >
+        WX_OPEN_ID = #{record.wxOpenId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update COMPANY_EMPLOYEE
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      DEPARTMENT_ID = #{record.departmentId,jdbcType=DECIMAL},
+      EMPLOYEE_TYPE = #{record.employeeType,jdbcType=VARCHAR},
+      EMPLOYEE_ROLE = #{record.employeeRole,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      SEX = #{record.sex,jdbcType=VARCHAR},
+      AGE = #{record.age,jdbcType=DECIMAL},
+      EDUCATION = #{record.education,jdbcType=VARCHAR},
+      DEPARTMENT_CHAIRMAN = #{record.departmentChairman,jdbcType=CHAR},
+      APP_USER = #{record.appUser,jdbcType=CHAR},
+      LOGIN_ID = #{record.loginId,jdbcType=VARCHAR},
+      LOGIN_PASSWD = #{record.loginPasswd,jdbcType=VARCHAR},
+      PASSSWD_SALT = #{record.passswdSalt,jdbcType=VARCHAR},
+      EMPLOYEE_STATUS = #{record.employeeStatus,jdbcType=VARCHAR},
+      WX_OPEN_ID = #{record.wxOpenId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.EmployeeInfo" >
+    update COMPANY_EMPLOYEE
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="departmentId != null" >
+        DEPARTMENT_ID = #{departmentId,jdbcType=DECIMAL},
+      </if>
+      <if test="employeeType != null" >
+        EMPLOYEE_TYPE = #{employeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeRole != null" >
+        EMPLOYEE_ROLE = #{employeeRole,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+        AGE = #{age,jdbcType=DECIMAL},
+      <if test="education != null" >
+        EDUCATION = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentChairman != null" >
+        DEPARTMENT_CHAIRMAN = #{departmentChairman,jdbcType=CHAR},
+      </if>
+      <if test="appUser != null" >
+        APP_USER = #{appUser,jdbcType=CHAR},
+      </if>
+      <if test="loginId != null" >
+        LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPasswd != null" >
+        LOGIN_PASSWD = #{loginPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="passswdSalt != null" >
+        PASSSWD_SALT = #{passswdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeStatus != null" >
+        EMPLOYEE_STATUS = #{employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenId != null" >
+        WX_OPEN_ID = #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.EmployeeInfo" >
+    update COMPANY_EMPLOYEE
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      DEPARTMENT_ID = #{departmentId,jdbcType=DECIMAL},
+      EMPLOYEE_TYPE = #{employeeType,jdbcType=VARCHAR},
+      EMPLOYEE_ROLE = #{employeeRole,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      AGE = #{age,jdbcType=DECIMAL},
+      EDUCATION = #{education,jdbcType=VARCHAR},
+      DEPARTMENT_CHAIRMAN = #{departmentChairman,jdbcType=CHAR},
+      APP_USER = #{appUser,jdbcType=CHAR},
+      LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      LOGIN_PASSWD = #{loginPasswd,jdbcType=VARCHAR},
+      PASSSWD_SALT = #{passswdSalt,jdbcType=VARCHAR},
+      EMPLOYEE_STATUS = #{employeeStatus,jdbcType=VARCHAR},
+      WX_OPEN_ID = #{wxOpenId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectCompanyAttachByCompanyId" parameterType="java.lang.String" resultType="map">
+    SELECT * from GL_COMPANY_ATTACH where COMPANY_ID = #{companyId}
+  </select>
+  <select id="selectDepartMentByCompanyId" parameterType="java.math.BigDecimal" resultType="map">
+    SELECT DEPARTMENT_NAME,ID from COMPANY_DEPARTMENT where COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+  </select>
+  <insert id="insertEmployee" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.EmployeeInfo">
+    <selectKey resultType="java.math.BigDecimal" order="BEFORE" keyProperty="id">
+      SELECT TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(COMPANY_EMPLOYEE_SEQ.nextval) as ID from DUAL
+    </selectKey>
+    INSERT  INTO COMPANY_EMPLOYEE (ID,COMPANY_ID,DEPARTMENT_ID,EMPLOYEE_TYPE,EMPLOYEE_ROLE,NAME,MOBILE,SEX,AGE,EDUCATION,DEPARTMENT_CHAIRMAN,
+    APP_USER,LOGIN_ID,LOGIN_PASSWD) VALUES (#{id,jdbcType=DECIMAL},#{companyId,jdbcType=DECIMAL},
+    #{departmentId,jdbcType=DECIMAL},#{employeeType,jdbcType=VARCHAR},#{employeeRole,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},
+    #{mobile,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},#{age,jdbcType=DECIMAL},#{education,jdbcType=VARCHAR},#{departmentChairman,jdbcType=CHAR},
+    #{appUser,jdbcType=CHAR},#{loginId,jdbcType=VARCHAR},#{loginPasswd,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectRoleByCompanyId" parameterType="java.math.BigDecimal" resultType="map">
+    select ID,NAME from SYS_ROLE where COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectRemarkByEmployeeId" parameterType="java.math.BigDecimal" resultType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAO">
+    select ID,REMARK from SYS_USER where USER_TYPE_ID = #{employeeId,jdbcType=DECIMAL }
+  </select>
+  <select id="selectUserByEmployeeId" parameterType="java.math.BigDecimal" resultType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAO">
+    select * from SYS_USER where USER_TYPE_ID = #{employeeId,jdbcType=DECIMAL }
+  </select>
+  <delete id="deletUser" parameterType="java.math.BigDecimal">
+    DELETE SYS_USER where USER_TYPE_ID = #{employeeId,jdbcType=DECIMAL}
+  </delete>
+</mapper>

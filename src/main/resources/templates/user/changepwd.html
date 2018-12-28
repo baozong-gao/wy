@@ -1,0 +1,91 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv=”X-FRAME-OPTIONS” content=”SAMEORIGIN”>
+    <title>修改密码</title>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/editPwd.css">
+</head>
+<body>
+<!-- <div class="pageTitle">
+  修改密码
+</div> -->
+
+<div class="content">
+    <!--<i class="close" onclick="clickToClose();"></i>-->
+    <span class="title">修改密码</span>
+    <ul>
+        <li>
+            <label>原密码：</label>
+            <input name="oldpassword" type="password" placeholder="请输入原密码">
+        </li>
+        <li>
+            <label>新密码：</label>
+            <input name="pass" type="password" placeholder="请输入新密码">
+        </li>
+        <li>
+            <label>确认新密码：</label>
+            <input name="pass2" type="password" placeholder="请再次输入新密码">
+        </li>
+    </ul>
+    <button onclick="editPass();">确认修改密码</button>
+</div>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/lib/layui/layui.all.js"></script>
+<script src="/js/base.js"></script>
+<script type="text/javascript">
+    function clickToClose(){
+        parent.closeLayer();
+    }
+    function editPass() {
+        var $oldpss = $('input[name="oldpassword"]');
+        var oldpassword = $oldpss.val().trim();
+        if(oldpassword.length == 0){
+            layer.msg($oldpss.attr('placeholder'));
+            return;
+        }
+        var $pass = $('input[name="pass"]');
+        var pass = $pass.val().trim();
+        if(pass.length == 0){
+            layer.msg($pass.attr('placeholder'));
+            return;
+        }
+        var $pass2 = $('input[name="pass2"]');
+        var pass2 = $pass2.val().trim();
+        if(pass2.length == 0){
+            layer.msg($pass2.attr('placeholder'));
+            return;
+        }
+        if(pass !== pass2){
+            layer.msg('两次输入密码不一致!');
+            return;
+        }
+        var data = {
+            userid:[[${user.id}]],
+            oldpassword:oldpassword,
+            pass: pass
+        };
+        $.ajax({
+            url: '/user/changepwd',
+            dataType: 'json',
+            data: data,
+            type: 'POST',
+            success: function (obj) {
+                if (obj.code == '200') {
+//                    layer.msg('修改成功');
+                    clickToClose();
+                    parent.afterTimeLogout();
+                    parent.showMsg('修改成功,请重新登录');
+                } else {
+                    layer.msg(obj.msg);
+                }
+            }, error: function () { //失败
+                layer.alert("服务器内部错误");
+            }
+        });
+    }
+</script>
+</body>
+</html>

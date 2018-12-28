@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+<body>
+<div class="content">
+  <div class="top-title">
+    <i class="building"></i>
+    <span>商业楼宇</span>
+  </div>
+  <div class="view">
+    <div class="left">
+      <span class="view-title">房屋总数</span>
+      <div class="info">
+        <span class="num">37564</span>
+        <span class="jian">间</span>
+      </div>
+    </div>
+    <i class="shuline"></i>
+    <div class="right">
+      <span class="view-title">房屋出租率</span>
+      <div class="inner">
+        <div id="myChart" style="width: 420px; height: 160px;">
+        </div>
+      <!-- <div class="tips">
+        <div class="tip1">
+          <i></i>
+          已出租
+        </div>
+        <div class="tip2">
+          <i></i>
+          未出租
+        </div>
+      </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/echarts.js"></script>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById('myChart'));
+
+  // var data = genData(10);
+  option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {d}%"
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'right',
+        top: '30px',
+        data: ['已出租', '未出租']
+    },
+    series: [{
+        name: '类目',
+        type: 'pie',
+        radius: '55%',
+        center: ['50%', '50%'],
+        data: [{
+                value: 0.25,
+                name: '已出租',
+                itemStyle: {
+                    normal: {
+                        color: '#FFBA37'
+                    }
+                }
+            },
+            {
+                value: 0.75,
+                name: '未出租',
+                itemStyle: {
+                    normal: {
+                        color: '#5798F2'
+                    }
+                }
+            }
+        ],
+        itemStyle: {
+            emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+    }]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+</body>
+</html>

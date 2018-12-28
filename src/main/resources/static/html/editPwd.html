@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/editPwd.css">
+</head>
+<body>
+<!-- <div class="pageTitle">
+  修改密码
+</div> -->
+
+<div class="content">
+  <i class="close" onclick="clickToClose();"></i>
+  <span class="title">修改密码</span>
+  <ul>
+    <li>
+      <label for="oripwd">原密码：</label>
+      <input name="oripwd" type="password" placeholder="请输入原密码">
+    </li>
+    <li>
+      <label for="pwd">新密码：</label>
+      <input name="pwd" type="password" placeholder="请输入新密码">
+    </li>
+    <li>
+      <label for="pwd2">确认新密码：</label>
+      <input name="pwd2" type="password" placeholder="请再次输入新密码">
+    </li>
+  </ul>
+  <button>确认修改密码</button>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+  function clickToClose(){
+    parent.closeChildFrame(false);
+  }
+</script>
+</body>
+</html>

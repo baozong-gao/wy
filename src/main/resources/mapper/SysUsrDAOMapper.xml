@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.SysUsrDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAO" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+    <result column="USER_TYPE_ID" property="userTypeId" jdbcType="DECIMAL" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="VARCHAR" />
+    <result column="PASSWD" property="passwd" jdbcType="VARCHAR" />
+    <result column="USER_STATUS" property="userStatus" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, USER_TYPE, USER_TYPE_ID, USER_NAME, LOGIN_ID, PASSWD, USER_STATUS, 
+    MOBILE, EMAIL, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_USER
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from SYS_USER
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAOExample" >
+    delete from SYS_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAO" >
+    insert into SYS_USER (ID, COMPANY_ID, USER_TYPE, 
+      USER_TYPE_ID, USER_NAME, LOGIN_ID, 
+      PASSWD, USER_STATUS, MOBILE, 
+      EMAIL, REMARK)
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{userType,jdbcType=VARCHAR}, 
+      #{userTypeId,jdbcType=DECIMAL}, #{userName,jdbcType=VARCHAR}, #{loginId,jdbcType=VARCHAR}, 
+      #{passwd,jdbcType=VARCHAR}, #{userStatus,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAO"
+          useGeneratedKeys="true" keyProperty="Id">
+    insert into SYS_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="userType != null" >
+        USER_TYPE,
+      </if>
+      <if test="userTypeId != null" >
+        USER_TYPE_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="loginId != null" >
+        LOGIN_ID,
+      </if>
+      <if test="passwd != null" >
+        PASSWD,
+      </if>
+      <if test="userStatus != null" >
+        USER_STATUS,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <selectKey resultType="decimal" keyProperty="id" order="BEFORE">
+      select USER_ID_SEQ.nextval as ID from dual
+    </selectKey>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="userTypeId != null" >
+        #{userTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAOExample" resultType="java.lang.Integer" >
+    select count(*) from SYS_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_USER
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userType != null" >
+        USER_TYPE = #{record.userType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userTypeId != null" >
+        USER_TYPE_ID = #{record.userTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userName != null" >
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginId != null" >
+        LOGIN_ID = #{record.loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwd != null" >
+        PASSWD = #{record.passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userStatus != null" >
+        USER_STATUS = #{record.userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_USER
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      USER_TYPE = #{record.userType,jdbcType=VARCHAR},
+      USER_TYPE_ID = #{record.userTypeId,jdbcType=DECIMAL},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      LOGIN_ID = #{record.loginId,jdbcType=VARCHAR},
+      PASSWD = #{record.passwd,jdbcType=VARCHAR},
+      USER_STATUS = #{record.userStatus,jdbcType=VARCHAR},
+      MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAO" >
+    update SYS_USER
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="userType != null" >
+        USER_TYPE = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="userTypeId != null" >
+        USER_TYPE_ID = #{userTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginId != null" >
+        LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        PASSWD = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        USER_STATUS = #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAO" >
+    update SYS_USER
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      USER_TYPE = #{userType,jdbcType=VARCHAR},
+      USER_TYPE_ID = #{userTypeId,jdbcType=DECIMAL},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      PASSWD = #{passwd,jdbcType=VARCHAR},
+      USER_STATUS = #{userStatus,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="resetPasswords" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysUsrDAO">
+    UPDATE SYS_USER
+    SET PASSWD = #{passwd,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="frozenAccount" parameterType="java.math.BigDecimal">
+    UPDATE SYS_USER
+    SET USER_STATUS = 'FREEZE'
+    where ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <update id="unfreezeAccount" parameterType="java.math.BigDecimal">
+    UPDATE SYS_USER
+    SET USER_STATUS = 'NORMAL'
+    where ID = #{userId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,129 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+    <link rel="icon" href="../../static/img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../static/img/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="pageTitle">
+        公司管理 <i class="dot"></i> 修改部门
+    </div>
+
+    <div class="content">
+        <form action="" id="form">
+            <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+            <ul>
+                <li>
+                    <label for="">部门名称：</label>
+                    <input  name="departmentName" type="text" placeholder="请输入部门名称">
+                    <i class="warn">*</i>
+                </li>
+                <li>
+                    <label for="">联系人：</label>
+                    <input  name="linkName" type="text" placeholder="请输入部门联系人">
+                    <i class="warn">*</i>
+                </li>
+                <li>
+                    <label for="">手机号：</label>
+                    <input  name="linkMobile" type="text" placeholder="请输入联系人手机号" id="mobile">
+                    <i class="warn">*</i>
+                </li>
+                <li class="area">
+                    <label for="">部门描述：</label>
+                    <textarea name="departmentDesc" placeholder="请输入部门描述"></textarea>
+                </li>
+                <!--<li class="area">-->
+                    <!--<label for="">备注：</label>-->
+                    <!--<textarea name="remark" placeholder="请输入备注"></textarea>-->
+                    <!--<i class="warn">*</i>-->
+                <!--</li>-->
+            </ul>
+            <button type="button" class="save" onclick="submitClick();">确定修改</button>
+        </form>
+    </div>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/department_add.css">
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+
+    <script src="/js/base.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+
+        var _itemList = ['departmentName','linkName','linkMobile'];
+        var _itemList2 = ['departmentDesc'];
+        $(function(){
+            var initObj = [[${rout}]];
+            console.log(initObj);
+            for(var i in _itemList){
+                var key = _itemList[i];
+                var value = initObj[key];
+                if(value){
+                    $('#form li [name='+key+']').val(value);
+                }
+            }
+            for(var i in _itemList2){
+                var key = _itemList2[i];
+                var value = initObj[key];
+                if(value){
+                    $('#form li [name='+key+']').val(value);
+                }
+            }
+        });
+        function submitClick() {
+            var _itemDic = {};
+            for(var i in _itemList){
+                var key = _itemList[i];
+                var value = $('#form li [name='+key+']').val();
+                if(value.length == 0){
+                    layer.msg($('#form li [name='+key+']').attr('placeholder'));
+                    return;
+                }
+                _itemDic[key] = value;
+            }
+            for(var i in _itemList2){
+                var key = _itemList2[i];
+                var value = $('#form li [name='+key+']').val();
+                _itemDic[key] = value;
+            }
+            var check = false;
+            var isMob=/^0?1[3|4|5|8][0-9]\d{8}$/;
+            if(isMob.test($('#mobile').val())){
+                check = true;
+            }else {
+                layer.msg("请输入正确的手机号");
+                check = false;
+                $('#mobile').val("")
+                $('#mobile').focus();
+                return;
+            }
+            if(check=true){
+                _itemDic.id = [[${rout}]].id;
+                $.ajax({
+                    url:'/department/update',
+                    dataType:'json',
+                    data:_itemDic,
+                    type:'POST',
+                    success:function(obj){
+                        if(obj.code === '200'){
+                            layer.msg('修改成功');
+                            window.history.back();
+                        }else{
+                            layer.msg(obj.msg);
+                        }
+                    },error: function(){ //失败
+                        layer.alert("服务器内部错误");
+                    }
+                });
+            }
+
+        }
+    </script>
+</div>
+</body>
+</html>

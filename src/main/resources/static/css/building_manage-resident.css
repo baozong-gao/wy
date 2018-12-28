@@ -1,0 +1,53 @@
+
+/* same */
+.content .building .row .detail > li {
+  background: url("../img/room_bg.png") no-repeat;
+  background-size: 76px 85px;
+  padding: 1px;
+  margin-top: 20px;
+  margin-left: 20px;
+  float: left;
+  width: 76px;
+  height: 85px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+}
+
+.content .building .row .detail > li .center {
+  -webkit-box-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: flex;
+  padding-bottom: 14px;
+  margin-top: 23px;
+}
+.content .building .row .detail > li .center > p {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  width: 30px;
+  height: 40px;
+
+  overflow: hidden;
+}
+.content .building .row .detail > li .roomId {
+  height: 22px;
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  background-color: white;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}

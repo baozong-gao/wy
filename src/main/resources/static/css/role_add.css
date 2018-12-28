@@ -1,0 +1,177 @@
+@charset "UTF-8";
+.title {
+  font: 12px/40px "宋体";
+  border-bottom: 1px solid #ddd;
+}
+
+.tit {
+  margin-top: 20px;
+  font: bold 14px/40px "宋体";
+}
+.tit:first-child {
+  margin-top: 0;
+}
+
+.list .item {
+  float: left;
+  margin-right: 20px;
+  font: 12px/32px "宋体";
+}
+
+.list .item .name {
+  font: 12px/30px "宋体";
+  margin-right: 5px;
+}
+
+.list .item input[type='text'], .list .item select {
+  font: 12px/30px "宋体";
+  padding-let: 10px;
+  border: 1px solid #CCCCCC;
+  border-radius: 2px;
+  width: 150px;
+  background: #fff;
+  padding-left: 10px;
+  height: 32px;
+}
+
+.headRadio {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.content input[type="checkbox"] {
+  display: none;
+}
+
+.content input[type="checkbox"] + label {
+  display: inline-block;
+}
+
+.content input[type="checkbox"] + label::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background: url(/img/many_unselect@2x.png) no-repeat 0px 0px;
+  background-size: 14px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.content input[type="checkbox"]:checked + label::before {
+  background: url(/img/many_select@2x.png) no-repeat 0px 0px;
+  background-size: 14px;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.content .tit {
+  font: bold 14px/40px "宋体";
+}
+
+.content .list {
+  margin-top: 10px;
+}
+
+.content .list .checkAll {
+  margin-left: 10px;
+}
+
+.content .list .checkAll label {
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.content .list .itemWalp {
+  border: 1px solid #DDDDDD;
+  margin-top: 5px;
+  border-radius: 2px;
+  padding: 5px 5px 8px 5px;
+}
+
+.itemWalp {
+  border: 1px solid #DDDDDD;
+  margin-top: 10px;
+  border-radius: 2px;
+  padding: 10px 10px 10px 0;
+}
+
+.itemWalp .item {
+  float: left;
+  margin: 0 50px 0 5px;
+  display: inline-block;
+}
+
+.itemWalp .item h5 label {
+  margin-left: 5px;
+  font-weight: 400;
+}
+
+.itemWalp .item ul {
+  padding-left: 20px;
+}
+
+.itemWalp .item li {
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.itemWalp .item li label {
+  margin-left: 5px;
+  color: #999;
+}
+
+.commitForm {
+  background: #2476E9;
+  border-radius: 2px;
+  color: #fff;
+  width: 200px;
+  font: 14px/32px '宋体';
+  display: inline-block;
+  margin: 30px 0 0 385px;
+  text-align: center;
+}
+
+.itemRow {
+  width: 700px;
+  float: left;
+}
+
+.itemRow li {
+  float: left;
+  width: 120px;
+}
+
+.content {
+  padding-left: 14px;
+  margin-top: 0;
+}
+.content input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin-left: 22px;
+  margin-right: 10px;
+  background: url("../img/radio_unselect@2x.png") no-repeat;
+  background-size: 100%;
+}
+.content input[type="radio"]:checked {
+  background: url("../img/radio_select@2x.png") no-repeat;
+  background-size: 100%;
+}
+.content button.submit {
+  background: #2476E9;
+  border-radius: 2px;
+  width: 200px;
+  height: 32px;
+  color: white;
+  font: 14px/20px 'PingFangSC-Regular';
+  margin-left: 254px;
+  margin-top: 40px;
+}
+.content button.submit {
+  margin-bottom: 60px;
+}

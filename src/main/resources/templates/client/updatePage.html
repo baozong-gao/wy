@@ -1,0 +1,572 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+    <link rel="icon" href="../../static/img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../static/img/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        客户管理 <i class="dot"></i> 修改客户
+    </div>
+    <div class="content">
+        <form>
+            <ul>
+                <li>
+                    <label for="clientType">客户类型：</label>
+                    <select class="selectpicker" name="clientType" id="clientType" disabled="true">
+                        <option value="COMPANY">公司</option>
+                        <option value="INDIVIDUAL">个人</option>
+                    </select>
+                </li>
+            </ul>
+            <div class="company">
+                <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+                <ul>
+                    <li>
+                        <label for="inName">客户姓名：</label>
+                        <input id="inName" name="inName" type="text" placeholder="请输入客户姓名" >
+                        <i class="warn">*</i>
+                    </li>
+                    <li>
+                        <label for="inEnName">英文名称：</label>
+                        <input id="inEnName" name="inEnName" type="text"  placeholder="请输入客户英文名称">
+                        <i class="warn">*</i>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="addr">
+                        <label for="cmAddress">地址：</label>
+                        <input id="cmAddress" name="cmAddress" type="text" placeholder="请输入地址" style="width: 360px">
+                        <i class="warn">*</i>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <label for="cmRegisterAmount">注册资本：</label>
+                        <input id="cmRegisterAmount" name="cmRegisterAmount" type="text" placeholder="请输入注册资本">
+                        <i class="warn">*</i>
+                    </li>
+                    <li>
+                        <label for="cmCompanyNo">企业代码：</label>
+                        <input id="cmCompanyNo" name="cmCompanyNo" type="text" placeholder="请输入企业代码">
+                        <i class="warn">*</i>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <label for="cmCatagory">行业类型：</label>
+                        <input id="cmCatagory" name="cmCatagory" type="text"  placeholder="请输入行业类型">
+                        <i class="warn">*</i>
+                    </li>
+                    <li>
+                        <label for="cmMainBusiness">主营范围：</label>
+                        <input id="cmMainBusiness" name="cmMainBusiness" type="text" placeholder="请输入主营范围">
+                        <i class="warn">*</i>
+                    </li>
+                </ul>
+                <div class="title line">法人信息
+                    <div class="tool tool-fold unselect">
+                        <div class="item item-fold">收起<i class="arrow"></i></div>
+                        <div class="item item-show">展开<i class="arrow"></i></div>
+                    </div>
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <label for="cmLegalName">法人姓名：</label>
+                            <input id="cmLegalName" name="cmLegalName" type="text" placeholder="请输入公司法人姓名">
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="cmLegalPhone">手机号：</label>
+                            <input id="cmLegalPhone" name="cmLegalPhone" type="text" placeholder="请输入法人手机号">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li class="email">
+                            <label for="cmLegalEmail">邮箱：</label>
+                            <input id="cmLegalEmail" name="cmLegalEmail" type="text" placeholder="请输入法人邮箱" >
+                        </li>
+                    </ul>
+                </div>
+                <div class="title line">
+                    联系人信息
+                    <i class="shuxian"></i>
+                    <input type="checkbox" id="equalFaren" onclick="checkboxOnclick(this)">
+                    <label for="equalFaren">同法人信息</label>
+                    <div class="tool tool-fold unselect">
+                        <div class="item item-fold">收起<i class="arrow"></i></div>
+                        <div class="item item-show">展开<i class="arrow"></i></div>
+                    </div>
+                </div>
+                <div id="linkDiv">
+                    <ul>
+                        <li>
+                            <label for="cmLinkName">联系人：</label>
+                            <input id="cmLinkName" name="cmLinkName" type="text" placeholder="请输入联系人姓名">
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="cmLinkPhone">手机号：</label>
+                            <input id="cmLinkPhone" name="cmLinkPhone" type="text" placeholder="请输入联系人电话">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li class="email">
+                            <label for="cmLinkEmail">邮箱：</label>
+                            <input id="cmLinkEmail" name="cmLinkEmail" type="text" placeholder="请输入联系人邮箱">
+                        </li>
+                    </ul>
+                </div>
+                <div class="title line">客户账户信息
+                    <div class="tool tool-fold unselect">
+                        <div class="item item-fold">收起<i class="arrow"></i></div>
+                        <div class="item item-show">展开<i class="arrow"></i></div>
+                    </div>
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <label for="cardNo">对公账号：</label>
+                            <input id="cardNo" name="cardNo" type="text" placeholder="请输入对公账号">
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="cardHolderName">对公户名：</label>
+                            <input id="cardHolderName" name="cardHolderName" type="text" placeholder="请输入对公户名">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="cardBankName">开户行：</label>
+                            <input id="cardBankName" name="cardBankName" type="text"  placeholder="请输入开户行">
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="cardBranchName">开户支行：</label>
+                            <input id="cardBranchName" name="cardBranchName" type="text"  placeholder="请输入开户支行">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="cardBranchNo">联行号：</label>
+                            <input id="cardBranchNo" name="cardBranchNo" type="text" placeholder="请输入联行号">
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="taxInfo">税号：</label>
+                            <input id="taxInfo" name="taxInfo" type="text" placeholder="请输入纳税人识别号">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="contactInfo">联系方式：</label>
+                            <input id="contactInfo" name="contactInfo" type="text" placeholder="请输入联系方式">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="privateP">
+                <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+                <div>
+                    <ul>
+                        <li>
+                            <label for="inNamePr">个人姓名：</label>
+                            <input id="inNamePr" name="inName" type="text" placeholder="请输入个人姓名">
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="inEnNamePr">个人英文名：</label>
+                            <input id="inEnNamePr" name="inEnName" type="text" placeholder="请输入个人英文名">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inSexualPr">个人性别：</label>
+                            <select id="inSexualPr" name="inSexual" class="selectpicker" placeholer="请选择性别">
+                                <option value="man">男</option>
+                                <option value="woman">女</option>
+                            </select>
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="inAgePr">个人年龄：</label>
+                            <input id="inAgePr" name="inAge" type="text" placeholder="请输入个人年龄">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inMobilePr">个人手机号：</label>
+                            <input id="inMobilePr" name="inMobile" type="text" placeholder="请输入个人手机号">
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="inOrigPr">个人籍贯：</label>
+                            <input id="inOrigPr" name="inOrig" type="text" placeholder="请输入个人籍贯">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inIdTypePr">证件类型：</label>
+                            <select id="inIdTypePr" name="inIdType" class="selectpicker" placeholer="请选择证件类型">
+                                <option value="SFZ">身份证</option>
+                                <option value="TBZ">台胞证</option>
+                                <option value="JGZ">军官证</option>
+                                <option value="HZ">护照</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inCountryPr">国籍：</label>
+                            <input type="text" id="inCountryPr" name="inCountry" placeholder="请输入国籍" style="width: 350px">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inOrigAddress">户籍地址：</label>
+                            <input type="text" id="inOrigAddress" name="inOrigAddress" placeholder="请输入户籍地址" style="width: 350px">
+                        </li>
+                        <li>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="title line">客户账户信息
+                    <div class="tool tool-fold unselect">
+                        <div class="item item-fold">收起<i class="arrow"></i></div>
+                        <div class="item item-show">展开<i class="arrow"></i></div>
+                    </div>
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <label for="cardNoPr">银行卡号：</label>
+                            <input id="cardNoPr" name="cardNo" type="text" placeholder="请输入银行卡号">
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="cardHolderNamePr">持卡人姓名：</label>
+                            <input id="cardHolderNamePr" name="cardHolderName" type="text" placeholder="请输入银行卡号">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="contactInfoPr">银行预留手机号：</label>
+                            <input id="contactInfoPr" name="contactInfo" type="text" placeholder="请输入银行预留手机号">
+                            <i class="warn">*</i>
+                        </li>
+                        <li>
+                            <label for="idNo">持卡人证件号：</label>
+                            <input id="idNo" name="idNo" type="text" placeholder="请输入持卡人证件号">
+                            <i class="warn">*</i>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                        <li>
+                            <label for="cardBankNamePr">开户行：</label>
+                            <input id="cardBankNamePr" name="cardBankName" type="text"  placeholder="请输入开户行">
+                        </li>
+                        <li class="cardBranchNamePr">
+                            <label for="cardBranchNamePr">开户支行：</label>
+                            <input id="cardBranchNamePr" name="cardBranchName" type="text"  placeholder="请输入开户支行">
+                        </li>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="cardBranchNoPr">联行号：</label>
+                            <input id="cardBranchNoPr" name="cardBranchNo" type="text" placeholder="请输入联行号">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button type="button" class="check" onclick="check()">完成</button>
+        </form>
+    </div>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/customer_add.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" th:inline="javascript">
+        $(function () {
+            $('.line > .tool').click(function(e){
+                var $this = $(this);
+                if($this.hasClass('tool-fold')){
+                    $this.removeClass('tool-fold');
+                    $this.parent().find('+div').hide();
+                }else{
+                    $this.addClass('tool-fold');
+                    $this.parent().find('+div').show();
+                }
+            });
+            initForm();
+        });
+        var _itemList = ['inName','cmAddress','cmLegalName','cmLegalPhone','cmLinkName','cmLinkPhone'];
+        var _itemList1 = ['inName','inMobile'];
+
+        function initForm() {
+            var initObj = [[${rout}]];
+            var initObj1 = [[${clientAccount}]];
+            console.log(initObj1);
+            $('#clientType').val(initObj.clientType);
+            if(initObj.clientType == 'COMPANY'){
+                $('.privateP').hide();
+                $('#inName').val(initObj.inName);
+                $('#inEnName').val(initObj.inEnName);
+                $('#cmAddress').val(initObj.cmAddress);
+                $('#cmRegisterAmount').val(initObj.cmRegisterAmount);
+                $('#cmCompanyNo').val(initObj.cmCompanyNo);
+                $('#cmCatagory').val(initObj.cmCatagory);
+                $('#cmMainBusiness').val(initObj.cmMainBusiness);
+                $('#cmLegalName').val(initObj.cmLegalName);
+                $('#cmLegalPhone').val(initObj.cmLegalPhone);
+                $('#cmLegalEmail').val(initObj.cmLegalEmail);
+                $('#cmLinkName').val(initObj.cmLinkName);
+                $('#cmLinkPhone').val(initObj.cmLinkPhone);
+                $('#cmLinkEmail').val(initObj.cmLinkEmail);
+                $('#cardNo').val(initObj1.cardNo);
+                $('#cardHolderName').val(initObj1.cardHolderName);
+                $('#cardBankName').val(initObj1.cardBankName);
+                $('#cardBranchName').val(initObj1.cardBranchName);
+                $('#cardBranchNo').val(initObj1.cardBranchNo);
+                $('#taxInfo').val(initObj1.taxInfo);
+                $('#contactInfo').val(initObj1.contactInfo);
+            }else if(initObj.clientType == 'INDIVIDUAL'){
+                $('.company').hide();
+                $('#inNamePr').val(initObj.inName);
+                $('#inEnNamePr').val(initObj.inEnName);
+                $('#inSexualPr').val(initObj.inSexual);
+                $('#inAgePr').val(initObj.inAge);
+                $('#inMobilePr').val(initObj.inMobile);
+                $('#inOrigPr').val(initObj.inOrig);
+                $('#inIdTypePr').val(initObj.inIdType);
+                $('#inCountryPr').val(initObj.inCountry);
+                $('#inOrigAddress').val(initObj.inOrigAddress);
+                $('#cardNoPr').val(initObj1.cardNo);
+                $('#cardHolderNamePr').val(initObj1.cardHolderName);
+                $('#contactInfoPr').val(initObj1.contactInfo);
+                $('#idNo').val(initObj1.idNo);
+                $('#cardBankNamePr').val(initObj1.cardBankName);
+                $('#cardBranchNamePr').val(initObj1.cardBranchName);
+                $('#cardBranchNoPr').val(initObj1.cardBranchNo);
+            }
+        }
+        //同法人信息checkbox
+        function checkboxOnclick(checkbox) {
+            if(checkbox.checked == true){
+                $('#cmLinkName ').val($('#cmLegalName ').val());
+                $('#cmLinkPhone ').val($('#cmLegalPhone ').val());
+                $('#cmLinkEmail').val($('#cmLegalEmail ').val());
+            }else{
+                $('#linkDiv input').val("");
+            }
+        }
+
+        //校验
+
+        function check(){
+            var _itemDic = {};
+            if($('#clientType').val() == 'COMPANY'){
+                for(var i in _itemList){
+                    var key = _itemList[i];
+                    var value = $.trim($('.company li input[name='+key+']').val());
+                    if(value.length == 0){
+                        layer.msg($('.company li input[name='+key+']').attr('placeholder'));
+                        return;
+                    }
+                    _itemDic[key] = value;
+                }
+                _itemDic.id = [[${rout}]].id;
+                _itemDic.clientType = $('#clientType').val();
+                _itemDic.inEnName = $('#inEnName').val();
+                _itemDic.cmRegisterAmount = $('#cmRegisterAmount').val();
+                _itemDic.cmCompanyNo = $('#cmCompanyNo').val();
+                _itemDic.cmCatagory = $('#cmCatagory').val();
+                _itemDic.cmMainBusiness = $('#cmMainBusiness').val();
+                _itemDic.cmLegalEmail = $('#cmLegalEmail').val();
+                _itemDic.cmLinkEmail = $('#cmLinkEmail').val();
+                _itemDic.cardNo = $('#cardNo').val();
+                _itemDic.cardHolderName = $('#cardHolderName').val();
+                _itemDic.cardBankName = $('#cardBankName').val();
+                _itemDic.cardBranchName = $('#cardBranchName').val();
+                _itemDic.cardBranchNo = $('#cardBranchNo').val();
+                _itemDic.taxInfo = $('#taxInfo').val();
+                _itemDic.contactInfo = $('#contactInfo').val();
+                var check=false;
+                var isMob=/^0?1[3|4|5|8][0-9]\d{8}$/;
+                if(isMob.test($('#cmLegalPhone').val())){
+                    check = true;
+                }else {
+                    layer.msg("请输入正确的法人手机号");
+                    $('#cmLegalPhone').val("");
+                    $('#cmLegalPhone').focus();
+                    return;
+                }
+                var email = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+                if(email.test($('#cmLegalEmail').val())||$.trim($('#cmLegalEmail').val()) == ""){
+                    check = true;
+                }else {
+                    layer.msg("请输入正确的法人邮箱");
+                    $('#cmLegalEmail').val("");
+                    $('#cmLegalEmail').focus();
+                    return;
+                }
+                if(isMob.test($('#cmLinkPhone').val())){
+                    check = true;
+                }else {
+                    layer.msg("请输入正确的联系人手机号");
+                    $('#cmLinkPhone').val("");
+                    $('#cmLinkPhone').focus();
+                    return;
+                }
+                if(email.test($('#cmLinkEmail').val())||$.trim($('#cmLinkEmail').val()) == ""){
+                    check = true;
+                }else {
+                    layer.msg("请输入正确的联系人邮箱");
+                    $('#cmLinkEmail').val("");
+                    $('#cmLinkEmail').focus();
+                    return;
+                }
+                if(isMob.test($('#contactInfo').val())||$.trim($('#contactInfo').val()) == ""){
+                    check = true;
+                }else {
+                    layer.msg("请输入正确的客户联系方式");
+                    $('#contactInfo').val("");
+                    $('#contactInfo').focus();
+                    return;
+                }
+                if(check = true){
+                    $.ajax({
+                        type:"POST",
+                        dataType:"JSON",
+                        data:_itemDic,
+                        url:"/client/update",
+                        success:function(obj){
+                            if(obj.code === "200"){
+                                layer.msg("修改成功");
+                                window.history.back();
+                            }else{
+                                layer.msg(obj.msg)
+                            }
+                        },error :function () {
+                            layer.msg("服务器异常");
+                        }
+                    })
+                }else {
+                    layer.msg("验证未知异常");
+                }
+            }else if($('#clientType').val() == 'INDIVIDUAL'){
+                for(var i in _itemList1){
+                    var key = _itemList1[i];
+                    var value = $.trim($('.privateP li input[name='+key+']').val());
+                    if(value.length == 0){
+                        layer.msg($('.privateP li input[name='+key+']').attr('placeholder'));
+                        return;
+                    }
+                    _itemDic[key] = value;
+                }
+                _itemDic.id = [[${rout}]].id;
+                _itemDic.clientType = $('#clientType').val();
+                _itemDic.inSexual =  $('#inSexualPr').val();
+                _itemDic.inIdType = $('#inIdTypePr').val();
+                _itemDic.inEnName = $('#inEnNamePr').val();
+                _itemDic.inAge = $('#inAgePr').val();
+                _itemDic.inOrig = $('#inOrigPr').val();
+                _itemDic.inCountry = $('#inCountryPr').val();
+                _itemDic.inOrigAddress = $('#inOrigAddress').val();
+                _itemDic.cardNo = $('#cardNoPr').val();
+                _itemDic.cardHolderName = $('#cardHolderNamePr').val();
+                _itemDic.contactInfo = $('#contactInfoPr').val();
+                _itemDic.idNo = $('#idNo').val();
+                _itemDic.cardBankName = $('#cardBankNamePr').val();
+                _itemDic.cardBranchName = $('#cardBranchNamePr').val();
+                _itemDic.cardBranchNo = $('#cardBranchNoPr').val();
+                var check = false;
+                var regAge =/^(110|10\d|[1-9]\d|\d)$/;
+                if(regAge.test($('#inAgePr').val())||$.trim($('#inAgePr').val()) == ""){
+                    check = true;
+                }else {
+                    layer.msg("请输入正确的年龄");
+                    $('#inAgePr').val("");
+                    $('#inAgePr').focus();
+                    return;
+                }
+                var isMob=/^0?1[3|4|5|8][0-9]\d{8}$/;
+                if(isMob.test($('#inMobilePr').val())){
+                    check = true;
+                }else{
+                    layer.msg("请输入正确的个人手机号");
+                    $('#inMobilePr').val("");
+                    $('#inMobilePr').focus();
+                    return;
+                }
+                var bankCard= /^([1-9]{1})(\d{14}|\d{18})$/;
+                if(bankCard.test($('#cardNoPr').val())){
+                    check = true;
+                }else{
+                    layer.msg("请输入正确的客户银行卡号");
+                    $('#cardNoPr').val("");
+                    $('#cardNoPr').focus();
+                    return;
+                }
+                if(isMob.test($('#contactInfoPr').val())){
+                    check = true;
+                }else {
+                    layer.msg("请输入正确的银行预留手机号");
+                    $('#contactInfoPr').val("");
+                    $('#contactInfoPr').focus();
+                    return;
+                }
+                var regIdCard=/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+                if(regIdCard.test($('#idNo').val())){
+                    check = true;
+                }else {
+                    layer.msg("请输入正确的持卡人证件号");
+                    $('#idNo').val("");
+                    $('#idNo').focus();
+                    return;
+                }
+                if(check = true){
+                    $.ajax({
+                        type:"POST",
+                        dataType:"JSON",
+                        data:_itemDic,
+                        url:"/client/update",
+                        success:function(obj){
+                            if(obj.code === "200"){
+                                layer.msg("修改成功");
+                                window.history.back();
+                            }else{
+                                layer.msg(obj.msg)
+                            }
+                        },error :function () {
+                            layer.msg("服务器异常");
+                        }
+                    })
+                }else {
+                    layer.msg("验证未知异常");
+                }
+            }
+        };
+
+    </script>
+</div>
+</body>
+</html>

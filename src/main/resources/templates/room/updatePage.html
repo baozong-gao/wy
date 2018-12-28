@@ -1,0 +1,75 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<body>
+<div layout:fragment="content">
+
+    <div class="pageTitle">
+        房间管理 <i class="dot"></i> 修改房间
+    </div>
+    <div class="content">
+        <form action="/room/update" method="post">
+            <input type="hidden" name="id" th:value="${rout.id}">
+            <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+            <ul class="base">
+                <li><label for="idStr">楼宇：</label>
+                    <select  class="status" name="buildingId" id="">
+                        <option th:each="p,i: ${buildings}" th:value="${p.id}" th:selected="${rout.buildingId==p.id}">[[${p.buildingName}]]</option>
+                    </select>
+                </li>
+                <li><label for="username">单元：</label><input name="unit" type="text" placeholder="请输入单元" th:value="${rout.unit}">
+                </li>
+                <li class="floor"><label for="pwd">楼层：</label><input name="floor" type="text"  placeholder="请输入楼层" th:value="${rout.floor}">
+                    <span>层</span>
+                </li>
+                <li><label for="idStr">房间：</label><input name="room" type="text" placeholder="请输入房间" th:value="${rout.room}">
+                </li>
+                <li><label for="username">朝向：</label><input name="roomAspect" type="text" placeholder="请输入朝向" th:value="${rout.roomAspect}">
+                </li>
+                <li style="position: relative" class="mianji"><label for="pwd">面积：</label><input style="padding-right: 19px;" name="roomSize" type="text"  placeholder="请输入面积" th:value="${rout.roomSize}">
+                    <span style="position: absolute; top: 17px; right: 3px;">m²</span>
+                </li>
+                <li id="roomRent" th:if="(${rout.roomType} eq 'HOTEL')" style="position: relative;" class="mianji"><label for="pwd">租金：</label><input style="padding-right: 19px;" name="roomRentPrice" th:value="${rout.roomRentPrice}" type="text"  placeholder="请输入金额">
+                    <span style="position: absolute; top: 17px; right: 9px;">元/月</span>
+                </li>
+                <li><label style="width: 93px" for="idStr">产权所有人：</label><input name="ownerName" th:value="${rout.ownerName}"  type="text" placeholder="请输入产权所有人">
+                </li>
+
+            </ul>
+            <button  id="add">完成</button>
+        </form>
+    </div>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" href="/css/room_add.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/js/base.js"></script>
+    <script type="text/javascript">
+
+        $('#add').on('click',function () {
+            var params = get_from_array();
+            $.post("/room/update",params,
+                function(obj){
+                    if(obj.code === '200'){
+                        layer.msg('修改成功');
+                        window.location.href = '/room/page?pt=[[${rout.roomType}]]'
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },'json');
+            return false;
+        });
+
+        function get_from_array() {
+            var d = {};
+            var t = $('form').serializeArray();
+            $.each(t, function() {
+                d[this.name] = this.value;
+            });
+            return d;
+        }
+
+    </script>
+</div>
+</body>
+</html>

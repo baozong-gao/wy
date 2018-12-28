@@ -1,0 +1,397 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        财务管理 <i class="dot"></i> 收入账单列表
+    </div>
+
+    <div class="content">
+        <form id="searchForm" method="post" class="toolDiv">
+            <div id="searchPanel" class="row1">
+                    <span>搜索账单</span>
+                <select class="company" title="请选择公司" name="companyId" id="companyId" th:placeholder="请选择公司">
+                    <option value="">请选择公司</option>
+                    <option th:each="aboutCompany:${aboutCompany}" th:text="${aboutCompany.COMPANY_NAME}" th:value="${aboutCompany.ID}"></option>
+                </select>
+                <select class="property" title="请选择业态" name="propertyId" id="propertyId">
+                    <option value="">请选择业态</option>
+                    <option th:each="aboutProperty:${aboutProperty}" th:text="${aboutProperty.PROPERTY_NAME}" th:value="${aboutProperty.ID}"></option>
+                </select>
+                <select class="building" title="请选择楼宇" name="buildingId" id="buildingId">
+                    <option value="">请选择楼宇</option>
+                </select>
+                <input type="text" name="roomDesc" id="roomDesc" placeholder="请输入房间信息">
+                <input type="text" name="bookerName" id="bookerName" placeholder="请输入业主/承租人姓名">
+
+                <button type="button" class="query-btn" data-type="reload" id="queryBtn"><i class="query"></i>查询</button>
+                <button type="button" class="clear-btn" onclick="resetData();">清空</button>
+            </div>
+            <div class="row2">
+                <input type="text" placeholder="请输入合同编号" style="padding-left: 10px ; margin-left: 64px" id="contractId" name="contractId">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" readonly="readonly"  id="chooseDateInput" placeholder=" 应收开始日期 - 应收结束日期 ">
+                </div>
+            </div>
+            <div class="row3" id="toolbar">
+                <div class="row5">
+                    <button type="button" id="contractBill" class="generatedBills btn-type" data-Type="generatedBills">生成应收账单</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="layui-hide" id="revenueBillsTbl" lay-filter="demo"></table>
+    </div>
+
+    <script type="text/html" id="barDemo">
+        <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="favorable">优惠</button>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="audit">审核</button>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="details">详情</button>
+    </script>
+
+    <link rel="stylesheet" href="/css/contractFees_manage.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script src="/js/regular.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $(function () {
+            setTimeout(function () {
+                $('.bootstrap-select').eq(0).hide()
+            }, 100)
+            if([[${aboutCompany}]]){
+                setTimeout(function () {
+                    $('.bootstrap-select').eq(0).show()
+                }, 100)
+            }
+        });
+        var $dateChoose = null;
+        layui.use(['table','laydate'], function(){
+            var table = layui.table,
+                laydate = layui.laydate;
+            //日期范围
+            $dateChoose = laydate.render({
+                elem: '#chooseDateInput'
+                ,range: true
+                ,done:function(value,begin,end){
+                    if(!value || value.length == 0){
+                        $dateChoose.spmBeginDate = '';
+                        $dateChoose.spmEndDate = '';
+                    }else{
+                        var array = value.split(' - ');
+                        $dateChoose.spmBeginDate = array[0];
+                        $dateChoose.spmEndDate = array[1];
+                    }
+                }
+            });
+            $dateChoose.spmBeginDate = '';
+            $dateChoose.spmEndDate = '';
+            var data = [
+                 {type:'checkbox',fixed:'left'}
+                ,{field: 'id', title: '房间信息', sort: true}
+                ,{field: 'feeType', title: '费用类型',templet:function (d) {
+                        if(d.feeType === "FWZJ"){
+                            return "房屋租金"
+                        }else if(d.feeType === "FWYJ"){
+                            return "房屋押金"
+                        }else if(d.feeType === "FWDJ"){
+                            return "房屋定金"
+                        }else if(d.feeType === "WYF"){
+                            return "物业费"
+                        }else if(d.feeType === "TCF"){
+                            return "停车费"
+                        }else if(d.feeType === "WXF"){
+                            return "维修费"
+                        }else if(d.feeType === "OTHER"){
+                            return "其他费用"
+                        }else{
+                            return "未知"
+                        }
+                    }}
+                ,{field: 'ownerName', title: '业主/承租人',templet:function(d){
+                        if(d.roomType === "RESIDENCE"){
+                            return d.ownerName;
+                        }else{
+                            return d.principleName;
+                        }
+                    }}
+                ,{field: 'propertyName', title: '业态名称'}
+                ,{field: 'buildingName', title: '楼宇名称'}
+                ,{field: 'feeAmount', title: '费用金额(元)',templet:function (d) {
+                        return d.feeAmount/100
+                    }}
+                ,{field: 'contractId', title: '合同编号'}
+                ,{field: 'feePhase', title: '账期'}
+                ,{field: 'receivableDate', title: '应收日期'}
+                ,{field: 'feeStatus', title: '账单状态',templet:function (d) {
+                        if(d.feeStatus === "INITIAL"){
+                            return "新生成初始"
+                        }else if(d.feeStatus === "AUDIT"){
+                            return "已修改"
+                        }else if(d.feeStatus === "CHECKED"){
+                            return "已审核"
+                        }else if(d.feeStatus === "BILLED"){
+                            return "已进入应收账单"
+                        }else if(d.feeStatus === "OVERDUE"){
+                            return "已逾期"
+                        }else {
+                            return "未知"
+                        }
+                    }}
+                ,{fixed: 'right', align:'center',title:'操作', width:200,toolbar: '#barDemo'}
+            ];
+            table.render({
+                elem: '#revenueBillsTbl'
+                ,url:'/contractFees/search'
+                ,method: 'post'
+                ,cols:[data]
+                ,even: true
+                ,page: true
+                ,request:{
+                    limitName: 'rows'
+                }
+                ,response:{
+                    dataName:'data',
+                    dataSecName:'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                ,id:'reloadTbl'
+            });
+            //监听工具条
+            table.on('tool(demo)', function(obj){
+                var data = obj.data
+                    layEvent = obj.event;
+                if(layEvent === 'favorable' && data.feeStatus === 'INITIAL'){
+                    layer.open({
+                        type: 2,
+                        title: '优惠',
+                        shadeClose:true,
+                        shade:0.5,
+                        fixed:false,
+                        area: ['420px', '240px'],
+                        content: ['/contractFees/Preferentialpage/'+data.id,'no']
+                    });
+                }
+                if(layEvent === 'favorable' && data.feeStatus != 'INITIAL'){
+                    layer.msg("只有新生成初始的账单可以优惠")
+                }
+                if(layEvent === 'audit'){
+                    layer.msg("审核")
+                }
+                if(layEvent === 'details'){
+                    window.location.href = "/contractFees/detailpage/"+data.id;
+                }
+            });
+            var $ = layui.$, active = {
+                reload: function(){
+                    var _form = put_array_in_object();
+                    console.log(_form);
+                    //执行重载
+                    var feeStartDate = '';
+                    var feeEndDate = '';
+                    var dateStr = $('#chooseDateInput').val();
+                    if(dateStr && dateStr.length > 5){
+                        var array = dateStr.split(' - ');
+                        feeStartDate = array[0].replace(/-/g,'');
+                        feeEndDate = array[1].replace(/-/g,'');
+                    }
+                    _form.feeStartDate = feeStartDate;
+                    _form.feeEndDate = feeEndDate;
+                    table.reload('reloadTbl', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: _form
+                    });
+                },
+                editItem: function(){ //获取选中数据
+                    var checkStatus =  checkStatus('reloadTbl')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    window.location.href = '/user/updatepage/'+data[0].id;
+                },
+                deleteItem: function () {
+                    var checkStatus = table.checkStatus('reloadTbl')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    layer.confirm('确定要删除该用户吗？',{
+                        btn:['是','否']
+                    },function () {
+                        $.ajax({
+//                            url:'/user/delete/'+data[0].id,
+                            dataType:'json',
+                            data:{},
+                            type:'POST',
+                            success:function(obj){
+                                if(obj.code === '200'){
+                                    layer.msg('删除成功');
+//                                window.location.reload();
+                                    resetData();
+                                }else{
+                                    layer.msg(obj.msg);
+                                }
+                            },error: function(){ //失败
+                                layer.alert("服务器内部错误");
+                            }
+                        });
+                    })
+                },
+                generatedBills:function(){
+                    var checkStatus = table.checkStatus('reloadTbl'),
+                        data = checkStatus.data;
+                    console.log(data[0]);
+                    if(data == false){
+                        layer.msg("请选择信息");
+                    }
+                    var billAmount = parseFloat("0");
+                    var contractFeesIdList = [];
+                    for(var i=0;i<data.length;i++){
+                        if(data[i].feeStatus != 'INITIAL'){
+                            layer.msg("只有账单状态为：“新生成初始”的账单可以生成应收账单");
+                            return;
+                        }
+                        for(var j=1;j<data.length;j++){
+                            if(data[i].receivableDate != data[j].receivableDate){
+                                layer.msg("账单的应收日期应该一致");
+                                return;
+                            }
+                        }
+                        for(var k=1;k<data.length;k++){
+                            if(data[i].contractId != data[k].contractId){
+                                layer.msg("所选信息合同编号不一致");
+                                return;
+                            }
+                        }
+                        billAmount += parseFloat(data[i].feeAmount);
+                        contractFeesIdList.push(data[i].id);
+                    }
+                    var _itemDesc = {};
+                    _itemDesc.companyId = data[0].companyId;
+                    _itemDesc.contractId = data[0].contractId;
+                    _itemDesc.billAmount = billAmount;
+                    _itemDesc.contractIdList = contractFeesIdList;
+                    _itemDesc.needPayAmount = billAmount;
+                    $.ajax({
+                        type:"post",
+                        dataType:"json",
+                        data:_itemDesc,
+                        url:"/contractBills/add",
+                        success:function (obj){
+                            if(obj.code === '200'){
+                                layer.msg("生成应收账单成功")
+                                resetData();
+                            }else {
+                                layer.msg("生成应收账单失败");
+                            }
+                        },error:function () {
+                            layer.msg("服务器内部错误");
+                        }
+                    })
+                }
+            };
+
+            $('#queryBtn , .btn-type').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+        });
+
+        function resetData(){
+            $('#searchForm')[0].reset();
+            $dateChoose.resetData();
+            $('#property').html('<option value="">请选择业态</option>');
+            $('#building').html('<option value="">请选择楼宇</option>');
+            $('#queryBtn').click();
+        }
+
+        $('#companyId').change(function () {
+            $.ajax({
+                type:"GET",
+                dataType:"JSON",
+                data:{companyId:$('#companyId').val()},
+                url:"/contractFees/selectPropertyByCompanyId",
+                success:function (obj) {
+                    var content = '<option value="">请选择业态</option>';
+                    console.log(obj);
+                    for(var i in obj) {
+                        content += '<option value="' + obj[i].ID + '">' + obj[i].PROPERTY_NAME + '</option>';
+                    }
+                    $('#propertyId').html(content);
+                }
+            })
+        });
+
+        $('#propertyId').change(function () {
+            $.ajax({
+                type:"GET",
+                dataType:"JSON",
+                data:{propertyId:$('#propertyId').val()},
+                url:"/contractFees/selectBuilding",
+                success:function(obj){
+                    var content = '<option value="">请选择楼宇</option>';
+                    for(var i in obj) {
+                        content += '<option value="' + obj[i].ID + '">' + obj[i].BUILDING_NAME + '</option>';
+                    }
+                    $('#buildingId').html(content);
+                }
+            })
+        });
+        
+        function  put_array_in_object() {
+            var obj = {};
+            var formArray = $('form').serializeArray();
+            $.each(formArray, function () {
+                obj[this.name] = this.value
+            })
+            return obj;
+        }
+
+/*        function preferential(id,feeAmount){
+            if($.trim($("#preferentialFeeAmount").val()) === ""){
+                layer.msg("优惠金额不能为空");
+                return;
+            }
+            if(parseInt($('#preferentialFeeAmount').val())>parseInt(feeAmount)/100){
+                layer.msg("优惠金额不得大于总金额");
+                return;
+            }
+            if(check($('#preferentialFeeAmount').val(),'DOWN_PAYMENT') === false){
+                return;
+            }
+            $('#preferentialBtn').attr("disabled",true);
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                data:{id:id,feeAmount:feeAmount},
+                url:"",
+                success:function(){
+
+                },error : function (){
+                    layer.msg("系统异常请联系管理员");
+                }
+            })
+        }*/
+
+
+
+
+    </script>
+</div>
+</body>
+</html>

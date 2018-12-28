@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.SysFunctionDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.SysFunctionDAO" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+    <result column="GRADE" property="grade" jdbcType="CHAR" />
+    <result column="FUNC_NAME" property="funcName" jdbcType="VARCHAR" />
+    <result column="FUNC_URI" property="funcUri" jdbcType="VARCHAR" />
+    <result column="FUNC_TYPE" property="funcType" jdbcType="VARCHAR" />
+    <result column="AUTH_CODE" property="authCode" jdbcType="VARCHAR" />
+    <result column="FUNC_STATUS" property="funcStatus" jdbcType="VARCHAR" />
+    <result column="ORDER_BY" property="orderBy" jdbcType="DECIMAL" />
+    <result column="LOGO" property="logo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, PARENT_ID, GRADE, FUNC_NAME, FUNC_URI, FUNC_TYPE, AUTH_CODE, FUNC_STATUS, ORDER_BY, 
+    LOGO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysFunctionDAOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_FUNCTION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_FUNCTION
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from SYS_FUNCTION
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysFunctionDAOExample" >
+    delete from SYS_FUNCTION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysFunctionDAO" >
+    insert into SYS_FUNCTION (ID, PARENT_ID, GRADE, 
+      FUNC_NAME, FUNC_URI, FUNC_TYPE, 
+      AUTH_CODE, FUNC_STATUS, ORDER_BY, 
+      LOGO)
+    values (#{id,jdbcType=DECIMAL}, #{parentId,jdbcType=DECIMAL}, #{grade,jdbcType=CHAR}, 
+      #{funcName,jdbcType=VARCHAR}, #{funcUri,jdbcType=VARCHAR}, #{funcType,jdbcType=VARCHAR}, 
+      #{authCode,jdbcType=VARCHAR}, #{funcStatus,jdbcType=VARCHAR}, #{orderBy,jdbcType=DECIMAL}, 
+      #{logo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysFunctionDAO" >
+    insert into SYS_FUNCTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="grade != null" >
+        GRADE,
+      </if>
+      <if test="funcName != null" >
+        FUNC_NAME,
+      </if>
+      <if test="funcUri != null" >
+        FUNC_URI,
+      </if>
+      <if test="funcType != null" >
+        FUNC_TYPE,
+      </if>
+      <if test="authCode != null" >
+        AUTH_CODE,
+      </if>
+      <if test="funcStatus != null" >
+        FUNC_STATUS,
+      </if>
+      <if test="orderBy != null" >
+        ORDER_BY,
+      </if>
+      <if test="logo != null" >
+        LOGO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=CHAR},
+      </if>
+      <if test="funcName != null" >
+        #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcUri != null" >
+        #{funcUri,jdbcType=VARCHAR},
+      </if>
+      <if test="funcType != null" >
+        #{funcType,jdbcType=VARCHAR},
+      </if>
+      <if test="authCode != null" >
+        #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="funcStatus != null" >
+        #{funcStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBy != null" >
+        #{orderBy,jdbcType=DECIMAL},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysFunctionDAOExample" resultType="java.lang.Integer" >
+    select count(*) from SYS_FUNCTION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_FUNCTION
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.parentId != null" >
+        PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.grade != null" >
+        GRADE = #{record.grade,jdbcType=CHAR},
+      </if>
+      <if test="record.funcName != null" >
+        FUNC_NAME = #{record.funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcUri != null" >
+        FUNC_URI = #{record.funcUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcType != null" >
+        FUNC_TYPE = #{record.funcType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authCode != null" >
+        AUTH_CODE = #{record.authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcStatus != null" >
+        FUNC_STATUS = #{record.funcStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderBy != null" >
+        ORDER_BY = #{record.orderBy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.logo != null" >
+        LOGO = #{record.logo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_FUNCTION
+    set ID = #{record.id,jdbcType=DECIMAL},
+      PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
+      GRADE = #{record.grade,jdbcType=CHAR},
+      FUNC_NAME = #{record.funcName,jdbcType=VARCHAR},
+      FUNC_URI = #{record.funcUri,jdbcType=VARCHAR},
+      FUNC_TYPE = #{record.funcType,jdbcType=VARCHAR},
+      AUTH_CODE = #{record.authCode,jdbcType=VARCHAR},
+      FUNC_STATUS = #{record.funcStatus,jdbcType=VARCHAR},
+      ORDER_BY = #{record.orderBy,jdbcType=DECIMAL},
+      LOGO = #{record.logo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysFunctionDAO" >
+    update SYS_FUNCTION
+    <set >
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="grade != null" >
+        GRADE = #{grade,jdbcType=CHAR},
+      </if>
+      <if test="funcName != null" >
+        FUNC_NAME = #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcUri != null" >
+        FUNC_URI = #{funcUri,jdbcType=VARCHAR},
+      </if>
+      <if test="funcType != null" >
+        FUNC_TYPE = #{funcType,jdbcType=VARCHAR},
+      </if>
+      <if test="authCode != null" >
+        AUTH_CODE = #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="funcStatus != null" >
+        FUNC_STATUS = #{funcStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBy != null" >
+        ORDER_BY = #{orderBy,jdbcType=DECIMAL},
+      </if>
+      <if test="logo != null" >
+        LOGO = #{logo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.SysFunctionDAO" >
+    update SYS_FUNCTION
+    set PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      GRADE = #{grade,jdbcType=CHAR},
+      FUNC_NAME = #{funcName,jdbcType=VARCHAR},
+      FUNC_URI = #{funcUri,jdbcType=VARCHAR},
+      FUNC_TYPE = #{funcType,jdbcType=VARCHAR},
+      AUTH_CODE = #{authCode,jdbcType=VARCHAR},
+      FUNC_STATUS = #{funcStatus,jdbcType=VARCHAR},
+      ORDER_BY = #{orderBy,jdbcType=DECIMAL},
+      LOGO = #{logo,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/company_manage.css">
+</head>
+<body>
+<div class="pageTitle">
+  系统管理 <i class="dot"></i> 部门管理
+</div>
+
+<div class="content">
+  <div class="toolDiv">
+    <div class="row1">
+      <span>搜索部门</span>
+      <input type="text" placeholder="请输入部门名称">
+      <button class="query-btn"><i class="query"></i>查询</button>
+      <button class="clear-btn">清空</button>
+    </div>
+    <div class="row2">
+      <button class="add" onclick="window.location.href = 'department_add.html';"><i></i>新增</button>
+      <button class="edit"><i></i>修改</button>
+    </div>
+  </div>
+
+  <table border="1px" cellpadding="0" cellspacing="0">
+    <tr>
+      <th>全选</th>
+      <th>序号</th>
+      <th>部门名称</th>
+      <th>负责人</th>
+      <th>联系电话</th>
+      <th>类型</th>
+      <th>创建时间</th>
+      <th>状态</th>
+    </tr>
+    <tr>
+      <td ><input class="chance" type="checkbox" value="" name="selectItem"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" value="" name="selectItem"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+  <div class="pagination">
+    <ul>
+      <li class="nav"><a href="#"><</a></li>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li class="nav"><a href="#">></a></li>
+    </ul>
+    <div class="jump">
+      第<input type="text" value="1">页
+    </div>
+  </div>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.js"></script>
+<script src="../lib/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<link rel="icon" href="../static/img/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon"/>
+<body>
+<div layout:fragment="content">
+        <div class="content">
+            <div class="top-title">
+                <i class="convenientEntrance"></i>
+                <span>快捷入口</span>
+            </div>
+            <div>
+            <ul class="show">
+                <li onclick="javascript:(window.location.href = '/room/batchPage')">
+                    <i class="tenant"></i>
+                    <span>批量新增房屋</span>
+                </li>
+                <li onclick="javascript:(window.location.href='/client/addpage')">
+                    <i class="client"></i>
+                    <span>客户登记</span>
+                </li>
+                <li onclick="javascript:(window.location.href='/room/page?pt=BUSINESS')">
+                    <i class="building"></i>
+                    <span>商业楼宇房态</span>
+                </li>
+                <li onclick="javascript:(window.location.href='/room/page?pt=HOTEL')">
+                    <i class="hotel"></i>
+                    <span>酒店房态</span>
+                </li>
+                <li onclick="javascript:(window.location.href='/room/page?pt=RESIDENCE')">
+                    <i class="house"></i>
+                    <span>居民住宅房态</span>
+                </li>
+            </ul>
+            </div>
+        </div>
+<!--    <div class="content">
+        <div class="top-title">
+            <i class="building"></i>
+            <span>商业楼宇</span>
+        </div>
+        <div class="view">
+            <div class="left">
+                <span class="view-title">公司总数</span>
+                <div class="info">
+                    <span class="num" id="companyCount"></span>
+                    <span class="jian">家</span>
+                </div>
+            </div>
+            <i class="shuline"></i>
+            <div class="right">
+                <span class="view-title">房屋出租率</span>
+                <div class="inner">
+                    <div id="myChart" style="width: 420px; height: 160px;">
+                    </div>
+                    &lt;!&ndash; <div class="tips">
+                      <div class="tip1">
+                        <i></i>
+                        已出租
+                      </div>
+                      <div class="tip2">
+                        <i></i>
+                        未出租
+                      </div>
+                    </div> &ndash;&gt;
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="/js/echarts.js"></script>
+    <script type="text/javascript">
+/*        $(document).ready(function() {
+            $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                data: {},
+                url: "/company/selectCompanyCount",
+                success: function (obj) {
+                    console.log(obj);
+                    $("#companyCount").html(obj);
+                }
+            })
+        })*/
+/*        var myChart = echarts.init(document.getElementById('myChart'));
+
+        // var data = genData(10);
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {d}%"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'right',
+                top: '30px',
+                data: ['已出租', '未出租']
+            },
+            series: [{
+                name: '类目',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '50%'],
+                data: [{
+                    value: 0.25,
+                    name: '已出租',
+                    itemStyle: {
+                        normal: {
+                            color: '#FFBA37'
+                        }
+                    }
+                },
+                    {
+                        value: 0.75,
+                        name: '未出租',
+                        itemStyle: {
+                            normal: {
+                                color: '#5798F2'
+                            }
+                        }
+                    }
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);*/
+    </script>
+</div>
+
+</body>
+</html>

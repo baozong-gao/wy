@@ -1,0 +1,94 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+
+    <div class="pageTitle">
+        合同管理 <i class="dot"></i> 居民小区合同
+    </div>
+
+    <div class="content">
+        <form id="form">
+            <div class="title">合同信息</div>
+            <div>
+                <ul>
+                    <li>
+                        <label for="roomId">房间信息：</label>
+                        <input type="text" id="roomId" name="roomId" disabled="true" class="roomId">
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <label for="contractTemplateId">合同模板：</label>
+                        <select class="selectpicker" title="请选择合同模板" id="contractTemplateId" disabled="true">
+                            <option value="100001">合同模板1</option>
+                            <option value="100001">合同模板2</option>
+                            <option value="100001">合同模板3</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="htDate">合同起止：</label>
+                        <input  lay-verify="required" name="contractStartDate" type="text"  id="htDate" disabled="true">
+                    </li>
+                </ul>
+            </div>
+            <div class="title">缴费信息</div>
+            <div class="paymentMsgDiv">
+            </div>
+            <div>
+                <button class="submit" type="button"  onclick="goBack()">返回</button>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/contract_residence.css">
+    <script type="text/javascript" th:inline="javascript">
+        $(function(){
+            $('#htDate').val([[${contractInfo}]].htDate);
+            $('#roomId').val([[${roomdao}]].roomDesc);
+            var rout = [[${rout}]];
+            for(var i=0;i<rout.length;i++){
+                paymentMsg1 =
+                    '<ul>'+
+                    '<li>'+
+                    '<label>费用类型:</label>'+
+                    '<select class="feeType" id="feeType'+i+'" disabled="true" name="feeType" style="margin-left: 12px">'+
+                    '<option value="FWZJ">租金</option>' +
+                    '<option value="FWYJ">押金</option>' +
+                    '<option value="FWDJ">定金</option>' +
+                    '<option value="WYF">物业费</option>' +
+                    '<option value="TCF">停车费</option>' +
+                    '<option value="WXF">维修费</option>' +
+                    '<option value="OTHER">其他费用</option>' +
+                    '</select>'+
+                    '</li>'+
+                    '<li>'+
+                    '<label>费用周期：</label>'+
+                    '<select class="feePayType" disabled="true" id="feePayType'+i+'" style="margin-left: 4px" name="feePayType">' +
+                    '<option value="ONETIME">单次</option>' +
+                    '<option value="PERIOD">周期性</option>' +
+                    '</select>' +
+                    '</li>' +
+                    '<li>' +
+                    '<label>金额：</label>' +
+                    '<input type="text" placeholder="请输入缴费金额" style="margin-left: 4px" disabled="true" value="'+rout[i].FEE_AMOUNT/100+'" name="feeAmount" class="feeAmount">' +
+                    '<span style="position: relative;right: 25px;" class="moneySign">元</span>'+
+                    '</li>' +
+                    '</ul>'
+                $('.paymentMsgDiv').append(paymentMsg1);
+                $("#feeType"+i).val(rout[i].FEE_TYPE);
+                $("#feePayType"+i).val(rout[i].FEE_PAY_TYPE);
+            }
+        })
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</div>
+</body>
+</html>

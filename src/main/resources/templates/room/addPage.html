@@ -1,0 +1,220 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<body>
+<div layout:fragment="content">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/room_add.css">
+    <style>
+        .layui-form select {
+            display: block!important;
+        }
+    </style>
+    <script src="../js/jquery-2.1.4.js"></script>
+    <script src="../js/base.js"></script>
+    <div class="pageTitle">
+        房间管理 <i class="dot"></i> 添加房间
+    </div>
+    <div class="content">
+        <form  method="post"  class="layui-form">
+        <ul>
+            <li><label for="">房间类型：</label>
+                <select name="roomType" id="roomType"  lay-verify="required" class="status" title="请输入角色父级" onchange="getBusinessList(1,this)">
+                    <option value="">请选择</option>
+                    <option value="BUSINESS">商业住宅</option>
+                    <option value="RESIDENCE">居民住宅</option>
+                    <option value="HOTEL">酒店公寓</option>
+                </select>
+            </li>
+            <li style="margin-left: 30px;"><label for="">业态名称：</label>
+                <select style="width: 200px"  lay-verify="required" class="status"  title="请输入角色父级" name="propertyId" id="businessList" onchange="getBuildList(1, this)">
+
+                </select>
+            </li>
+        </ul>
+        <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+        <ul class="base">
+            <li><label for="idStr">楼宇：</label>
+                <select  class="status" title="请输入角色父级"  lay-verify="required" name="buildingId" id="buildingList">
+
+                </select>
+            </li>
+            <li><label for="username">单元：</label><input name="unit"  lay-verify="required" type="text" placeholder="请输入单元">
+            </li>
+            <li class="floor"><label for="pwd">楼层：</label><input name="floor"  lay-verify="required" type="text"  placeholder="请输入楼层">
+                <span>层</span>
+            </li>
+            <li><label for="idStr">房间：</label><input name="room"  lay-verify="required" type="text" placeholder="请输入房间">
+            </li>
+            <li><label for="username">朝向：</label><input name="roomAspect"  lay-verify="required" type="text" placeholder="请输入朝向">
+            </li>
+            <li style="position: relative" class="mianji"><label for="pwd">面积：</label><input style="padding-right: 19px;"  lay-verify="required" name="roomSize" type="text"  placeholder="请输入面积">
+                <span style="position: absolute; top: 17px; right: 3px; z-index: 10;">m²</span>
+            </li>
+            <li id="roomRent" style="position: relative; display: none" class="mianji"><label for="pwd">租金：</label><input  style="padding-right: 19px;" name="roomRentPrice" type="text"  placeholder="请输入金额">
+                <span style="position: absolute; top: 17px; right: 9px;z-index: 10;">元/月</span>
+            </li>
+            <li><label style="width: 93px" for="idStr">产权所有人：</label><input name="ownerName" type="text"  lay-verify="required"  placeholder="请输入产权所有人">
+            </li>
+        </ul>
+        <!--<div class="title line">法人信息</div>-->
+        <!--<ul class="faren">-->
+            <!--<li><label for="idStr">法人姓名：</label><input name="ownerName" type="text" placeholder="请输入公司法人姓名">-->
+                <!--<i class="warn">*</i>-->
+            <!--</li>-->
+            <!--<li><label for="username">手机号：</label><input name="ownerContact" type="text" placeholder="请输入法人联系电话">-->
+                <!--<i class="warn">*</i>-->
+            <!--</li>-->
+            <!--<li><label for="pwd">身份证号：</label><input name="pwd" type="text"  placeholder="请输入身份证号">-->
+            <!--</li>-->
+            <!--<li><label for="email">邮箱：</label><input name="email" type="text" placeholder="请输入角色邮箱">-->
+            <!--</li>-->
+        <!--</ul>-->
+        <!--<div class="title line unselect hetong">-->
+            <!--房间状态：-->
+            <!--<input type="radio" id="kechuzu" name="roomProperty" value="RENT">-->
+            <!--<label for="kechuzu">可出租</label>-->
+            <!--<input type="radio" id="ziyong" name="roomProperty" value="SELFLIVE">-->
+            <!--<label for="ziyong">自用房</label>-->
+            <!--<input type="radio" id="baoliu" name="roomProperty" value="HOLD">-->
+            <!--<label for="baoliu">保留住房</label>-->
+        <!--</div>-->
+
+        <button  id="add">完成</button>
+            <!--<button lay-filter="demo1">完成</button>-->
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        getBusinessList(0,'BUSINESS')
+
+        $('#add').on('click',function () {
+            var params = get_from_array();
+            $.post("/room/add",params,
+                function(obj){
+                    if(obj.code === '200'){
+                        layer.msg('添加成功');
+                        window.location.href = '/room/page?pt=' + $('#roomType').val()
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },'json');
+            return false;
+        });
+
+        function getBusinessList(loadTime,self) {
+            loadTime == 0 ? businessChild(loadTime, self) : businessChild(loadTime,$(self).val())
+            if(loadTime == 1 && $(self).val() == 'HOTEL'){
+                $("#roomRent").show()
+            }else {
+                $("#roomRent").hide()
+            }
+        }
+        
+        function businessChild(lTime, type) {
+            $.ajax({
+                url:'/property/search/',
+                dataType:'json',
+                type:'post',
+                data: {propertyType : type},
+                success:function(obj){
+                    if(obj.code === '200'){
+                        appent_select_business("#businessList",obj.data.rows)
+                        if(lTime == 0 && obj.data.rows.length > 0){
+                            var fristId = obj.data.rows[0].id
+                            getBuildListChild(0, fristId)
+                        }
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },error: function(){ //失败
+                    layer.alert("服务器内部错误");
+                }
+            });
+        }
+
+        function getBuildListChild(loadTime, selfVal) {
+            //loadTime == 0 ? businessChild(loadTime, self) : businessChild(loadTime,$(self).val())
+            $.ajax({
+                url:'/building/selectBuilding/',
+                dataType:'json',
+                type:'get',
+                data: {id : selfVal},
+                success:function(obj){
+                    if(obj.code === '200'){
+                        appent_select_build("#buildingList",obj.data)
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },error: function(){ //失败
+                    layer.alert("服务器内部错误");
+                }
+            });
+        }
+        function getBuildList(type, selfVal) {
+            if($(selfVal).val() == ''){
+                return
+            }
+            $.ajax({
+                url:'/building/selectBuilding/',
+                dataType:'json',
+                type:'get',
+                data: {id : $(selfVal).val()},
+                success:function(obj){
+                    if(obj.code === '200'){
+                        appent_select_build("#buildingList",obj.data)
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },error: function(){ //失败
+                    layer.alert("服务器内部错误");
+                }
+            });
+        }
+
+        function appent_select_build(child,obj) {
+            $(child).empty();
+            optionRow = '<option value="">请选择</option>'
+            $(child).append(optionRow)
+            for(var i= 0; i<obj.length; i++ ){
+                $(child).append('<option value="'+ obj[i].ID +'">' + obj[i].BUILDING_NAME + '</option>')
+            }
+        }
+
+        function appent_select_business(child,obj) {
+            $(child).empty();
+            $("#buildingList").empty();
+            optionRow = '<option value="">请选择</option>'
+            $(child).append(optionRow)
+            for(var i= 0; i<obj.length; i++ ){
+                //optionRow =  '<option value="'+ obj[i].id +'">' + obj[i].propertyName + '</option>'
+                $(child).append('<option value="'+ obj[i].id +'">' + obj[i].propertyName + '</option>')
+            }
+        }
+
+
+        function get_from_array() {
+            var d = {};
+            var t = $('form').serializeArray();
+            $.each(t, function() {
+                d[this.name] = this.value;
+            });
+            return d;
+        }
+
+        layui.use(['form'], function(){
+            var form = layui.form
+                ,layer = layui.layer;
+
+            //监听提交
+            form.on('submit(demo1)', function(data){
+                return true;
+            });
+        });
+
+
+    </script>
+</div>
+</body>
+</html>

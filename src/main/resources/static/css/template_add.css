@@ -1,0 +1,92 @@
+body {
+    position: relative;
+    min-width: 0px;
+    min-height: 0px;
+}
+
+.inner-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.inner-content .title{
+    font:14px/40px 'PingFangSC-Medium';
+    color:#333;
+    background-color: #F3F3F3;
+    padding-left: 30px;
+}
+
+.inner-content ul{
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.inner-content ul li{
+    margin-top: 10px;
+}
+.inner-content ul li span{
+    font:12px/17px 'PingFangSC-Medium';
+    color:#333;
+}
+
+.dropdown-toggle.bs-placeholder > span{
+    color: #CCCCCC;
+}
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width:360px;
+}
+
+.inner-content ul li input {
+    border: 1px solid #ccc;
+    height: 32px;
+    width: 220px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font: 12px/17px 'PingFangSC-Regular';
+}
+.inner-content ul li input::-webkit-input-placeholder {
+    color: #CCCCCC;
+}
+.inner-content ul li input:-moz-placeholder {
+    color: #CCCCCC;
+}
+.inner-content ul li input::-moz-placeholder {
+    color: #CCCCCC;
+}
+.inner-content ul li input:-ms-input-placeholder {
+    color: #CCCCCC;
+}
+.inner-content ul li input{
+    width:360px;
+    height:32px;
+}
+
+.inner-content ul li select{
+    width:360px;
+}
+
+.inner-content .edit-tool{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.inner-content .edit-tool button{
+    width: 60px;
+    height: 32px;
+    font:14px/20px 'PingFangSC-Regular';
+    color: #333;
+    background-color: white;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #CCCCCC;
+    border-radius: 2px;
+}
+
+.inner-content .edit-tool button.sure{
+    color: white;
+    background-color: #2476E9;
+    margin-right: 20px;
+}

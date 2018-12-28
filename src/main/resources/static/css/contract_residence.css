@@ -1,0 +1,85 @@
+.content{
+    display: flex;
+    padding-left:14px;
+}
+.content .title{
+    display: flex;
+    align-items: center;
+    display: -webkit-box;
+    margin-top: 19px;
+    font: bold 14px/20px '宋体';
+    color: #333333;
+    -webkit-box-align: center;
+}
+.content ul{
+    display: flex;
+    flex-direction: row;
+    max-width: 1100px
+}
+.content ul li{
+    width: 327px;
+    padding-top: 20px;
+}
+.content ul li label{
+    font: 12px/17px 'PingFangSC-Regular';
+    color: #333333;
+    text-align: right;
+    width: 60px;
+}
+.content ul li input[type=text],.content ul li select  {
+    border: 1px solid #ccc;
+    height: 32px;
+    width: 220px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font: 12px/17px 'PingFangSC-Regular';
+}
+.content .shuxian{
+    width: 2px;
+    height: 12px;
+    background-color: #ccc;
+    margin: 0 12px;
+}
+.content .addItem{
+    font: 14px/14px '微软雅黑';
+    color: #333;
+    display: inline-block;
+    margin-left: 15px;
+    border-left: 1px solid #b9b5b5;
+    padding-left: 15px;
+}
+.content .addImg{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+.content  a.delete{
+    background: url("../img/cancel@2x.png") no-repeat;
+    background-size: 20px;
+    margin-left: 20px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-top: 6px;
+}
+.content button.submit {
+    background: #2476E9;
+    border-radius: 2px;
+    width: 200px;
+    height: 32px;
+    color: white;
+    font: 14px/20px 'PingFangSC-Regular';
+    margin: 60px 0 60px 300px;
+}
+.paymentMsgDiv button{
+
+}
+.roomId {
+    background-color: #F5F9FF;
+    font: 14px/14px 'PingFangSC-Medium';
+    color: #2476E9;
+    border: 1px solid #B8D6FF;
+}
+.moneySign{
+    font: 12px/14px 'PingFangSC-Medium';
+}

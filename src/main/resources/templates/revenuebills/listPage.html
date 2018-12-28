@@ -1,0 +1,225 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        财务管理 <i class="dot"></i> 收入账单列表
+    </div>
+
+    <div class="content">
+        <form id="searchForm" method="post" class="toolDiv">
+            <div id="searchPanel" class="row1">
+                    <span>搜索账单</span>
+                <select class="property" title="请选择业态" name="property" id="property">
+                    <option value="A">一级</option>
+                    <option value="B">二级</option>
+                    <option value="C">三级</option>
+                </select>
+                <select class="building" title="请选择楼宇" name="building" id="building">
+                    <option value="A">一级</option>
+                    <option value="B">二级</option>
+                    <option value="C">三级</option>
+                </select>
+                <input type="text" name="name" placeholder="请输入房间信息">
+                <input type="text" name="id" id="mobile" placeholder="请输入业主/承租人姓名">
+
+                <button type="button" class="query-btn" data-type="reload" id="queryBtn"><i class="query"></i>查询</button>
+                <button type="button" class="clear-btn" onclick="resetData();">清空</button>
+            </div>
+            <div class="row2">
+                <input type="text" placeholder="请输入合同编号" style="padding-left: 10px ; margin-left: 57px">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" readonly  id="chooseDateInput" placeholder=" 应收开始日期 - 应收结束日期 ">
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" readonly  id="chooseDateInput" placeholder=" 应收开始日期 - 应收结束日期 ">
+                </div>
+            </div>
+            <div class="row3" id="toolbar">
+                <div class="row4">
+                    <button type="button" class="add" onclick="window.location.href = '#';"><i></i>新增</button>
+                    <button type="button" class="edit" data-type="editItem"><i></i>修改</button>
+                    <button type="button" class="delete" data-type="deleteItem"><i></i>删除</button>
+                </div>
+                <div class="row5">
+                    <button type="button" class="generatedBills" data-Type="generatedBills">生成应收账单</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="layui-hide" id="revenueBillsTbl" lay-filter="demo"></table>
+    </div>
+
+    <script type="text/html" id="barDemo">
+        <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="favorable">优惠</button>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="audit">审核</button>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="details">详情</button>
+    </script>
+
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/revenueBills_manage.css">
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="/js/base.js"></script>
+    <script type="text/javascript">
+        $(function () {
+                    });
+        var $dateChoose = null;
+        layui.use(['table','laydate'], function(){
+            var table = layui.table,
+                laydate = layui.laydate;
+            //日期范围
+            $dateChoose = laydate.render({
+                elem: '#chooseDateInput'
+                ,range: true
+                ,done:function(value,begin,end){
+                    if(!value || value.length == 0){
+                        $dateChoose.spmBeginDate = '';
+                        $dateChoose.spmEndDate = '';
+                    }else{
+                        var array = value.split(' - ');
+                        $dateChoose.spmBeginDate = array[0];
+                        $dateChoose.spmEndDate = array[1];
+                    }
+                }
+            });
+            $dateChoose.spmBeginDate = '';
+            $dateChoose.spmEndDate = '';
+            var data = [
+                 {type:'checkbox',fixed:'left'}
+                ,{field: '', title: '房间信息', sort: true}
+                ,{field: 'name', title: '费用类型'}
+                ,{field: 'loginId', title: '业主/承租人'}
+                ,{field: 'remark', title: '业态名称'}
+                ,{field: 'email', title: '楼宇名称'}
+                ,{field: 'mobile', title: '费用金额(元)'}
+                ,{field: 'status', title: '合同编号'}
+                ,{field: 'aaa', title: '账期'}
+                ,{field: 'bbb', title: '应收日期'}
+                ,{field: 'ccc', title: '账单状态'}
+                ,{fixed: 'right', align:'center',title:'操作', width:200,toolbar: '#barDemo'}
+            ];
+            table.render({
+                elem: '#revenueBillsTbl'
+                ,url:'/revenue_bills/search'
+                ,method: 'post'
+                ,cols:[data]
+                ,even: true
+                ,page: true
+                ,request:{
+                    limitName: 'rows'
+                }
+                ,response:{
+                    dataName:'data',
+                    dataSecName:'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                ,id:'reloadTbl'
+            });
+            //监听工具条
+            table.on('tool(demo)', function(obj){
+                var data = obj.data
+                    ,layEvent = obj.event;
+                if(layEvent === 'favorable'){
+                    layer.msg('优惠');
+                } else if(layEvent === 'audit'){
+                    layer.msg("审核")
+                } else if(layEvent === 'details'){
+                    layer.msg('详情');
+                }
+            });
+            var $ = layui.$, active = {
+                reload: function(){
+                    //执行重载
+                    table.reload('reloadTbl', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: {
+                            mobile: $('#mobile').val(),
+                            name: $('input[name="name"]').val(),
+                        }
+                    });
+                },
+                editItem: function(){ //获取选中数据
+                    var checkStatus =  checkStatus('reloadTbl')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    window.location.href = '/user/updatepage/'+data[0].id;
+                },
+                deleteItem: function () {
+                    var checkStatus = table.checkStatus('reloadTbl')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    layer.confirm('确定要删除该用户吗？',{
+                        btn:['是','否']
+                    },function () {
+                        $.ajax({
+//                            url:'/user/delete/'+data[0].id,
+                            dataType:'json',
+                            data:{},
+                            type:'POST',
+                            success:function(obj){
+                                if(obj.code === '200'){
+                                    layer.msg('删除成功');
+//                                window.location.reload();
+                                    resetData();
+                                }else{
+                                    layer.msg(obj.msg);
+                                }
+                            },error: function(){ //失败
+                                layer.alert("服务器内部错误");
+                            }
+                        });
+                    })
+                },
+                generatedBills:function(){
+                    var checkStatus = table.checkStatus('reloadTbl')
+                        ,data = checkStatus.data;
+                },
+                isAll: function(){ //验证是否全选
+                    var checkStatus = table.checkStatus('idTest');
+                    layer.msg(checkStatus.isAll ? '全选': '未全选')
+                }
+            };
+
+            $('#queryBtn , .btn-type').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+        });
+
+        function resetData(){
+            $('#searchForm')[0].reset();
+            $dateChoose.resetData();
+                        $('#queryBtn').click();
+        }
+
+
+    </script>
+</div>
+</body>
+</html>

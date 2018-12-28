@@ -1,0 +1,193 @@
+.content {
+  padding-left: 14px;
+}
+.content .title {
+  margin-top: 19px;
+  font: 14px/20px 'PingFangSC-Medium';
+  color: #333;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+}
+.content .title .title_sub {
+  font: 12px/20px 'PingFangSC-Regular';
+  color: #151515;
+}
+.content .title.line {
+  border-top: 1px dashed #DDDDDD;
+  padding-top: 10px;
+  margin-right: 20px;
+}
+.content .title i.shuxian {
+  width: 2px;
+  height: 12px;
+  background-color: #ccc;
+  margin: 0 12px;
+}
+.content .title input[type=checkbox] {
+  margin-right: 4px;
+  width: 14px;
+  height: 14px;
+  background: url("../img/many_unselect@2x.png") no-repeat;
+  background-size: 100%;
+}
+.content .title input[type=checkbox]:checked {
+  background: url("../img/many_select@2x.png") no-repeat;
+  background-size: 100%;
+}
+.content .title input[type=checkbox] + label {
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+}
+.content ul {
+  margin-top: 16px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 14px;
+  max-width: 800px;
+}
+.content ul.zulin {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+.content ul.zulin li:last-of-type label {
+  width: 84px;
+}
+.content ul.zulin li i.add {
+  width: 20px;
+  height: 20px;
+  background: url("../img/increase@2x.png") no-repeat;
+  background-size: 100%;
+  margin-left: 16px;
+}
+.content ul.zulin li span {
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+.content ul.zulin li .mar-le {
+  margin-left: 50px;
+}
+.content ul.zulin li .abso {
+  position: absolute;
+  left: 300px;
+}
+.content ul li {
+  display: -webkit-box;
+  display: flex;
+  height: 52px;
+  -webkit-box-align: center;
+          align-items: center;
+}
+.content ul li.addr input {
+  width: 360px;
+}
+.content ul li i.warn {
+  margin-left: 10px;
+  font-style: normal;
+  content: '12';
+  width: 8px;
+  height: 20px;
+  color: #d7352c;
+  font: 14px/20px 'PingFangSC-Regular';
+  margin-right: 30px;
+}
+.content ul li span.danwei {
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+  margin-left: 10px;
+}
+.content ul li span.danwei:nth-of-type(1) {
+  margin-right: 30px;
+}
+.content ul li select {
+  width: 220px;
+}
+.content ul li .pre-see {
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #2476e9;
+  margin-left: 20px;
+}
+.content ul li label {
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+  text-align: right;
+  width: 60px;
+}
+.content ul li label.radioLabel {
+  font: 14px/20px 'PingFangSC-Regular';
+  width: 28px;
+}
+.content ul li textarea {
+  border: 1px solid #ccc;
+  height: 62px;
+  width: 320px;
+  padding-left: 10px;
+  border-radius: 2px;
+  font: 12px/17px 'PingFangSC-Regular';
+  padding-top: 5px;
+}
+.content ul li textarea::-webkit-input-placeholder {
+  color: #CCCCCC;
+}
+.content ul li textarea:-moz-placeholder {
+  color: #CCCCCC;
+}
+.content ul li textarea::-moz-placeholder {
+  color: #CCCCCC;
+}
+.content ul li textarea:-ms-input-placeholder {
+  color: #CCCCCC;
+}
+.content ul li input {
+  border: 1px solid #ccc;
+  height: 32px;
+  width: 220px;
+  padding-left: 10px;
+  border-radius: 2px;
+  font: 12px/17px 'PingFangSC-Regular';
+}
+.content ul li input::-webkit-input-placeholder {
+  color: #CCCCCC;
+}
+.content ul li input:-moz-placeholder {
+  color: #CCCCCC;
+}
+.content ul li input::-moz-placeholder {
+  color: #CCCCCC;
+}
+.content ul li input:-ms-input-placeholder {
+  color: #CCCCCC;
+}
+.content ul li input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin-left: 22px;
+  margin-right: 10px;
+  background: url("../img/radio_unselect@2x.png") no-repeat;
+  background-size: 100%;
+}
+.content ul li input[type="radio"]:checked {
+  background: url("../img/radio_select@2x.png") no-repeat;
+  background-size: 100%;
+}
+.content button.submit {
+  background: #2476E9;
+  border-radius: 2px;
+  width: 200px;
+  height: 32px;
+  color: white;
+  font: 14px/20px 'PingFangSC-Regular';
+  margin-left: 154px;
+  margin-top: 40px;
+}
+.content button.submit {
+  margin-bottom: 60px;
+}

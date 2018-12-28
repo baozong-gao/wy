@@ -1,0 +1,78 @@
+body {
+  background-color: white;
+  min-width: 0;
+  min-height: 0;
+}
+
+.content {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  margin-left: 20px;
+}
+.content i.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  background: url("../img/close.png") no-repeat;
+  background-size: 100%;
+}
+.content .title {
+  color: #333333;
+  margin-top: 25px;
+  margin-bottom: 17px;
+  font: 14px/20px 'PingFangSC-Medium';
+}
+.content ul {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+.content ul li {
+  display: -webkit-box;
+  display: flex;
+  height: 52px;
+  -webkit-box-align: center;
+          align-items: center;
+}
+.content ul li label {
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+  text-align: right;
+  width: 74px;
+}
+.content ul li input {
+  border: 1px solid #ccc;
+  height: 32px;
+  width: 220px;
+  padding-left: 10px;
+  border-radius: 2px;
+  font: 12px/17px 'PingFangSC-Regular';
+}
+.content ul li input::-webkit-input-placeholder {
+  color: #CCCCCC;
+}
+.content ul li input:-moz-placeholder {
+  color: #CCCCCC;
+}
+.content ul li input::-moz-placeholder {
+  color: #CCCCCC;
+}
+.content ul li input:-ms-input-placeholder {
+  color: #CCCCCC;
+}
+.content button {
+  background: #2476E9;
+  border-radius: 2px;
+  width: 200px;
+  height: 32px;
+  color: white;
+  font: 14px/20px 'PingFangSC-Regular';
+  margin: 20px auto 0;
+}

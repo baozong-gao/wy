@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.CompanyAttachInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="ATTACH_TYPE" property="attachType" jdbcType="VARCHAR" />
+    <result column="MEDIA_TYPE" property="mediaType" jdbcType="VARCHAR" />
+    <result column="STORE_TYPE" property="storeType" jdbcType="VARCHAR" />
+    <result column="MEDIA_LOCATION" property="mediaLocation" jdbcType="VARCHAR" />
+    <result column="MEDIA_DESC" property="mediaDesc" jdbcType="VARCHAR" />
+    <result column="MEDIA_STATUS" property="mediaStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfo" extends="BaseResultMap" >
+    <result column="MEDIA_CONTENT" property="mediaContent" jdbcType="BLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, ATTACH_TYPE, MEDIA_TYPE, STORE_TYPE, MEDIA_LOCATION, MEDIA_DESC, 
+    MEDIA_STATUS
+  </sql>
+  <sql id="Blob_Column_List" >
+    MEDIA_CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from GL_COMPANY_ATTACH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from GL_COMPANY_ATTACH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from GL_COMPANY_ATTACH
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from GL_COMPANY_ATTACH
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfoExample" >
+    delete from GL_COMPANY_ATTACH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfo" >
+    insert into GL_COMPANY_ATTACH (ID, COMPANY_ID, ATTACH_TYPE, 
+      MEDIA_TYPE, STORE_TYPE, MEDIA_LOCATION, 
+      MEDIA_DESC, MEDIA_STATUS, MEDIA_CONTENT
+      )
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{attachType,jdbcType=VARCHAR}, 
+      #{mediaType,jdbcType=VARCHAR}, #{storeType,jdbcType=VARCHAR}, #{mediaLocation,jdbcType=VARCHAR}, 
+      #{mediaDesc,jdbcType=VARCHAR}, #{mediaStatus,jdbcType=VARCHAR}, #{mediaContent,jdbcType=BLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfo" >
+    insert into GL_COMPANY_ATTACH
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ID,
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="attachType != null" >
+        ATTACH_TYPE,
+      </if>
+      <if test="mediaType != null" >
+        MEDIA_TYPE,
+      </if>
+      <if test="storeType != null" >
+        STORE_TYPE,
+      </if>
+      <if test="mediaLocation != null" >
+        MEDIA_LOCATION,
+      </if>
+      <if test="mediaDesc != null" >
+        MEDIA_DESC,
+      </if>
+      <if test="mediaStatus != null" >
+        MEDIA_STATUS,
+      </if>
+      <if test="mediaContent != null" >
+        MEDIA_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(COMPANY_ATTACH_ID_SEQ.nextval),
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="attachType != null" >
+        #{attachType,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaType != null" >
+        #{mediaType,jdbcType=VARCHAR},
+      </if>
+      <if test="storeType != null" >
+        #{storeType,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaLocation != null" >
+        #{mediaLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaDesc != null" >
+        #{mediaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaStatus != null" >
+        #{mediaStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaContent != null" >
+        #{mediaContent,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfoExample" resultType="java.lang.Integer" >
+    select count(*) from GL_COMPANY_ATTACH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update GL_COMPANY_ATTACH
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.attachType != null" >
+        ATTACH_TYPE = #{record.attachType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediaType != null" >
+        MEDIA_TYPE = #{record.mediaType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeType != null" >
+        STORE_TYPE = #{record.storeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediaLocation != null" >
+        MEDIA_LOCATION = #{record.mediaLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediaDesc != null" >
+        MEDIA_DESC = #{record.mediaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediaStatus != null" >
+        MEDIA_STATUS = #{record.mediaStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediaContent != null" >
+        MEDIA_CONTENT = #{record.mediaContent,jdbcType=BLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update GL_COMPANY_ATTACH
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      ATTACH_TYPE = #{record.attachType,jdbcType=VARCHAR},
+      MEDIA_TYPE = #{record.mediaType,jdbcType=VARCHAR},
+      STORE_TYPE = #{record.storeType,jdbcType=VARCHAR},
+      MEDIA_LOCATION = #{record.mediaLocation,jdbcType=VARCHAR},
+      MEDIA_DESC = #{record.mediaDesc,jdbcType=VARCHAR},
+      MEDIA_STATUS = #{record.mediaStatus,jdbcType=VARCHAR},
+      MEDIA_CONTENT = #{record.mediaContent,jdbcType=BLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update GL_COMPANY_ATTACH
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      ATTACH_TYPE = #{record.attachType,jdbcType=VARCHAR},
+      MEDIA_TYPE = #{record.mediaType,jdbcType=VARCHAR},
+      STORE_TYPE = #{record.storeType,jdbcType=VARCHAR},
+      MEDIA_LOCATION = #{record.mediaLocation,jdbcType=VARCHAR},
+      MEDIA_DESC = #{record.mediaDesc,jdbcType=VARCHAR},
+      MEDIA_STATUS = #{record.mediaStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfo" >
+    update GL_COMPANY_ATTACH
+    <set >
+      <if test="mediaContent != null" >
+        MEDIA_CONTENT = #{mediaContent,jdbcType=BLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfo" >
+    update GL_COMPANY_ATTACH
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      ATTACH_TYPE = #{attachType,jdbcType=VARCHAR},
+      MEDIA_TYPE = #{mediaType,jdbcType=VARCHAR},
+      STORE_TYPE = #{storeType,jdbcType=VARCHAR},
+      MEDIA_LOCATION = #{mediaLocation,jdbcType=VARCHAR},
+      MEDIA_DESC = #{mediaDesc,jdbcType=VARCHAR},
+      MEDIA_STATUS = #{mediaStatus,jdbcType=VARCHAR},
+      MEDIA_CONTENT = #{mediaContent,jdbcType=BLOB}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.CompanyAttachInfo" >
+    update GL_COMPANY_ATTACH
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      ATTACH_TYPE = #{attachType,jdbcType=VARCHAR},
+      MEDIA_TYPE = #{mediaType,jdbcType=VARCHAR},
+      STORE_TYPE = #{storeType,jdbcType=VARCHAR},
+      MEDIA_LOCATION = #{mediaLocation,jdbcType=VARCHAR},
+      MEDIA_DESC = #{mediaDesc,jdbcType=VARCHAR},
+      MEDIA_STATUS = #{mediaStatus,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectAttachByCompanyId" parameterType="java.math.BigDecimal"
+    resultType="map">
+    select id,MEDIA_CONTENT,MEDIA_DESC from GL_COMPANY_ATTACH where COMPANY_ID =#{companyId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectCompanyById" parameterType="java.lang.String"
+          resultType="map">
+    select * from GL_COMPANY where Id = #{id}
+  </select>
+  <select id="selectCompanyAttachByCompanyId" parameterType="java.lang.String" resultType="map">
+    SELECT * from GL_COMPANY_ATTACH where COMPANY_ID = #{companyId}
+  </select>
+</mapper>

@@ -1,0 +1,110 @@
+<html>
+<head>
+    <style>
+        .cp-404{
+            position:absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            background-color:#ffffff;
+            overflow-x:hidden;
+            overflow-y:auto;
+            -webkit-backface-visibility:hidden;
+            backface-visibility:hidden;
+        }
+        .cp-404::-webkit-scrollbar{
+            width:0;
+            height:0;
+            opacity:0;
+        }
+        .cp-404 .body{
+            position:absolute;
+            top:0;
+            right:0;
+            bottom:0;
+            left:0;
+            margin:auto;
+            width:990px;
+            height:541px;
+            box-shadow: 0 6px 32px rgba(0, 0, 0, .13);
+            background-image:url('/img/404-bgs.png');
+            background-size:50%;
+            background-position:center;
+            background-repeat:no-repeat;
+        }
+        .cp-404 .body .pop-box{
+            position:absolute;
+            left:415px;
+            top:100px;
+            width:181px;
+            height:93px;
+            -webkit-animation: tv-pop 0.4s steps(3, start) infinite;
+            -moz-animation: tv-pop 0.4s steps(3, start) infinite;
+            animation: tv-pop 0.4s steps(3, start) infinite;
+            -webkit-animation-timing-function: step-start;
+            -moz-animation-timing-function: step-start;
+            animation-timing-function: step-start;
+            animation-timing-function:step-start;
+            background-image:url('/img/ani-tv.jpg');
+            background-size:auto 100%;
+            background-repeat:no-repeat;
+        }
+
+        @keyframes tv-pop{
+            0% {
+                background-position-X: 0%;
+            }
+            50% {
+                background-position-X: 55%;
+            }
+            100% {
+                background-position-X: 80%;
+            }
+        }
+        @-moz-keyframes tv-pop{
+            0% {
+                background-position-X: 0%;
+            }
+            50% {
+                background-position-X: 55%;
+            }
+            100% {
+                background-position-X: 80%;
+            }
+        }
+        @-o-keyframes tv-pop{
+            0% {
+                background-position-X: 0%;
+            }
+            50% {
+                background-position-X: 55%;
+            }
+            100% {
+                background-position-X: 80%;
+            }
+        }
+        @-webkit-keyframes tv-pop{
+            0%{
+                background-position-X:0%;
+            }
+            50%{
+                background-position-X:55%;
+            }
+            100%{
+                background-position-X:80%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="cp-404">
+    <div class="body">
+        <div class="mobile-top">
+            <div class="pop-box"><i class="snowflake-bg"></i></div>
+        </div>
+        <div class="payment"></div>
+    </div>
+</div>
+</body>
+</html>

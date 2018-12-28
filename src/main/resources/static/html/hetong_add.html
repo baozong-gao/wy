@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/hetong_add.css">
+</head>
+<body>
+<div class="pageTitle">
+  合同管理 <i class="dot"></i> 新增合同
+</div>
+<div class="content">
+  <ul>
+    <li><label for="idStr">合同类型：</label>
+      <select required class="status" name="" id="">
+        <option value="" disabled data-hidden="true" selected hidden>请选择开通状态</option>
+        <option value="2">正常</option>
+        <option value="3">关闭</option>
+      </select>
+      <span class="pre-see">预览</span>
+    </li>
+  </ul>
+  <div class="title">甲方信息<span class="title_sub">（*为必填项）</span></div>
+   <ul>
+    <li><label for="idStr">客户名称：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <i class="warn">*</i>
+    </li>
+    <li><label for="username">代理人：</label><input name="" type="text" placeholder="请输入法人联系电话">
+      <i class="warn">*</i>
+    </li>
+    <li><label for="pwd">电话：</label><input name="pwd" type="text"  placeholder="请输入公司域名">
+      <i class="warn">*</i>
+    </li>
+    <li class="addr"><label for="idStr">地址：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <i class="warn">*</i>
+    </li>
+  </ul>
+
+  <div class="title">乙方信息<span class="title_sub">（*为必填项）</span></div>
+   <ul>
+    <li><label for="idStr">乙方名称：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <i class="warn">*</i>
+    </li>
+    <li><label for="username">代理人：</label><input name="" type="text" placeholder="请输入法人联系电话">
+      <i class="warn">*</i>
+    </li>
+    <li><label for="pwd">电话：</label><input name="pwd" type="text"  placeholder="请输入公司域名">
+      <i class="warn">*</i>
+    </li>
+    <li class="addr"><label for="idStr">地址：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <i class="warn">*</i>
+    </li>
+  </ul>
+  <div class="title line"></div>
+  <ul class="zulin">
+    <li>
+      <label for="">租赁房屋：</label><input type="text"  placeholder="请输入租赁房屋">
+      <i class="add"></i>
+    </li>
+    <li><label for="">交付日期：</label><input type="text"  placeholder="请输入租赁房屋"></li>
+    <li><label for="">租赁时间：</label><input type="text"  placeholder="请输入租赁房屋">
+      <span class="zhi">至</span>
+      <input type="text"  placeholder="请输入租赁房屋"></li>
+    <li><label for="">租金：</label><input type="text"  placeholder="请输入租赁房屋">
+      <span class="abso">元／m²/天</span>
+        <label class="mar-le" for="">租金：</label><input type="text"  placeholder="请输入租赁房屋">
+      <span>元/月</span>
+    </li>
+    <li><label for="">每年递增：</label><input type="text"  placeholder="请输入租赁房屋"><span class="abso">%</span>
+        <label class="mar-le" for="">每年递增：</label><input type="text"  placeholder="请输入租赁房屋"><span>天</span>
+    </li>
+    <li><label for="">甲方收款信息：</label>
+      <select required class="status" name="" id="">
+        <option value="" disabled data-hidden="true" selected hidden>请选择开通状态</option>
+        <option value="2">正常</option>
+        <option value="3">关闭</option>
+      </select>
+    </li>
+  </ul>
+   <div class="title line">物业费</div>
+   <ul>
+    <li><label for="idStr">租金：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <span class="danwei">元／m²/天</span>
+    </li>
+    <li><label for="username">月租金：</label><input name="" type="text" placeholder="请输入法人联系电话">
+      <span class="danwei">元/月</span>
+    </li>
+  </ul>
+  <div class="title line">财务信息</div>
+   <ul>
+    <li><label for="idStr">保证金：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <i class="warn">*</i>
+    </li>
+  </ul>
+  <button class="submit">完成</button>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.js"></script>
+<script src="../lib/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

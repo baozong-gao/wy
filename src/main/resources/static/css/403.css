@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.content .notfound{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 441px;
+    margin-top: 223px;
+    width: 250px;
+    height: 210px;
+}
+
+.content .notfound img{
+    width: 178px;
+    height: 183px;
+}
+
+.content .notfound span{
+    margin-top: 13px;
+    text-align: center;
+    font:14px/20px 'PingFangSC-Regular';
+    color: #333;
+}

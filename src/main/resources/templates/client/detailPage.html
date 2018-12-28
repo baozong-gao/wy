@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div layout:fragment="content">
+    <div class="content">
+        <form>
+            <div class="company">
+                <div class="title">基本信息</div>
+                <ul>
+                    <li>
+                        <label for="inName">客户姓名：</label>
+                        <input id="inName" name="inName" type="text" placeholder="请输入客户姓名" readonly="readonly">
+                    </li>
+                    <li>
+                        <label for="inEnName">英文名称：</label>
+                        <input id="inEnName" name="inEnName" type="text"  placeholder="请输入客户英文名称" readonly="readonly">
+                    </li>
+                </ul>
+                <ul>
+                    <li class="addr">
+                        <label for="cmAddress">地址：</label>
+                        <input id="cmAddress" name="cmAddress" type="text" placeholder="请输入地址" style="width: 360px" readonly="readonly">
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <label for="cmRegisterAmount">注册资本：</label>
+                        <input id="cmRegisterAmount" name="cmRegisterAmount" type="text" placeholder="请输入注册资本" readonly="readonly">
+                    </li>
+                    <li>
+                        <label for="cmCompanyNo">企业代码：</label>
+                        <input id="cmCompanyNo" name="cmCompanyNo" type="text" placeholder="请输入企业代码" readonly="readonly">
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <label for="cmCatagory">行业类型：</label>
+                        <input id="cmCatagory" name="cmCatagory" type="text"  placeholder="请输入行业类型" readonly="readonly">
+                    </li>
+                    <li>
+                        <label for="cmMainBusiness">主营范围：</label>
+                        <input id="cmMainBusiness" name="cmMainBusiness" type="text" placeholder="请输入主营范围" readonly="readonly">
+                    </li>
+                </ul>
+                <div class="title line">法人信息
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <label for="cmLegalName">法人姓名：</label>
+                            <input id="cmLegalName" name="cmLegalName" type="text" placeholder="请输入公司法人姓名" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="cmLegalPhone">手机号：</label>
+                            <input id="cmLegalPhone" name="cmLegalPhone" type="text" placeholder="请输入法人手机号" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li class="email">
+                            <label for="cmLegalEmail">邮箱：</label>
+                            <input id="cmLegalEmail" name="cmLegalEmail" type="text" placeholder="请输入法人邮箱" readonly="readonly">
+                        </li>
+                    </ul>
+                </div>
+                <div class="title line">
+                    联系人信息
+                </div>
+                <div id="linkDiv">
+                    <ul>
+                        <li>
+                            <label for="cmLinkName">联系人：</label>
+                            <input id="cmLinkName" name="cmLinkName" type="text" placeholder="请输入联系人姓名" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="cmLinkPhone">手机号：</label>
+                            <input id="cmLinkPhone" name="cmLinkPhone" type="text" placeholder="请输入联系人电话" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li class="email">
+                            <label for="cmLinkEmail">邮箱：</label>
+                            <input id="cmLinkEmail" name="cmLinkEmail" type="text" placeholder="请输入联系人邮箱" readonly="readonly">
+                        </li>
+                    </ul>
+                </div>
+                <div class="title line">客户账户信息
+                </div>
+                <div style="height: 250px">
+                    <ul>
+                        <li>
+                            <label for="cardNo">对公账号：</label>
+                            <input id="cardNo" name="cardNo" type="text" placeholder="请输入对公账号" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="cardHolderName">对公户名：</label>
+                            <input id="cardHolderName" name="cardHolderName" type="text" placeholder="请输入对公户名" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="cardBankName">开户行：</label>
+                            <input id="cardBankName" name="cardBankName" type="text"  placeholder="请输入开户行" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="cardBranchName">开户支行：</label>
+                            <input id="cardBranchName" name="cardBranchName" type="text"  placeholder="请输入开户支行" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="cardBranchNo">联行号：</label>
+                            <input id="cardBranchNo" name="cardBranchNo" type="text" placeholder="请输入联行号" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="taxInfo">税号：</label>
+                            <input id="taxInfo" name="taxInfo" type="text" placeholder="请输入纳税人识别号" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="contactInfo">联系方式：</label>
+                            <input id="contactInfo" name="contactInfo" type="text" placeholder="请输入联系方式" readonly="readonly">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="privateP" style="height: 720px">
+                <div class="title">基本信息</div>
+                <div>
+                    <ul>
+                        <li>
+                            <label for="inNamePr">个人姓名：</label>
+                            <input id="inNamePr" name="inName" type="text" placeholder="请输入个人姓名" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="inEnNamePr">个人英文名：</label>
+                            <input id="inEnNamePr" name="inEnName" type="text" placeholder="请输入个人英文名" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inSexualPr">个人性别：</label>
+                            <select id="inSexualPr" name="inSexual" class="selectpicker" placeholer="请选择性别" disabled="true">
+                                <option value="man">男</option>
+                                <option value="woman">女</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label for="inAgePr">个人年龄：</label>
+                            <input id="inAgePr" name="inAge" type="text" placeholder="请输入个人年龄" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inMobilePr">个人手机号：</label>
+                            <input id="inMobilePr" name="inMobile" type="text" placeholder="请输入个人手机号" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="inOrigPr">个人籍贯：</label>
+                            <input id="inOrigPr" name="inOrig" type="text" placeholder="请输入个人籍贯" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inIdTypePr">证件类型：</label>
+                            <select id="inIdTypePr" name="inIdType" class="selectpicker" placeholer="请选择证件类型" disabled="true">
+                                <option value="SFZ">身份证</option>
+                                <option value="TBZ">台胞证</option>
+                                <option value="JGZ">军官证</option>
+                                <option value="HZ">护照</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inCountryPr">国籍：</label>
+                            <input type="text" id="inCountryPr" name="inCountry" placeholder="请输入国籍" style="width: 350px" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="inOrigAddress">户籍地址：</label>
+                            <input type="text" id="inOrigAddress" name="inOrigAddress" placeholder="请输入户籍地址" style="width: 350px" readonly="readonly">
+                        </li>
+                    </ul>
+                </div>
+                <div class="title line">客户账户信息
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <label for="cardNoPr">银行卡号：</label>
+                            <input id="cardNoPr" name="cardNo" type="text" placeholder="请输入银行卡号" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="cardHolderNamePr">持卡人姓名：</label>
+                            <input id="cardHolderNamePr" name="cardHolderName" type="text" placeholder="请输入银行卡号" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="contactInfoPr">银行预留手机号：</label>
+                            <input id="contactInfoPr" name="contactInfo" type="text" placeholder="请输入银行预留手机号" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="idNo">持卡人证件号：</label>
+                            <input id="idNo" name="idNo" type="text" placeholder="请输入持卡人证件号" readonly="readonly">
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                        <li>
+                            <label for="cardBankNamePr">开户行：</label>
+                            <input id="cardBankNamePr" name="cardBankName" type="text"  placeholder="请输入开户行" readonly="readonly">
+                        </li>
+                        <li>
+                            <label for="cardBranchNamePr">开户支行：</label>
+                            <input id="cardBranchNamePr" name="cardBranchName" type="text"  placeholder="请输入开户支行" readonly="readonly">
+                        </li>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="cardBranchNoPr">联行号：</label>
+                            <input id="cardBranchNoPr" name="cardBranchNo" type="text" placeholder="请输入联行号" readonly="readonly">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/customer_detail.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" th:inline="javascript">
+        $(function () {
+            initForm();
+        });
+        var _itemList = ['inName','inEnName','cmAddress','cmRegisterAmount','cmCompanyNo','cmCatagory','cmMainBusiness',
+            'cmLegalName','cmLegalPhone','cmLegalEmail','cmLinkName','cmLinkPhone','cmLinkEmail','cardNo','cardHolderName','cardBankName','cardBranchNo',
+            'taxInfo','contactInfo','cardBranchName'];
+        var _itemList1 = ['inName','inEnName','inAge','inMobile','inOrig','inCountry','inOrigAddress','cardNo','cardHolderName',
+            'contactInfo','idNo','cardBankName','cardBranchName','cardBranchNo'];
+
+        function initForm() {
+            var initObj = [[${rout}]];
+            var initObj1 = [[${clientAccount}]];
+            console.log(initObj1);
+            $('#clientType').val(initObj.clientType);
+            if(initObj.clientType == 'COMPANY'){
+                $('.privateP').hide();
+                $('#inName').val(initObj.inName);
+                $('#inEnName').val(initObj.inEnName);
+                $('#cmAddress').val(initObj.cmAddress);
+                $('#cmRegisterAmount').val(initObj.cmRegisterAmount);
+                $('#cmCompanyNo').val(initObj.cmCompanyNo);
+                $('#cmCatagory').val(initObj.cmCatagory);
+                $('#cmMainBusiness').val(initObj.cmMainBusiness);
+                $('#cmLegalName').val(initObj.cmLegalName);
+                $('#cmLegalPhone').val(initObj.cmLegalPhone);
+                $('#cmLegalEmail').val(initObj.cmLegalEmail);
+                $('#cmLinkName').val(initObj.cmLinkName);
+                $('#cmLinkPhone').val(initObj.cmLinkPhone);
+                $('#cmLinkEmail').val(initObj.cmLinkEmail);
+                $('#cardNo').val(initObj1.cardNo);
+                $('#cardHolderName').val(initObj1.cardHolderName);
+                $('#cardBankName').val(initObj1.cardBankName);
+                $('#cardBranchName').val(initObj1.cardBranchName);
+                $('#cardBranchNo').val(initObj1.cardBranchNo);
+                $('#taxInfo').val(initObj1.taxInfo);
+                $('#contactInfo').val(initObj1.contactInfo);
+            }else if(initObj.clientType == 'INDIVIDUAL'){
+                $('.company').hide();
+                $('#inNamePr').val(initObj.inName);
+                $('#inEnNamePr').val(initObj.inEnName);
+                $('#inSexualPr').val(initObj.inSexual);
+                $('#inAgePr').val(initObj.inAge);
+                $('#inMobilePr').val(initObj.inMobile);
+                $('#inOrigPr').val(initObj.inOrig);
+                $('#inIdTypePr').val(initObj.inIdType);
+                $('#inCountryPr').val(initObj.inCountry);
+                $('#inOrigAddress').val(initObj.inOrigAddress);
+                $('#cardNoPr').val(initObj1.cardNo);
+                $('#cardHolderNamePr').val(initObj1.cardHolderName);
+                $('#contactInfoPr').val(initObj1.contactInfo);
+                $('#idNo').val(initObj1.idNo);
+                $('#cardBankNamePr').val(initObj1.cardBankName);
+                $('#cardBranchNamePr').val(initObj1.cardBranchName);
+                $('#cardBranchNoPr').val(initObj1.cardBranchNo);
+            }
+        }
+
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.BuildingInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.BuildingInfo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="PROPERTY_ID" property="propertyId" jdbcType="DECIMAL" />
+    <result column="BUILDING_NAME" property="buildingName" jdbcType="VARCHAR" />
+    <result column="BUILDING_AREA" property="buildingArea" jdbcType="VARCHAR" />
+    <result column="BUILDING_DESC" property="buildingDesc" jdbcType="VARCHAR" />
+    <result column="BUILDING_PURPOSE" property="buildingPurpose" jdbcType="VARCHAR" />
+    <result column="OWNER_TYPE" property="ownerType" jdbcType="VARCHAR" />
+    <result column="OWNER_NAME" property="ownerName" jdbcType="VARCHAR" />
+    <result column="OWNER_CONTACT" property="ownerContact" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, PROPERTY_ID, BUILDING_NAME, BUILDING_AREA, BUILDING_DESC, BUILDING_PURPOSE, 
+    OWNER_TYPE, OWNER_NAME, OWNER_CONTACT, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.BuildingInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BUILDING_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from BUILDING_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from BUILDING_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.BuildingInfoExample" >
+    delete from BUILDING_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.BuildingInfo" >
+    insert into BUILDING_INFO (ID, COMPANY_ID, PROPERTY_ID, 
+      BUILDING_NAME, BUILDING_AREA, BUILDING_DESC, 
+      BUILDING_PURPOSE, OWNER_TYPE, OWNER_NAME, 
+      OWNER_CONTACT, REMARK)
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{propertyId,jdbcType=DECIMAL}, 
+      #{buildingName,jdbcType=VARCHAR}, #{buildingArea,jdbcType=VARCHAR}, #{buildingDesc,jdbcType=VARCHAR}, 
+      #{buildingPurpose,jdbcType=VARCHAR}, #{ownerType,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, 
+      #{ownerContact,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.BuildingInfo" >
+    insert into BUILDING_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="propertyId != null" >
+        PROPERTY_ID,
+      </if>
+      <if test="buildingName != null" >
+        BUILDING_NAME,
+      </if>
+      <if test="buildingArea != null" >
+        BUILDING_AREA,
+      </if>
+      <if test="buildingDesc != null" >
+        BUILDING_DESC,
+      </if>
+      <if test="buildingPurpose != null" >
+        BUILDING_PURPOSE,
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE,
+      </if>
+      <if test="ownerName != null" >
+        OWNER_NAME,
+      </if>
+      <if test="ownerContact != null" >
+        OWNER_CONTACT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(BUILDING_INFO_SEQ.nextval),
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyId != null" >
+        #{propertyId,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingName != null" >
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingArea != null" >
+        #{buildingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingDesc != null" >
+        #{buildingDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingPurpose != null" >
+        #{buildingPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null" >
+        #{ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerContact != null" >
+        #{ownerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.BuildingInfoExample" resultType="java.lang.Integer" >
+    select count(*) from BUILDING_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update BUILDING_INFO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.propertyId != null" >
+        PROPERTY_ID = #{record.propertyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.buildingName != null" >
+        BUILDING_NAME = #{record.buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingArea != null" >
+        BUILDING_AREA = #{record.buildingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingDesc != null" >
+        BUILDING_DESC = #{record.buildingDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingPurpose != null" >
+        BUILDING_PURPOSE = #{record.buildingPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerType != null" >
+        OWNER_TYPE = #{record.ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerName != null" >
+        OWNER_NAME = #{record.ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerContact != null" >
+        OWNER_CONTACT = #{record.ownerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update BUILDING_INFO
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      PROPERTY_ID = #{record.propertyId,jdbcType=DECIMAL},
+      BUILDING_NAME = #{record.buildingName,jdbcType=VARCHAR},
+      BUILDING_AREA = #{record.buildingArea,jdbcType=VARCHAR},
+      BUILDING_DESC = #{record.buildingDesc,jdbcType=VARCHAR},
+      BUILDING_PURPOSE = #{record.buildingPurpose,jdbcType=VARCHAR},
+      OWNER_TYPE = #{record.ownerType,jdbcType=VARCHAR},
+      OWNER_NAME = #{record.ownerName,jdbcType=VARCHAR},
+      OWNER_CONTACT = #{record.ownerContact,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.BuildingInfo" >
+    update BUILDING_INFO
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyId != null" >
+        PROPERTY_ID = #{propertyId,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingName != null" >
+        BUILDING_NAME = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingArea != null" >
+        BUILDING_AREA = #{buildingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingDesc != null" >
+        BUILDING_DESC = #{buildingDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingPurpose != null" >
+        BUILDING_PURPOSE = #{buildingPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE = #{ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        OWNER_NAME = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerContact != null" >
+        OWNER_CONTACT = #{ownerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.BuildingInfo" >
+    update BUILDING_INFO
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      PROPERTY_ID = #{propertyId,jdbcType=DECIMAL},
+      BUILDING_NAME = #{buildingName,jdbcType=VARCHAR},
+      BUILDING_AREA = #{buildingArea,jdbcType=VARCHAR},
+      BUILDING_DESC = #{buildingDesc,jdbcType=VARCHAR},
+      BUILDING_PURPOSE = #{buildingPurpose,jdbcType=VARCHAR},
+      OWNER_TYPE = #{ownerType,jdbcType=VARCHAR},
+      OWNER_NAME = #{ownerName,jdbcType=VARCHAR},
+      OWNER_CONTACT = #{ownerContact,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectPropertyByCompanyId" parameterType="java.math.BigDecimal" resultType="map">
+    select PROPERTY_NAME,ID from PROPERTY_INFO where COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectBuilding" parameterType="java.math.BigDecimal" resultType="map">
+    select * from BUILDING_INFO where PROPERTY_ID = #{propertyId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectPropertyName" parameterType="java.math.BigDecimal" resultType="java.lang.String">
+    SELECT PROPERTY_NAME from PROPERTY_INFO where id = #{propertyId,jdbcType=DECIMAL}
+  </select>
+</mapper>

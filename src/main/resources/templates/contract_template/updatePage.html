@@ -1,0 +1,92 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>申鑫物业平台</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/template_add.css">
+</head>
+<body>
+<div class="inner-content">
+    <div class="title">新增合同模板</div>
+    <ul>
+        <li><span>业务类型：</span>
+            <select class="selectpicker" title="请选择业态类型"  name="contractType" >
+                <option value="">请选择业态类型</option>
+                <option value="BUSINESS">商业楼宇</option>
+                <option value="RESIDENCE">居民住宅</option>
+                <option value="HOTEL">酒店</option>
+            </select></li>
+        <li><span>模板名称：</span>
+            <input type="text" placeholder="请输入模板名称" name="contractTemplateName"></li>
+        <li><span>模板地址：</span>
+            <input type="text" placeholder="请输入模板地址" name="templateDocLocation"></li>
+    </ul>
+    <div class="edit-tool">
+        <button class="cancel" onclick="clickToClose();">取消</button>
+        <button class="sure" onclick="sureClick();">确定</button>
+    </div>
+</div>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/lib/layui/layui.all.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/js/base.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    function clickToClose(){
+        parent.closeLayer();
+    }
+    var _itemList = ['contractTemplateName','templateDocLocation'];
+    $(function(){
+        var initObj = [[${rout}]];
+        console.log(initObj);
+        for(var i in _itemList){
+            var key = _itemList[i];
+            var value = initObj[key];
+            if(value){
+                $('ul li [name='+key+']').val(value);
+            }
+        }
+        $('[name="contractType"]').val(initObj.contractType);
+    });
+    function sureClick() {
+        var _itemDic = {};
+        for(var i in _itemList){
+            var key = _itemList[i];
+            var value = $('input[name='+key+']').val().trim();
+            if(value.length == 0){
+                layer.msg($('input[name='+key+']').attr('placeholder'));
+                return;
+            }
+            _itemDic[key] = value;
+        }
+        var contractType = $('[name="contractType"]').val().trim();
+        if(contractType.length == 0){
+            layer.msg("请选择业态类型");
+            return;
+        }
+        _itemDic.contractType = contractType;
+        _itemDic.id = [[${rout}]].id;
+        $.ajax({
+            url:'/contract/template/update',
+            dataType:'json',
+            data:_itemDic,
+            type:'POST',
+            success:function(obj){
+                if(obj.code === '200'){
+                    clickToClose();
+                    parent.resetData();
+                    parent.showMsg('修改成功');
+                }else{
+                    layer.msg(obj.msg);
+                }
+            },error: function(){ //失败
+                layer.alert("服务器内部错误");
+            }
+        });
+
+    }
+</script>
+</body>
+</html>

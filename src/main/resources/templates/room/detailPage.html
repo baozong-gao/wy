@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div layout:fragment="content">
+    <div class="content">
+        <form>
+            <div class="title">预定信息<span class="title_sub">（*为必填项）</span></div>
+            <div>
+                <ul>
+                    <li>
+                        <label for="roomDesc">房间信息：</label>
+                        <input type="text" class="specialInput" id="roomDesc" name="roomDesc" disabled="true">
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <label for="bookerName">预订人：</label>
+                        <input type="text" id="bookerName" name="bookerName" disabled="true">
+                    </li>
+                    <li>
+                        <label for="bookerMobile">手机号：</label>
+                        <input type="text" id="bookerMobile" name="bookerMobile" disabled="true">
+                    </li>
+                </ul>
+                <ul>
+                    <li style="position: relative">
+                        <label for="feeRemark">预定金额：</label>
+                        <input type="text" id="feeRemark" name="feeRemark" disabled="true">
+                        <span style="position: absolute;right: 5px">元</span>
+                    </li>
+                    <li>
+                        <label for="lastSignDate">最晚签约日：</label>
+                        <input type="text" id="lastSignDate" name="lastSignDate" disabled="true">
+                    </li>
+                </ul>
+                <ul>
+                    <li class="area">
+                        <label for="remark">备注：</label>
+                        <textarea cols="5" rows="5" id="remark" name="remark" style="width: 550px;height: 60px;padding-top: 8px;padding-left: 10px;resize:none;" disabled="true"></textarea>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+    <head>
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/hotel_reserve_manage.css">
+        <script src="/js/jquery-2.1.4.js"></script>
+        <script src="/lib/layui/layui.all.js"></script>
+        <script src="/lib/bootstrap/js/bootstrap.js"></script>
+                <script src="/js/base.js"></script>
+        <script src="/js/regular.js"></script>
+    </head>
+    <script type="text/javascript" th:inline="javascript">
+        $(function () {
+            console.log([[${rout}]]);
+            $('#roomDesc').val([[${roomDesc}]]);
+            $('#bookerName').val([[${rout}]][0].BOOKER_NAME);
+            $('#bookerMobile').val([[${rout}]][0].BOOKER_MOBILE);
+            $('#feeRemark').val(([[${rout}]][0].FEE_AMOUNT)/100);
+            $('#lastSignDate').val([[${rout}]][0].LAST_SIGN_DATE);
+            $('#remark').val([[${rout}]][0].BOOKING_REMARK);
+        });
+    </script>
+</div>
+</body>
+</html>

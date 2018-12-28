@@ -1,0 +1,214 @@
+.bottom-part .contentPannel > div.subView {
+  background-color: #F6F7FB;
+}
+
+.content {
+  height: 360px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  background-color: white;
+}
+.content .top-title {
+  -webkit-box-align: center;
+          align-items: center;
+  border-bottom: 1px solid #eee;
+  height: 40px;
+}
+
+.content .top-title i.building {
+  width: 20px;
+  height: 20px;
+  background: url("../img/fenrun@2x.png");
+  background-size: 100%;
+  margin-left: 13px;
+  display: inline-block
+}
+.content .top-title i.convenientEntrance {
+  width: 20px;
+  height: 20px;
+  background: url("../img/quick@2x.png");
+  background-size: 100%;
+  margin-left: 13px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+.content .show {
+  flex-direction: row;
+  justify-content:center;
+  display: flex;
+  padding: 106px 223px;
+  min-width: 1400px;
+}
+
+.content .show li{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.content .show li i{
+  font: 16px/22px 'PingFangSC-Medium';
+  color:#333333;
+}
+.content .show li span{
+    padding-top: 10px;
+}
+.content .show li i{
+  width: 80px;
+  height: 80px;
+}
+.tenant{
+  width: 80px;
+  height: 80px;
+  background: url("../img/tenant_registration@2x.png");
+  background-size: 100%;
+
+}
+.client{
+  width: 80px;
+  height: 80px;
+  background: url("../img/customer_registration@2x.png");
+  background-size: 100%;
+}
+.building{
+  width: 80px;
+  height: 80px;
+  background: url("../img/building@2x.png");
+  background-size: 100%;
+}
+.hotel{
+  width: 80px;
+  height: 80px;
+  background: url("../img/hotel_houses@2x.png");
+  background-size: 100%;
+}
+.house{
+  width: 80px;
+  height: 80px;
+  background: url("../img/residential@2x.png");
+  background-size: 100%;
+}
+
+
+.content .top-title span {
+  font: 16px/22px 'PingFangSC-Medium';
+  color: #2f78ec;
+  margin-left: 5px;
+  display: inline-block;
+  padding-top: 10px;
+}
+.content .view {
+  -webkit-box-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+
+.content .view i{
+  text-align: center;
+}
+.content .view span{
+  text-align: center;
+}
+.content .view i.shuline {
+  width: 2px;
+  height: 140px;
+  background-color: #eee;
+}
+.content .view span.view-title {
+  color: #333;
+  font: 17px/20px 'PingFangSC-Medium';
+  margin-left: 20px;
+  margin-top: 20px
+}
+.content .view .left {
+  height: 100%;
+  -webkit-box-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+.content .view .left .info {
+  margin-top: 30px;
+  align-self: center;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  width: 400px;
+  height: 100px;
+  background-color: #F5F9FF;
+  border: 1px solid #B8D6FF;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+.content .view .left .info .num {
+  font-family: PingFangSC-Medium;
+  font-size: 36px;
+  color: #2476E9;
+}
+.content .view .left .info .jian {
+  font-family: PingFangSC-Medium;
+  font-size: 24px;
+  color: #333333;
+  margin-left: 20px;
+}
+.content .view .right {
+  height: 100%;
+  -webkit-box-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+.content .view .right .inner {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+.content .view .right .inner .tips {
+  width: 70px;
+  height: 50px;
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #000;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+.content .view .right .inner .tips > div {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  margin-bottom: 5px;
+}
+.content .view .right .inner .tips > div i {
+  border-radius: 2px;
+  width: 20px;
+  height: 12px;
+  margin-right: 14px;
+}
+.content .view .right .inner .tips > div.tip1 i {
+  background-color: #5798F2;
+}
+.content .view .right .inner .tips > div.tip2 i {
+  background-color: #FFBA37;
+}

@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.ContractBillsDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.ContractBillsDAO" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="CONTRACT_ID" property="contractId" jdbcType="DECIMAL" />
+    <result column="BILL_AMOUNT" property="billAmount" jdbcType="DECIMAL" />
+    <result column="PENALTY_AMOUNT" property="penaltyAmount" jdbcType="DECIMAL" />
+    <result column="DISCOUNT_AMOUNT" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="DISCOUNT_REMARK" property="discountRemark" jdbcType="VARCHAR" />
+    <result column="NEED_PAY_AMOUNT" property="needPayAmount" jdbcType="DECIMAL" />
+    <result column="PAY_AMOUNT" property="payAmount" jdbcType="DECIMAL" />
+    <result column="BILL_STATUS" property="billStatus" jdbcType="VARCHAR" />
+    <result column="BILL_REMARK" property="billRemark" jdbcType="VARCHAR" />
+    <result column="NOTIFY_STATUS" property="notifyStatus" jdbcType="VARCHAR" />
+    <result column="PROMPT_STATUS" property="promptStatus" jdbcType="VARCHAR" />
+    <result column="NOTIFY_TIMES" property="notifyTimes" jdbcType="DECIMAL" />
+    <result column="LAST_NOTIFY_TIME" property="lastNotifyTime" jdbcType="CHAR" />
+    <result column="PROMPT_TIMES" property="promptTimes" jdbcType="DECIMAL" />
+    <result column="LAST_PROMPT_TIME" property="lastPromptTime" jdbcType="CHAR" />
+    <result column="PAYMENT_RECORD_ID" property="paymentRecordId" jdbcType="DECIMAL" />
+    <result column="DELETED" property="deleted" jdbcType="CHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, CONTRACT_ID, BILL_AMOUNT, PENALTY_AMOUNT, DISCOUNT_AMOUNT, DISCOUNT_REMARK, 
+    NEED_PAY_AMOUNT, PAY_AMOUNT, BILL_STATUS, BILL_REMARK, NOTIFY_STATUS, PROMPT_STATUS, 
+    NOTIFY_TIMES, LAST_NOTIFY_TIME, PROMPT_TIMES, LAST_PROMPT_TIME, PAYMENT_RECORD_ID, 
+    DELETED, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME, VERSION
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractBillsDAOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CONTRACT_BILLS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from CONTRACT_BILLS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from CONTRACT_BILLS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractBillsDAOExample" >
+    delete from CONTRACT_BILLS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractBillsDAO" >
+    insert into CONTRACT_BILLS (ID, COMPANY_ID, CONTRACT_ID, 
+      BILL_AMOUNT, PENALTY_AMOUNT, DISCOUNT_AMOUNT, 
+      DISCOUNT_REMARK, NEED_PAY_AMOUNT, PAY_AMOUNT, 
+      BILL_STATUS, BILL_REMARK, NOTIFY_STATUS, 
+      PROMPT_STATUS, NOTIFY_TIMES, LAST_NOTIFY_TIME, 
+      PROMPT_TIMES, LAST_PROMPT_TIME, PAYMENT_RECORD_ID, 
+      DELETED, CREATE_USER, UPDATE_USER, 
+      CREATE_TIME, UPDATE_TIME, VERSION
+      )
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{contractId,jdbcType=DECIMAL}, 
+      #{billAmount,jdbcType=DECIMAL}, #{penaltyAmount,jdbcType=DECIMAL}, #{discountAmount,jdbcType=DECIMAL}, 
+      #{discountRemark,jdbcType=VARCHAR}, #{needPayAmount,jdbcType=DECIMAL}, #{payAmount,jdbcType=DECIMAL}, 
+      #{billStatus,jdbcType=VARCHAR}, #{billRemark,jdbcType=VARCHAR}, #{notifyStatus,jdbcType=VARCHAR}, 
+      #{promptStatus,jdbcType=VARCHAR}, #{notifyTimes,jdbcType=DECIMAL}, #{lastNotifyTime,jdbcType=CHAR}, 
+      #{promptTimes,jdbcType=DECIMAL}, #{lastPromptTime,jdbcType=CHAR}, #{paymentRecordId,jdbcType=DECIMAL}, 
+      #{deleted,jdbcType=CHAR}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractBillsDAO" >
+    insert into CONTRACT_BILLS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="contractId != null" >
+        CONTRACT_ID,
+      </if>
+      <if test="billAmount != null" >
+        BILL_AMOUNT,
+      </if>
+      <if test="penaltyAmount != null" >
+        PENALTY_AMOUNT,
+      </if>
+      <if test="discountAmount != null" >
+        DISCOUNT_AMOUNT,
+      </if>
+      <if test="discountRemark != null" >
+        DISCOUNT_REMARK,
+      </if>
+      <if test="needPayAmount != null" >
+        NEED_PAY_AMOUNT,
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT,
+      </if>
+      <if test="billStatus != null" >
+        BILL_STATUS,
+      </if>
+      <if test="billRemark != null" >
+        BILL_REMARK,
+      </if>
+      <if test="notifyStatus != null" >
+        NOTIFY_STATUS,
+      </if>
+      <if test="promptStatus != null" >
+        PROMPT_STATUS,
+      </if>
+      <if test="notifyTimes != null" >
+        NOTIFY_TIMES,
+      </if>
+      <if test="lastNotifyTime != null" >
+        LAST_NOTIFY_TIME,
+      </if>
+      <if test="promptTimes != null" >
+        PROMPT_TIMES,
+      </if>
+      <if test="lastPromptTime != null" >
+        LAST_PROMPT_TIME,
+      </if>
+      <if test="paymentRecordId != null" >
+        PAYMENT_RECORD_ID,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractId != null" >
+        #{contractId,jdbcType=DECIMAL},
+      </if>
+      <if test="billAmount != null" >
+        #{billAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="penaltyAmount != null" >
+        #{penaltyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountAmount != null" >
+        #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountRemark != null" >
+        #{discountRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="needPayAmount != null" >
+        #{needPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="billStatus != null" >
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="billRemark != null" >
+        #{billRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyStatus != null" >
+        #{notifyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="promptStatus != null" >
+        #{promptStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyTimes != null" >
+        #{notifyTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="lastNotifyTime != null" >
+        #{lastNotifyTime,jdbcType=CHAR},
+      </if>
+      <if test="promptTimes != null" >
+        #{promptTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="lastPromptTime != null" >
+        #{lastPromptTime,jdbcType=CHAR},
+      </if>
+      <if test="paymentRecordId != null" >
+        #{paymentRecordId,jdbcType=DECIMAL},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractBillsDAOExample" resultType="java.lang.Integer" >
+    select count(*) from CONTRACT_BILLS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update CONTRACT_BILLS
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contractId != null" >
+        CONTRACT_ID = #{record.contractId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.billAmount != null" >
+        BILL_AMOUNT = #{record.billAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.penaltyAmount != null" >
+        PENALTY_AMOUNT = #{record.penaltyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discountAmount != null" >
+        DISCOUNT_AMOUNT = #{record.discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discountRemark != null" >
+        DISCOUNT_REMARK = #{record.discountRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needPayAmount != null" >
+        NEED_PAY_AMOUNT = #{record.needPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payAmount != null" >
+        PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.billStatus != null" >
+        BILL_STATUS = #{record.billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billRemark != null" >
+        BILL_REMARK = #{record.billRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notifyStatus != null" >
+        NOTIFY_STATUS = #{record.notifyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.promptStatus != null" >
+        PROMPT_STATUS = #{record.promptStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notifyTimes != null" >
+        NOTIFY_TIMES = #{record.notifyTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastNotifyTime != null" >
+        LAST_NOTIFY_TIME = #{record.lastNotifyTime,jdbcType=CHAR},
+      </if>
+      <if test="record.promptTimes != null" >
+        PROMPT_TIMES = #{record.promptTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastPromptTime != null" >
+        LAST_PROMPT_TIME = #{record.lastPromptTime,jdbcType=CHAR},
+      </if>
+      <if test="record.paymentRecordId != null" >
+        PAYMENT_RECORD_ID = #{record.paymentRecordId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deleted != null" >
+        DELETED = #{record.deleted,jdbcType=CHAR},
+      </if>
+      <if test="record.createUser != null" >
+        CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null" >
+        UPDATE_USER = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        VERSION = #{record.version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update CONTRACT_BILLS
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      CONTRACT_ID = #{record.contractId,jdbcType=DECIMAL},
+      BILL_AMOUNT = #{record.billAmount,jdbcType=DECIMAL},
+      PENALTY_AMOUNT = #{record.penaltyAmount,jdbcType=DECIMAL},
+      DISCOUNT_AMOUNT = #{record.discountAmount,jdbcType=DECIMAL},
+      DISCOUNT_REMARK = #{record.discountRemark,jdbcType=VARCHAR},
+      NEED_PAY_AMOUNT = #{record.needPayAmount,jdbcType=DECIMAL},
+      PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      BILL_STATUS = #{record.billStatus,jdbcType=VARCHAR},
+      BILL_REMARK = #{record.billRemark,jdbcType=VARCHAR},
+      NOTIFY_STATUS = #{record.notifyStatus,jdbcType=VARCHAR},
+      PROMPT_STATUS = #{record.promptStatus,jdbcType=VARCHAR},
+      NOTIFY_TIMES = #{record.notifyTimes,jdbcType=DECIMAL},
+      LAST_NOTIFY_TIME = #{record.lastNotifyTime,jdbcType=CHAR},
+      PROMPT_TIMES = #{record.promptTimes,jdbcType=DECIMAL},
+      LAST_PROMPT_TIME = #{record.lastPromptTime,jdbcType=CHAR},
+      PAYMENT_RECORD_ID = #{record.paymentRecordId,jdbcType=DECIMAL},
+      DELETED = #{record.deleted,jdbcType=CHAR},
+      CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      UPDATE_USER = #{record.updateUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      VERSION = #{record.version,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractBillsDAO" >
+    update CONTRACT_BILLS
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractId != null" >
+        CONTRACT_ID = #{contractId,jdbcType=DECIMAL},
+      </if>
+      <if test="billAmount != null" >
+        BILL_AMOUNT = #{billAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="penaltyAmount != null" >
+        PENALTY_AMOUNT = #{penaltyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountAmount != null" >
+        DISCOUNT_AMOUNT = #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountRemark != null" >
+        DISCOUNT_REMARK = #{discountRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="needPayAmount != null" >
+        NEED_PAY_AMOUNT = #{needPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="billStatus != null" >
+        BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="billRemark != null" >
+        BILL_REMARK = #{billRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyStatus != null" >
+        NOTIFY_STATUS = #{notifyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="promptStatus != null" >
+        PROMPT_STATUS = #{promptStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyTimes != null" >
+        NOTIFY_TIMES = #{notifyTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="lastNotifyTime != null" >
+        LAST_NOTIFY_TIME = #{lastNotifyTime,jdbcType=CHAR},
+      </if>
+      <if test="promptTimes != null" >
+        PROMPT_TIMES = #{promptTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="lastPromptTime != null" >
+        LAST_PROMPT_TIME = #{lastPromptTime,jdbcType=CHAR},
+      </if>
+      <if test="paymentRecordId != null" >
+        PAYMENT_RECORD_ID = #{paymentRecordId,jdbcType=DECIMAL},
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractBillsDAO" >
+    update CONTRACT_BILLS
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      CONTRACT_ID = #{contractId,jdbcType=DECIMAL},
+      BILL_AMOUNT = #{billAmount,jdbcType=DECIMAL},
+      PENALTY_AMOUNT = #{penaltyAmount,jdbcType=DECIMAL},
+      DISCOUNT_AMOUNT = #{discountAmount,jdbcType=DECIMAL},
+      DISCOUNT_REMARK = #{discountRemark,jdbcType=VARCHAR},
+      NEED_PAY_AMOUNT = #{needPayAmount,jdbcType=DECIMAL},
+      PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      BILL_REMARK = #{billRemark,jdbcType=VARCHAR},
+      NOTIFY_STATUS = #{notifyStatus,jdbcType=VARCHAR},
+      PROMPT_STATUS = #{promptStatus,jdbcType=VARCHAR},
+      NOTIFY_TIMES = #{notifyTimes,jdbcType=DECIMAL},
+      LAST_NOTIFY_TIME = #{lastNotifyTime,jdbcType=CHAR},
+      PROMPT_TIMES = #{promptTimes,jdbcType=DECIMAL},
+      LAST_PROMPT_TIME = #{lastPromptTime,jdbcType=CHAR},
+      PAYMENT_RECORD_ID = #{paymentRecordId,jdbcType=DECIMAL},
+      DELETED = #{deleted,jdbcType=CHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateContractBillsFavorable" parameterType="com.shenxin.core.smartpropertymanagement.domain.dto.ContractBillsDTO">
+    update CONTRACT_BILLS
+    set DISCOUNT_AMOUNT = #{discountAmount,jdbcType=DECIMAL},
+      NEED_PAY_AMOUNT = #{needPayAmount,jdbcType=DECIMAL},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL} +1
+      where ID = #{id,jdbcType=DECIMAL}
+      and
+      VERSION = #{version,jdbcType=DECIMAL}
+  </update>
+</mapper>

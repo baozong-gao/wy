@@ -1,0 +1,97 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    margin-left: 14px;
+}
+
+.content .title{
+    display: flex;
+    margin-top: 19px;
+    font: 14px/20px 'PingFangSC-Medium';
+    color: #333;
+}
+.content .title .title_sub {
+    font: 12px/20px 'PingFangSC-Regular';
+    color: #151515;
+}
+.content ul{
+    display: flex;
+    align-items:center;
+    margin-top: 20px;
+    font: 12px/17px 'PingFangSC-Regular';
+    color: #333;
+}
+.content ul li{
+    display: flex;
+    align-items: center;
+}
+.content ul li label{
+    text-align: right;
+    width: 80px;
+    font: 12px/17px 'PingFangSC-Regular';
+    color: #333;
+}
+.content ul li input{
+    align-items: center;
+    border: 1px solid #ccc;
+    height: 32px;
+    width: 220px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font: 12px/17px 'PingFangSC-Regular';
+}
+.content ul li i.warn {
+    margin-left: 10px;
+    font-style: normal;
+    content: '12';
+    width: 8px;
+    height: 20px;
+    color: #d7352c;
+    font: 14px/20px 'PingFangSC-Regular';
+    margin-right: 30px;
+}
+.specialInput{
+    color: #2476E9;
+    background-color: #F5F9FF;
+}
+.content ul li input[type=checkbox] {
+    margin-right: 6px;
+    width: 14px;
+    height: 14px;
+    background: url("../img/many_unselect@2x.png") no-repeat;
+    background-size: 100%;
+    margin-left: 240px;
+}
+.content ul li input[type=checkbox]:checked {
+    background: url("../img/many_select@2x.png") no-repeat;
+    background-size: 100%;
+}
+.notice{
+    font: 12px/20px 'PingFangSC-Regular';
+    color: #2476E9;
+}
+.btnUl{
+    margin-top: 30px;
+}
+.cancelBtn{
+    width: 120px;
+    height: 32px;
+    font: 14px/17px 'PingFangSC-Regular';
+    background-color:#FFFFFF;
+    background-size: 100%;
+    border: 1px solid #CCCCCC;
+    margin-left: 204px;
+    margin-right: 20px;
+    border-radius: 2px;
+    color: #333333 ;
+}
+.okBtn{
+    width: 120px;
+    height: 32px;
+    font: 14px/17px 'PingFangSC-Regular';
+    background-color:#2476E9;
+    background-size: 100%;
+    border: 1px solid #CCCCCC;
+    border-radius: 2px;
+    color: #FFFFFF;
+}

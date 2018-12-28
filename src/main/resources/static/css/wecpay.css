@@ -1,0 +1,305 @@
+@charset "UTF-8";
+.content {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    margin-left: 14px;
+}
+.content .toolDiv{
+    margin-top: 19px;
+}
+.content .toolDiv .row1 {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 32px;
+    font: 12px/17px 'PingFangSC-Regular';
+    color: #333;
+    /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+}
+.content .toolDiv .row1 input {
+    border: 1px solid #ccc;
+    height: 32px;
+    width: 200px;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font: 12px/17px 'PingFangSC-Regular';
+}
+.content .toolDiv .row1 input::-webkit-input-placeholder {
+    color: #CCCCCC;
+}
+.content .toolDiv .row1 input:-moz-placeholder {
+    color: #CCCCCC;
+}
+.content .toolDiv .row1 input::-moz-placeholder {
+    color: #CCCCCC;
+}
+.content .toolDiv .row1 input:-ms-input-placeholder {
+    color: #CCCCCC;
+}
+.content .toolDiv .row1 span.status {
+    margin-left: 10px;
+}
+.content .toolDiv .row1 select {
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+    border: 1px solid #ccc;
+    width: 90px;
+    border-radius: 2px;
+    padding-left: 10px;
+    /*很关键：将默认的select选择框样式清除*/
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-focus: none;
+    -moz-user-select: none;
+    outline: none;
+    background: url("../img/down_menu@2x.png") no-repeat scroll right 8px center transparent;
+    /*在选择框的最右侧中间显示小箭头图片*/
+    background-size: 8px 11.4px;
+    padding-right: 14px;
+    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+}
+.content .toolDiv .row1 select.status {
+    margin-left: 10px;
+    width: 160px;
+}
+.content .toolDiv .row1 select:invalid {
+    color: lightgray;
+}
+.content .toolDiv .row1 select option {
+    height: 30px;
+    margin: 0 -4px;
+    outline: none;
+}
+.content .toolDiv .row1 select::-ms-expand {
+    display: none;
+}
+.content .toolDiv .row1 .clear-btn {
+    width: 80px;
+    height: 32px;
+    color: #333333;
+    border: 1px solid #ddd;
+    margin-left: 10px;
+    font: 14px/20px 'PingFangSC-Regular';
+}
+.content .toolDiv .row1 .query-btn {
+    width: 100px;
+    height: 32px;
+    display: -webkit-box;
+    display: flex;
+    background-color: #2476E9;
+    font: 14px/20px 'PingFangSC-Regular';
+    color: white;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-left: 20px;
+    border-radius: 2px;
+}
+.content .toolDiv .row1 .query-btn i.query {
+    width: 14px;
+    height: 14px;
+    background: url("../img/search_w@2x.png") no-repeat;
+    background-size: 100%;
+    margin-right: 6px;
+}
+
+.content .select-items{
+    margin-top: 12px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    height:38px;
+    margin-bottom: 10px;
+}
+
+.content .select-items i{
+    width: 0px;
+    height: 10px;
+    background-color: #eee;
+    border:1px solid #eee;
+    margin:0 11px;
+}
+
+.content .select-items .item{
+    font:14px/20px 'PingFangSC-Medium';
+    color:#333;
+    padding: 8px 9px;
+    border-bottom: 2px solid transparent;
+}
+
+.content .select-items .item.select{
+    color:#2476E9;
+    border-bottom: 2px solid #2476E9;
+}
+.content .bottom-content{
+    display: flex;
+}
+.content .bottom-content .left-selects{
+    width:280px;
+    height: 550px;
+    margin-bottom: 50px;
+    border: 1px solid #E6E6E6;
+    color:#333;
+    font-family: 'PingFangSC-Medium';
+    display: flex;
+    flex-direction: column;
+}
+
+.content .bottom-content .left-selects .top-tool{
+    display: flex;
+    height: 58px;
+    align-items: center;
+    background-color:#F6F8FB;
+}
+
+.content .bottom-content .left-selects .top-tool .left-part{
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content .bottom-content .left-selects .top-tool .floor-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.content .bottom-content .left-selects .top-tool input{
+    width: 200px;
+    border: 1px solid #D1D1D1;
+    height: 32px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font: 12px/17px 'PingFangSC-Regular';
+}
+
+.content .bottom-content .left-selects .left-part{
+    width: 216px;
+    border-right: 1px solid #E6E6E6;
+    height: 100%;
+    position: relative;
+}
+
+.content .bottom-content .left-selects .left-part .yetai-title{
+    display: flex;
+    align-items: center;
+    font: 14px/20px 'PingFangSC-Medium';
+    height: 37px;
+
+}
+
+.content .bottom-content .left-selects .left-part .yetai-title i{
+    width: 3px;
+    height: 12px;
+    background-color: #2476E9;
+    margin-right: 7px;
+}
+
+.content .bottom-content .left-selects .bottom-pannel{
+    display: flex;
+    font: 12px/17px 'PingFangSC-Medium';
+    flex:1;
+}
+
+.content .bottom-content .left-selects .bottom-pannel .part{
+}
+
+.content .bottom-content .left-selects .bottom-pannel .part.floor{
+    flex:1;
+}
+
+.content .bottom-content .left-selects .bottom-pannel .part li{
+    height: 37px;
+    line-height: 37px;
+    padding-left: 20px;
+}
+
+.content .bottom-content .left-selects .bottom-pannel .floor li{
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content .bottom-content .left-selects .bottom-pannel .part li.select{
+    background-color:#F6F8FB;;
+    color: #2476E9;
+}
+
+.content .bottom-content .right-info {
+    margin-left: 20px;
+}
+
+.content .bottom-content .toolDiv {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.content .bottom-content .toolDiv input[type=checkbox] {
+    margin: 0;
+    margin-right: 6px;
+    width: 14px;
+    height: 14px;
+    background: url("../img/many_unselect@2x.png") no-repeat;
+    background-size: 100%;
+}
+.content .bottom-content .toolDiv input[type=checkbox]:checked {
+    background: url("../img/many_select@2x.png") no-repeat;
+    background-size: 100%;
+}
+
+.content .bottom-content .toolDiv .check-items{
+    display: flex;
+    align-items: center;
+    margin-left: 60px;
+}
+.content .bottom-content .toolDiv .check-items li{
+    display: flex;
+    align-items: center;
+}
+.content .bottom-content .toolDiv .check-items label{
+    margin-right: 12px;
+}
+
+.content .bottom-content .toolDiv .choose-items{
+    display: flex;
+    align-items: center;
+}
+
+.content .bottom-content .toolDiv .choose-items i{
+    width: 2px;
+    height: 14px;
+    background: #ddd;
+    margin-right: 12px;
+}
+
+.content .bottom-content .toolDiv .choose-items span{
+    font:12px/17px 'PingFangSC-Medium';
+    color: #333;
+    margin-right: 20px;
+}
+.content .bottom-content li:active,
+.content .bottom-content .toolDiv .row1 button:active,
+.content .bottom-content .toolDiv .choose-items span:active{
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+}
+
+.content .bottom-content .toolDiv .choose-items span.select{
+    color:#2476E9;
+}

@@ -1,0 +1,320 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+
+    <link rel="stylesheet" href="/css/contract_business.css">
+
+    <div class="pageTitle">
+        合同管理 <i class="dot"></i> 合同列表
+    </div>
+
+    <style>
+        .content .toolDiv .row1 input, .content .toolDiv .row1 select {
+            width: 180px !important;
+        }
+    </style>
+    <div class="content" id="content">
+        <form id="searchForm" method="post" class="toolDiv" style="padding-bottom: 10px;">
+            <div id="searchPanel" class="row1" style="position: relative">
+                <span>搜索条件</span>
+                <select class="grade" style="width: 160px; margin-left: 10px;" title="请选择公司" name="companyId"
+                        id="company">
+                    <option th:each="company:${companys}" th:text="${company.companyName}"
+                            th:value="${company.id}"></option>
+                </select>
+                <select  class="grade" style="width: 160px; margin-left: 10px;" title="请选择业态类型" name="propertyType" id="propertyType" th:placeholder="请选择业态类型">
+                    <option value="">请选择业态类型</option>
+                    <option value="BUSINESS">商业楼宇</option>
+                    <option value="RESIDENCE">居民住宅</option>
+                    <option value="HOTEL">酒店</option>
+                </select>
+                <select class="grade" style="width: 160px; margin-left: 10px;" title="请选择业态" name="property"
+                        id="property">
+                    <option value="">请选择业态</option>
+                    <option th:each="property:${propertys}" th:text="${property.propertyName}"
+                            th:value="${property.id}"></option>
+                </select>
+                <select class="grade" style="width: 160px; margin-left: 10px;" title="请选择楼宇" name="building"
+                        id="building">
+                    <option value="">请选择楼宇</option>
+                </select>
+                <select class="grade" style="width: 160px; margin-left: 10px;" title="请选择房间" name="room" id="room">
+                    <option value="">请选择房间</option>
+                </select>
+
+                <button type="button" class="query-btn" data-type="reload" id="queryBtn"><i class="query"></i>查询
+                </button>
+                <button type="button" class="clear-btn" onclick="resetData();">清空</button>
+                </br>
+            </div>
+
+            <div class="row1" style="padding-left: 48px;">
+                <select class="grade" style="width: 160px; margin-left: 10px;" title="请选择状态" name="contractStatus"
+                        id="propertyId">
+                    <option value="" selected disabled data-hidden="true" hidden>请选择租约状态</option>
+                    <option value="NORMAL">正常</option>
+                    <option value="RETREAT">退房</option>
+                    <option value="NEED_CONFIRM">待确认</option>
+                    <option value="CLOSE">关闭</option>
+                </select>
+                <input name="signerName" type="text" id="floor" placeholder="请输入承租人姓名">
+                <input name="signerMobile" type="text" id="room" placeholder="请输入承租人电话">
+                <input name="contractStartDate" placeholder="请输入租期起止时间" type="text" class="layui-input" id="htDate1">
+            </div>
+        </form>
+        <table class="layui-hide" id="companyTbl"></table>
+    </div>
+
+
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/company_manage.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script type="text/javascript">
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#htDate1', //指定元素
+                range: '~'
+            });
+            laydate.render({
+                elem: '#htDate2', //指定元素
+                range: '~'
+            });
+        });
+        layui.use('table', function () {
+
+
+            var table = layui.table;
+
+            var data = [
+                {field: 'id', title: "序号", sort: true}
+                , {field: 'property', title: "业态名称"}
+                , {field: 'building', title: "楼宇"}
+                , {field: 'room', title: "房屋信息"}
+                , {field: 'principleName', title: "承租人"}
+                , {field: 'principleMobile', title: "承租人手机",}
+                , {field: 'linkPhone', title: "租期始末", templet: function (d) {
+                    if(d.contractStartDate == null) return ''
+                    return d.contractStartDate + " ~ " + d.contractEndDate
+                }}
+                , {
+                    field: 'companyName', title: "租约状态", templet: function (d) {
+                        if(d.contractStatus === 'NORMAL'){
+                            return '正常';
+                        }else if(d.contractStatus === 'FREEZE'){
+                            return '冻结';
+                        }else if(d.contractStatus === 'CLOSE'){
+                            return '关闭';
+                        }else if(d.contractStatus === 'NEED_CONFIRM'){
+                            return '待确认';
+                        }else{
+                            return d.contractStatus;
+                        }
+                    }
+                }
+                // , {
+                //     field: 'contractStatus', title: '操作', templet: function (d) {
+                //         if (d.contractStatus === 'EMPTY') { //EMPTY HOLD
+                //             return '<span class="empty">修改</span>';
+                //         } else if (d.contractStatus === 'RENT') {
+                //             return '<span class="rent">续租</span>';
+                //         } else if (d.contractStatus === 'LIVE') {
+                //             return '<span class="live">详情</span>';
+                //         } else if (d.contractStatus === 'DECORATION') {
+                //             return '<span class="decoration">新增账单</span>';
+                //         }
+                //     }
+                // }
+            ];
+
+            //数据库中读取已知数据
+            table.render({
+                elem: '#companyTbl'
+                , url: '/contract/business/search'
+                , method: 'post'
+                , cols: [data]
+                , even: true
+                , page: true
+//                ,limits: [5,10,20]
+                , request: {
+                    limitName: 'rows'
+                }
+                , response: {
+                    dataName: 'data',
+                    dataSecName: 'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                , id: "testReload"
+            });
+
+
+            var $ = layui.$, active = {
+                reload: function () {
+                    var _from = get_from_array();
+                    if(_from.propertyType  !== "" && _from.property === ""){
+                        layer.msg("请选择业态");
+                        return ;
+                    }
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: _from
+                    });
+                },
+
+                editItem: function () { //获取选中数据
+                    var checkStatus = table.checkStatus('testReload')
+                        , data = checkStatus.data;
+                    if (data.length == 0) {
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if (data.length > 1) {
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    window.location.href = '/room/updatepage/' + data[0].id;
+                },
+                deleteItem: function () {
+                    var checkStatus = table.checkStatus('testReload')
+                        , data = checkStatus.data;
+                    if (data.length == 0) {
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if (data.length > 1) {
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    layer.confirm('确定要删除该房间吗？', {
+                        btn: ['是', '否']
+                    }, function () {
+                        $.ajax({
+                            url: '/room/delete/' + data[0].id,
+                            dataType: 'json',
+                            data: {},
+                            type: 'POST',
+                            success: function (obj) {
+                                if (obj.code === '200') {
+                                    layer.msg('删除成功');
+//                                window.location.reload();
+                                    resetData();
+                                } else {
+                                    layer.msg(obj.msg);
+                                }
+                            }, error: function () { //失败
+                                layer.alert("服务器内部错误");
+                            }
+                        });
+                    })
+                },
+                isAll: function () { //验证是否全选
+                    var checkStatus = table.checkStatus('idTest');
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
+                }
+            };
+
+            $('#queryBtn , .btn-type').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+            //queryDate
+
+        });
+
+        function resetData() {
+            $('#searchForm')[0].reset();
+            $('#queryBtn').click();
+        }
+
+        function entryContract(id) {
+            console.log(id)
+            window.location.href = '/room/addpage/' + id;  //test
+        }
+
+        $('#company,#propertyType').change(function () {
+            var propertyType = $('#propertyType').val();
+            $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                data: {companyId: $('#company').val()},
+                url: "/contractFees/selectPropertyByCompanyId",
+                success: function (obj) {
+                    $("#property ").empty();
+                    $("#property").append("<option value=''>请选择</option>");
+                    for (var i in obj) {
+                        if(propertyType === "" | propertyType === obj[i].PROPERTY_TYPE)
+                            $("#property").append("<option value='" + obj[i].ID + "'>" + obj[i].PROPERTY_NAME + "</option>");
+                    }
+                }
+            })
+        })
+
+        $('#property').change(function () {
+            $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                data: {id: $('#property').val()},
+                url: "/building/selectBuildingId",
+                success: function (obj) {
+                    if (obj.code == 200) {
+                        $("#building ").empty();
+                        $("#building").append("<option value=''>请选择</option>");
+                        for (var i in obj.data) {
+                            $("#building").append("<option value='" + obj.data[i].id + "'>" + obj.data[i].buildingName + "</option>");
+                        }
+                    }}
+                })
+        })
+        $('#building').change(function () {
+            var bid = $('#building').val();
+            $.ajax({
+                type: "POST",
+                async: false,
+                dataType: "JSON",
+                data: {buildingId: bid},
+                url: "/room/search",
+                success: function (obj) {
+                    if (obj.code === 200) {
+                        $("#room ").empty();
+                        $("#room").append("<option value=''>请选择</option>");
+                        $.each(obj.data.rows, function (i,v) {
+                            $("#room").append("<option value='" + v.id + "'>" + v.room + "</option>");
+                        })
+                    }
+                }
+            })
+        })
+
+        function get_from_array() {
+            var d = {};
+            var t = $('form').serializeArray();
+            $.each(t, function() {
+                d[this.name] = this.value;
+            });
+            return d;
+        }
+        
+        function put_String_in_object() {
+            var obj = {};
+            var formString = $('form').serialize();
+            var strs = new Array();
+            strs = formString.split('&');
+            return strs;
+        }
+    </script>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        系统管理 <i class="dot"></i> 角色管理
+    </div>
+
+    <div class="content">
+        <form id="searchForm" method="post" class="toolDiv">
+            <div id="searchPanel" class="row1">
+                <span>搜索条件</span>
+                <input type="text" name="name" placeholder="角色名">
+                <button type="button" class="query-btn" data-type="reload" id="queryBtn"><i class="query"></i>查询</button>
+                <button type="button" class="clear-btn" onclick="resetData();">清空</button>
+            </div>
+            <div class="row2" id="toolbar">
+                <button type="button" class="add" onclick="window.location.href = '/role/addpage';"><i></i>新增</button>
+                <button type="button" class="edit btn-type" data-type="editItem"><i></i>修改</button>
+                <button type="button" class="delete btn-type" data-type="deleteItem"><i></i>删除</button>
+            </div>
+        </form>
+        <table class="layui-hide" id="demo"></table>
+    </div>
+
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/role_manage.css">
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+
+    <script type="text/javascript">
+        document.onkeydown = function (event) {
+            var e = event || window.event;
+            if (e && e.keyCode == 13) {
+                return false;
+            }
+        };
+        layui.use('table', function(){
+            var table = layui.table;
+            var data = [
+                {type:'checkbox'}
+                ,{field: 'id', title: 'ID', sort: true}
+                ,{field: 'name', title: '角色名'}
+                ,{field: 'status', title: '开通状态', sort: true ,templet: function(d){
+                    if(d.status === 'NORMAL'){
+                        return '正常';
+                    }else if(d.status === 'FREEZE'){
+                        return '冻结';
+                    }else if(d.status === 'CLOSE'){
+                        return '关闭';
+                    }else{
+                        return d.status;
+                    }
+                }}
+//                ,{field: 'isAuth', title: '是否关联', width: 120, sort: true}
+                ,{field: 'remark', title: '备注'}
+            ];
+            table.render({
+                elem: '#demo'
+                ,url:'/role/search'
+                ,method: 'post'
+                ,cols:[data]
+                ,even: true
+                ,page: true //是否显示分页
+//                ,limits: [5,10,20]
+//                ,limit: 5 //每页默认显示的数量
+                ,request:{
+                    limitName: 'rows'
+                }
+                ,response:{
+                    dataName:'data',
+                    dataSecName:'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                ,id:'testReload'
+            });
+
+            var $ = layui.$, active = {
+                reload: function(){
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: {
+                            name: $('input[name="name"]').val(),
+                            type: ''
+                        }
+                    });
+                },
+                editItem: function(){ //获取选中数据
+                    var checkStatus = table.checkStatus('testReload')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    window.location.href = '/role/updatepage/'+data[0].id;
+                },
+                deleteItem: function () {
+                    var checkStatus = table.checkStatus('testReload')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    layer.confirm('确定要删除该角色吗？',{
+                        btn:['是','否']
+                    },function () {
+                        $.ajax({
+                            url:'/role/delete/'+data[0].id,
+                            dataType:'json',
+                            data:{},
+                            type:'POST',
+                            success:function(obj){
+                                if(obj.code === '200'){
+                                    layer.msg('删除成功');
+//                                window.location.reload();
+                                    resetData();
+                                }else{
+                                    layer.msg(obj.msg);
+                                }
+                            },error: function(){ //失败
+                                layer.alert("服务器内部错误");
+                            }
+                        });
+                    })
+                },
+                isAll: function(){ //验证是否全选
+                    var checkStatus = table.checkStatus('idTest');
+                    layer.msg(checkStatus.isAll ? '全选': '未全选')
+                }
+            };
+
+            $('#queryBtn , .btn-type').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+        });
+        function resetData(){
+            $('#searchForm')[0].reset();
+            $('#queryBtn').click();
+        }
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.ROOMDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.ROOMDAO" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="PROPERTY_ID" property="propertyId" jdbcType="DECIMAL" />
+    <result column="BUILDING_ID" property="buildingId" jdbcType="DECIMAL" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="FLOOR" property="floor" jdbcType="VARCHAR" />
+    <result column="ROOM" property="room" jdbcType="VARCHAR" />
+    <result column="SUB_ROOM" property="subRoom" jdbcType="VARCHAR" />
+    <result column="ROOM_TYPE" property="roomType" jdbcType="VARCHAR" />
+    <result column="ROOM_DESC" property="roomDesc" jdbcType="VARCHAR" />
+    <result column="OWNER_TYPE" property="ownerType" jdbcType="VARCHAR" />
+    <result column="OWNER_NAME" property="ownerName" jdbcType="VARCHAR" />
+    <result column="OWNER_CONTACT" property="ownerContact" jdbcType="VARCHAR" />
+    <result column="ROOM_PROPERTY" property="roomProperty" jdbcType="VARCHAR" />
+    <result column="ROOM_PURPOSE" property="roomPurpose" jdbcType="VARCHAR" />
+    <result column="ROOM_SIZE" property="roomSize" jdbcType="DECIMAL" />
+    <result column="ROOM_ASPECT" property="roomAspect" jdbcType="VARCHAR" />
+    <result column="ROOM_LAYOUT" property="roomLayout" jdbcType="VARCHAR" />
+    <result column="ROOM_BOOK_PRICE" property="roomBookPrice" jdbcType="DECIMAL" />
+    <result column="ROOM_STATUS" property="roomStatus" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ROOM_RENT_PRICE" property="roomRentPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, PROPERTY_ID, BUILDING_ID, UNIT, FLOOR, ROOM, SUB_ROOM, ROOM_TYPE, 
+    ROOM_DESC, OWNER_TYPE, OWNER_NAME, OWNER_CONTACT, ROOM_PROPERTY, ROOM_PURPOSE, ROOM_SIZE, 
+    ROOM_ASPECT, ROOM_LAYOUT, ROOM_BOOK_PRICE, ROOM_STATUS, REMARK, ROOM_RENT_PRICE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ROOMDAOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ROOM_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from ROOM_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from ROOM_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ROOMDAOExample" >
+    delete from ROOM_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ROOMDAO" >
+    insert into ROOM_INFO (ID, COMPANY_ID, PROPERTY_ID, 
+      BUILDING_ID, UNIT, FLOOR, 
+      ROOM, SUB_ROOM, ROOM_TYPE, 
+      ROOM_DESC, OWNER_TYPE, OWNER_NAME, 
+      OWNER_CONTACT, ROOM_PROPERTY, ROOM_PURPOSE, 
+      ROOM_SIZE, ROOM_ASPECT, ROOM_LAYOUT, 
+      ROOM_BOOK_PRICE, ROOM_STATUS, REMARK, 
+      ROOM_RENT_PRICE)
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{propertyId,jdbcType=DECIMAL}, 
+      #{buildingId,jdbcType=DECIMAL}, #{unit,jdbcType=VARCHAR}, #{floor,jdbcType=VARCHAR}, 
+      #{room,jdbcType=VARCHAR}, #{subRoom,jdbcType=VARCHAR}, #{roomType,jdbcType=VARCHAR}, 
+      #{roomDesc,jdbcType=VARCHAR}, #{ownerType,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, 
+      #{ownerContact,jdbcType=VARCHAR}, #{roomProperty,jdbcType=VARCHAR}, #{roomPurpose,jdbcType=VARCHAR}, 
+      #{roomSize,jdbcType=DECIMAL}, #{roomAspect,jdbcType=VARCHAR}, #{roomLayout,jdbcType=VARCHAR}, 
+      #{roomBookPrice,jdbcType=DECIMAL}, #{roomStatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{roomRentPrice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ROOMDAO" >
+    insert into ROOM_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="propertyId != null" >
+        PROPERTY_ID,
+      </if>
+      <if test="buildingId != null" >
+        BUILDING_ID,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="floor != null" >
+        FLOOR,
+      </if>
+      <if test="room != null" >
+        ROOM,
+      </if>
+      <if test="subRoom != null" >
+        SUB_ROOM,
+      </if>
+      <if test="roomType != null" >
+        ROOM_TYPE,
+      </if>
+      <if test="roomDesc != null" >
+        ROOM_DESC,
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE,
+      </if>
+      <if test="ownerName != null" >
+        OWNER_NAME,
+      </if>
+      <if test="ownerContact != null" >
+        OWNER_CONTACT,
+      </if>
+      <if test="roomProperty != null" >
+        ROOM_PROPERTY,
+      </if>
+      <if test="roomPurpose != null" >
+        ROOM_PURPOSE,
+      </if>
+      <if test="roomSize != null" >
+        ROOM_SIZE,
+      </if>
+      <if test="roomAspect != null" >
+        ROOM_ASPECT,
+      </if>
+      <if test="roomLayout != null" >
+        ROOM_LAYOUT,
+      </if>
+      <if test="roomBookPrice != null" >
+        ROOM_BOOK_PRICE,
+      </if>
+      <if test="roomStatus != null" >
+        ROOM_STATUS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="roomRentPrice != null" >
+        ROOM_RENT_PRICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyId != null" >
+        #{propertyId,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingId != null" >
+        #{buildingId,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null" >
+        #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null" >
+        #{room,jdbcType=VARCHAR},
+      </if>
+      <if test="subRoom != null" >
+        #{subRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null" >
+        #{roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomDesc != null" >
+        #{roomDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null" >
+        #{ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerContact != null" >
+        #{ownerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="roomProperty != null" >
+        #{roomProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPurpose != null" >
+        #{roomPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="roomSize != null" >
+        #{roomSize,jdbcType=DECIMAL},
+      </if>
+      <if test="roomAspect != null" >
+        #{roomAspect,jdbcType=VARCHAR},
+      </if>
+      <if test="roomLayout != null" >
+        #{roomLayout,jdbcType=VARCHAR},
+      </if>
+      <if test="roomBookPrice != null" >
+        #{roomBookPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="roomStatus != null" >
+        #{roomStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="roomRentPrice != null" >
+        #{roomRentPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ROOMDAOExample" resultType="java.lang.Integer" >
+    select count(*) from ROOM_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ROOM_INFO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.propertyId != null" >
+        PROPERTY_ID = #{record.propertyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.buildingId != null" >
+        BUILDING_ID = #{record.buildingId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unit != null" >
+        UNIT = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floor != null" >
+        FLOOR = #{record.floor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.room != null" >
+        ROOM = #{record.room,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subRoom != null" >
+        SUB_ROOM = #{record.subRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomType != null" >
+        ROOM_TYPE = #{record.roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomDesc != null" >
+        ROOM_DESC = #{record.roomDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerType != null" >
+        OWNER_TYPE = #{record.ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerName != null" >
+        OWNER_NAME = #{record.ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerContact != null" >
+        OWNER_CONTACT = #{record.ownerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomProperty != null" >
+        ROOM_PROPERTY = #{record.roomProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomPurpose != null" >
+        ROOM_PURPOSE = #{record.roomPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomSize != null" >
+        ROOM_SIZE = #{record.roomSize,jdbcType=DECIMAL},
+      </if>
+      <if test="record.roomAspect != null" >
+        ROOM_ASPECT = #{record.roomAspect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomLayout != null" >
+        ROOM_LAYOUT = #{record.roomLayout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomBookPrice != null" >
+        ROOM_BOOK_PRICE = #{record.roomBookPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.roomStatus != null" >
+        ROOM_STATUS = #{record.roomStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomRentPrice != null" >
+        ROOM_RENT_PRICE = #{record.roomRentPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ROOM_INFO
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      PROPERTY_ID = #{record.propertyId,jdbcType=DECIMAL},
+      BUILDING_ID = #{record.buildingId,jdbcType=DECIMAL},
+      UNIT = #{record.unit,jdbcType=VARCHAR},
+      FLOOR = #{record.floor,jdbcType=VARCHAR},
+      ROOM = #{record.room,jdbcType=VARCHAR},
+      SUB_ROOM = #{record.subRoom,jdbcType=VARCHAR},
+      ROOM_TYPE = #{record.roomType,jdbcType=VARCHAR},
+      ROOM_DESC = #{record.roomDesc,jdbcType=VARCHAR},
+      OWNER_TYPE = #{record.ownerType,jdbcType=VARCHAR},
+      OWNER_NAME = #{record.ownerName,jdbcType=VARCHAR},
+      OWNER_CONTACT = #{record.ownerContact,jdbcType=VARCHAR},
+      ROOM_PROPERTY = #{record.roomProperty,jdbcType=VARCHAR},
+      ROOM_PURPOSE = #{record.roomPurpose,jdbcType=VARCHAR},
+      ROOM_SIZE = #{record.roomSize,jdbcType=DECIMAL},
+      ROOM_ASPECT = #{record.roomAspect,jdbcType=VARCHAR},
+      ROOM_LAYOUT = #{record.roomLayout,jdbcType=VARCHAR},
+      ROOM_BOOK_PRICE = #{record.roomBookPrice,jdbcType=DECIMAL},
+      ROOM_STATUS = #{record.roomStatus,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      ROOM_RENT_PRICE = #{record.roomRentPrice,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ROOMDAO" >
+    update ROOM_INFO
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyId != null" >
+        PROPERTY_ID = #{propertyId,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingId != null" >
+        BUILDING_ID = #{buildingId,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null" >
+        FLOOR = #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null" >
+        ROOM = #{room,jdbcType=VARCHAR},
+      </if>
+      <if test="subRoom != null" >
+        SUB_ROOM = #{subRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null" >
+        ROOM_TYPE = #{roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomDesc != null" >
+        ROOM_DESC = #{roomDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE = #{ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        OWNER_NAME = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerContact != null" >
+        OWNER_CONTACT = #{ownerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="roomProperty != null" >
+        ROOM_PROPERTY = #{roomProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPurpose != null" >
+        ROOM_PURPOSE = #{roomPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="roomSize != null" >
+        ROOM_SIZE = #{roomSize,jdbcType=DECIMAL},
+      </if>
+      <if test="roomAspect != null" >
+        ROOM_ASPECT = #{roomAspect,jdbcType=VARCHAR},
+      </if>
+      <if test="roomLayout != null" >
+        ROOM_LAYOUT = #{roomLayout,jdbcType=VARCHAR},
+      </if>
+      <if test="roomBookPrice != null" >
+        ROOM_BOOK_PRICE = #{roomBookPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="roomStatus != null" >
+        ROOM_STATUS = #{roomStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="roomRentPrice != null" >
+        ROOM_RENT_PRICE = #{roomRentPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ROOMDAO" >
+    update ROOM_INFO
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      PROPERTY_ID = #{propertyId,jdbcType=DECIMAL},
+      BUILDING_ID = #{buildingId,jdbcType=DECIMAL},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      FLOOR = #{floor,jdbcType=VARCHAR},
+      ROOM = #{room,jdbcType=VARCHAR},
+      SUB_ROOM = #{subRoom,jdbcType=VARCHAR},
+      ROOM_TYPE = #{roomType,jdbcType=VARCHAR},
+      ROOM_DESC = #{roomDesc,jdbcType=VARCHAR},
+      OWNER_TYPE = #{ownerType,jdbcType=VARCHAR},
+      OWNER_NAME = #{ownerName,jdbcType=VARCHAR},
+      OWNER_CONTACT = #{ownerContact,jdbcType=VARCHAR},
+      ROOM_PROPERTY = #{roomProperty,jdbcType=VARCHAR},
+      ROOM_PURPOSE = #{roomPurpose,jdbcType=VARCHAR},
+      ROOM_SIZE = #{roomSize,jdbcType=DECIMAL},
+      ROOM_ASPECT = #{roomAspect,jdbcType=VARCHAR},
+      ROOM_LAYOUT = #{roomLayout,jdbcType=VARCHAR},
+      ROOM_BOOK_PRICE = #{roomBookPrice,jdbcType=DECIMAL},
+      ROOM_STATUS = #{roomStatus,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      ROOM_RENT_PRICE = #{roomRentPrice,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,202 @@
+@charset "UTF-8";
+.content {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  margin-left: 14px;
+}
+.content .toolDiv .row1 {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  height: 32px;
+  margin-top: 19px;
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+  /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+}
+.content .toolDiv .row1 input {
+  border: 1px solid #ccc;
+  height: 32px;
+  width: 200px;
+  margin-left: 10px;
+  padding-left: 10px;
+  border-radius: 2px;
+  font: 12px/17px 'PingFangSC-Regular';
+}
+
+.content .toolDiv .row1 input::-webkit-input-placeholder {
+  color: #CCCCCC;
+}
+.content .toolDiv .row1 input:-moz-placeholder {
+  color: #CCCCCC;
+}
+.content .toolDiv .row1 input::-moz-placeholder {
+  color: #CCCCCC;
+}
+.content .toolDiv .row1 input:-ms-input-placeholder {
+  color: #CCCCCC;
+}
+.content .toolDiv .row1 span.status {
+  margin-left: 10px;
+}
+.content .toolDiv .row1 select {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: 1px solid #ccc;
+  width: 90px;
+  height: 32px;
+  border-radius: 2px;
+  padding-left: 10px;
+  /*很关键：将默认的select选择框样式清除*/
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-focus: none;
+  -moz-user-select: none;
+  outline: none;
+  background: url("../img/down_menu@2x.png") no-repeat scroll right 8px center transparent;
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background-size: 8px 11.4px;
+  padding-right: 14px;
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+}
+
+.content .toolDiv .row1 select {
+  margin-left: 10px;
+  width: 200px;
+}
+
+.content .toolDiv .row1 select.status {
+  margin-left: 10px;
+  width: 160px;
+}
+.content .toolDiv .row1 select:invalid {
+  color: lightgray;
+}
+.content .toolDiv .row1 select::-ms-expand {
+  display: none;
+}
+.content .toolDiv .row1 .clear-btn {
+  width: 80px;
+  height: 32px;
+  color: #333333;
+  border: 1px solid #ddd;
+  margin-left: 10px;
+  font: 14px/20px 'PingFangSC-Regular';
+}
+.content .toolDiv .row1 .query-btn {
+  width: 100px;
+  height: 32px;
+  display: -webkit-box;
+  display: flex;
+  background-color: #2476E9;
+  font: 14px/20px 'PingFangSC-Regular';
+  color: white;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  margin-left: 20px;
+  border-radius: 2px;
+}
+.content .toolDiv .row1 .query-btn i.query {
+  width: 14px;
+  height: 14px;
+  background: url("../img/search_w@2x.png") no-repeat;
+  background-size: 100%;
+  margin-right: 6px;
+}
+.content .toolDiv .row2 {
+  margin-top: 30px;
+  display: -webkit-box;
+  display: flex;
+}
+.content .toolDiv .row2 button {
+  margin-right: 10px;
+  width: 70px;
+  height: 28px;
+  border-radius: 3px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  font: 12px/17px 'PingFangSC-Regular';
+}
+.content .toolDiv .row2 button i {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+}
+.content .toolDiv .row2 button.add {
+  color: #1AAD19;
+  border: 1px solid #1AAD19;
+}
+.content .toolDiv .row2 button.add i {
+  background: url("../img/add@2x.png") no-repeat;
+  background-size: 100%;
+}
+.content .toolDiv .row2 button.edit {
+  color: #F5A623;
+  border: 1px solid #F5A623;
+}
+.content .toolDiv .row2 button.edit i {
+  background: url("../img/modify@2x.png") no-repeat;
+  background-size: 100%;
+}
+.content .pagination {
+  margin-top: 50px;
+  display: -webkit-box;
+  display: flex;
+}
+.content .pagination ul {
+  display: -webkit-box;
+  display: flex;
+}
+.content .pagination ul li {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  margin-left: 6px;
+}
+.content .pagination ul li a {
+  border: 1px solid #ddd;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  color: #333;
+  font: 12px/17px 'PingFangSC-Regular';
+  height: 24px;
+  padding: 0 8px;
+}
+.content .pagination ul li a:hover {
+  background-color: #4476E9;
+  color: white;
+}
+.content .pagination ul li.nav a {
+  color: #ccc;
+  font-size: 20px;
+  border: none;
+}
+.content .pagination .jump {
+  margin-left: 22px;
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+}
+.content .pagination .jump input {
+  width: 60px;
+  height: 24px;
+  border: 1px solid #ddd;
+  margin: 0 8px;
+  text-align: center;
+}

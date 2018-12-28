@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/system_add.css">
+</head>
+<body>
+<div class="pageTitle">
+  系统管理 <i class="dot"></i> 功能维护
+</div>
+
+<div class="content">
+
+   <div class="title">填写权限信息<span class="title_sub">（*为必填项）</span></div>
+   <ul>
+      <li>
+      <label for="role_name">名称：</label>
+        <input style="width: 320px" name="role_name" type="text" placeholder="请输入角色名称">
+        <i class="warn">*</i>
+      </li>
+      <li>
+        <label for="role_fa">父级：</label>
+        <!-- <input style="width: 320px" name="role_fa" type="text" placeholder="请输入角色父级"> -->
+        <select style="width: 320px" class="status" title="请输入角色父级" name="" id="">
+          <option value="2">正常</option>
+          <option value="3">关闭</option>
+        </select>
+        <i class="warn">*</i>
+      </li>
+      <li>
+        <label for="role_grade">等级：</label>
+        <!-- <input style="width: 320px" name="role_grade" type="text" placeholder="请输入角色等级"> -->
+        <select style="width: 320px" class="status" title="请输入角色等级" name="" id="">
+          <option value="2">正常</option>
+          <option value="3">关闭</option>
+        </select>
+        <i class="warn">*</i>
+        </li>
+         <li>
+      <label for="role_url">URL：</label>
+        <input style="width: 320px" name="role_url" type="text" placeholder="请输入URL">
+        <i class="warn">*</i>
+      </li>
+      <li>
+        <label for="role_code">权限码：</label>
+        <input style="width: 320px" name="role_code" type="text" placeholder="请输入权限码">
+        <i class="warn">*</i>
+      </li>
+      <li>
+        <label for="role_logo">logo：</label>
+        <input style="width: 320px" name="role_logo" type="text" placeholder="请输入logo">
+        <i class="warn">*</i>
+        </li>
+   </ul>
+   <div class="title line unselect hetong depart">
+    <span>状态：</span>
+        <input type="radio" id="open" name="statustype">
+        <label for="open">启用</label>
+        <input type="radio" id="close" name="statustype">
+        <label for="close">关闭</label>
+   </div>
+   <div class="title line unselect hetong depart">
+    <span>类型：</span>
+        <input type="radio" id="levelCom" name="level">
+        <label for="levelCom">公司操作员</label>
+        <input type="radio" id="levelPla" name="level">
+        <label for="levelPla">平台操作员</label>
+   </div>
+  <button class="save">保存</button>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

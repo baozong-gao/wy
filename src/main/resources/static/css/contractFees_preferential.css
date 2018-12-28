@@ -1,0 +1,40 @@
+.opendiv{
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content:center;
+}
+.opendiv ul{
+    display: flex;
+}
+.opendiv ul li{
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+.opendiv ul li label{
+    font: 12px/17px 'PingFangSC-Regular';
+    color: #333;
+    text-align: right;
+    width: 80px;
+}
+.opendiv ul li input{
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    height: 32px;
+    width: 220px;
+    border-radius: 2px;
+}
+.opendiv ul li span{
+}
+.opendiv button{
+    background: #2476E9;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    width: 100px;
+    height: 32px;
+    color: white;
+    font: 14px/20px 'PingFangSC-Regular';
+}

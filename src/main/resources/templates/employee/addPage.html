@@ -1,0 +1,217 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        公司管理 <i class="dot"></i> 新增员工
+    </div>
+    <div class="content">
+        <form action="" id="employeeForm">
+            <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+            <ul>
+                <li>
+                    <label for="departmentId">选择部门：</label>
+                    <select  class="selectpicker" title="请选择部门" name="departmentId" id="departmentId" th:placeholder="请选择部门">
+                    </select>
+                    <i class="warn">*</i>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label for="name">员工姓名：</label>
+                    <input name="name" type="text" placeholder="请输入员工姓名" id="name">
+                    <i class="warn">*</i>
+                </li>
+                <li>
+                    <label for="mobile">手机号：</label>
+                    <input name="mobile" type="text" placeholder="请输入手机号" id="mobile">
+                    <i class="warn">*</i>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label for="sex">选择性别：</label>
+                    <select  class="selectpicker" title="请选择性别" name="sex" id="sex">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </li>
+                <li class="age">
+                    <label for="age">年龄：</label>
+                    <input name="age" type="text" placeholder="请输入年龄" id="age">
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label for="education">学历：</label>
+                    <select class="selectpicker" title="请选择学历" name="education" id="education">
+                        <option value="">请选择学历</option>
+                        <option value="博士">博士</option>
+                        <option value="硕士">硕士</option>
+                        <option value="本科">本科</option>
+                        <option value="大专">大专</option>
+                        <option value="高中">高中</option>
+                        <option value="初中">初中</option>
+                        <option value="小学">小学</option>
+                    </select>
+                </li>
+            </ul>
+<!--            <ul>
+                <li class="area">
+                    <label for="remark">备注：</label>
+                    <textarea name="remark" placeholder="请输入备注" id="remark"></textarea>
+                </li>
+            </ul>-->
+            <div class="title line unselect hetong depart">
+                <span>是否是部门负责人：</span>
+                <input type="radio" id="yesItIs" value="Y" name="departmentChairman" checked="checked" >
+                <label for="yesItis">是</label>
+                <input type="radio" id="noItIsnt" value="N" name="departmentChairman">
+                <label for="noItIsnt">否</label>
+            </div>
+            <div class="title line unselect hetong depart">
+                <span>是否开通平台账户：</span>
+                <input type="radio" id="open" value="Y" name="platformAccount" checked="checked" onClick="show()">
+                <label for="open">是</label>
+                <input type="radio" id="close" value="N" name="platformAccount" onClick="hiden()">
+                <label for="close">否</label>
+            </div>
+            <div id="role">
+                <div class="title line unselect hetong depart">
+                <span class="role">选择角色：</span>
+                <ul class="role" id ="roleUl">
+
+                </ul>
+                </div>
+            </div>
+            <button type="button" class="save" onclick="save()">保存</button>
+        </form>
+    </div>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/employee_add.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" th:inline="javascript">
+        $(document).ready(function(){
+
+            $.ajax({
+                type:"GET",
+                dataType:"JSON",
+                data:{},
+                url:"/employee/selectDepartment",
+                success:function(obj){
+                    var content = '';
+                    for(var i in obj) {
+                        content += '<option value="' + obj[i].ID + '">' + obj[i].DEPARTMENT_NAME + '</option>';
+                    }
+                    $('#departmentId').html(content);
+                }
+            })
+
+            $.ajax({
+                type:"GET",
+                dataType:"JSON",
+                data:{},
+                url:"/employee/selectRoleByCompanyId",
+                success:function (obj) {
+                    var content = '';
+                    for(var i in obj){
+                        content += '<li><input type="checkbox" name="role" value="' + obj[i].ID + '">';
+                        content += '<label for="'+ obj[i].ID + '">' + obj[i].NAME + '</label>';
+                        $('#roleUl').html(content);
+                    }
+                }
+            })
+        })
+
+        function hiden(){
+            document.getElementById("role").style.display="none";
+            $('input:checkbox').removeAttr("checked");
+        }
+
+        function show(){
+            document.getElementById("role").style.display="block";
+        }
+        var _itemList = ['departmentId','name','mobile'];
+        var _itemList2 = ['sex','age','education','remark'];
+        function save() {
+            var _itemDic = {};
+            for(var i in _itemList){
+                var key = _itemList[i];
+                var value = $.trim($('#employeeForm li [name='+key+']').val());
+                if(value.length == 0){
+                    layer.msg($('#employeeForm li [name='+key+']').attr('placeholder'));
+                    return;
+                }
+                _itemDic[key] = value;
+            }
+            for(var i in _itemList2){
+                var key = _itemList2[i];
+                var value = $('#employeeForm li [name='+key+']').val();
+                _itemDic[key] = value;
+            }
+            var departmentChairman = $('input[name="departmentChairman"]:checked').val();
+            var platformAccount = $('input[name="platformAccount"]:checked').val();
+            _itemDic.departmentChairman = departmentChairman;
+            _itemDic.platformAccount = platformAccount;
+            var str=[];
+            $("ul.role").find('input[type=checkbox]:checked').each(function(){
+                str.push($(this).val());
+            });
+            if(str == ''&& $('#role').css('display') === 'block'){
+                layer.msg("请选择角色");
+                return;
+            }
+            var check = false;
+            var isMob=/^0?1[3|4|5|8][0-9]\d{8}$/;
+            if(isMob.test($('#mobile').val())){
+                check = true;
+            }else{
+                layer.msg("请输入正确的手机号");
+                $('#mobile').focus();
+                $("#mobile").val("");
+                check = false;
+                return;
+            }
+            var regAge =/^(110|10\d|[1-9]\d|\d)$/;
+            if(regAge.test($('#age').val())||$.trim($('#age').val()=="")){
+                check = true;
+            }else {
+                layer.msg("请输入正确的年龄");
+                $('#age').focus();
+                $("#age").val("");
+                check = false;
+                return;
+            }
+            if(check=true){
+                _itemDic.roles = str.toString();
+                $.ajax({
+                    type:"GET",
+                    dataType:"JSON",
+                    data:_itemDic,
+                    url:"/employee/insertEmployee",
+                    success:function(obj){
+                        if(obj.code === '200'){
+                            layer.msg('添加成功');
+                            window.history.back();
+                        }else{
+                            layer.msg(obj.msg);
+                        }
+                    },error: function(){ //失败
+                        layer.alert("服务器内部错误");
+                    }
+                })
+            }
+
+        }
+
+
+    </script>
+</div>
+</body>
+</html>

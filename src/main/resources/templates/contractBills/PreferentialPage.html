@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div class="opendiv" >
+    <ul>
+        <li>
+            <label>优惠前金额：</label>
+            <input type="text" disabled="true" id="needPayAmount" name="needPayAmount"/>
+            <span style="position: relative;right: 25px">元</span>
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <label>优惠金额：</label>
+            <input type="text" id="preferentialFeeAmount"/>
+            <span style="position: relative;right: 25px">元</span>
+        </li>
+    </ul>
+    <button id="preferentialBtn" name="preferentialBtn" type="button" onclick="preferential()">确定</button>
+</div>
+</body>
+<script src="/js/regular.js"></script>
+<script src="/js/base.js"></script>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/lib/layui/layui.all.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.js"></script>
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/layui/css/layui.css">
+<link rel="stylesheet" href="/css/contractFees_preferential.css">
+<script type="text/javascript" th:inline="javascript">
+    var rout = [[${rout}]];
+    var version = rout.version;
+    var id = rout.id;
+    var companyId = rout.companyId;
+    $(function(){
+        $('#needPayAmount').val(rout.needPayAmount/100);
+    });
+
+    function preferential(){
+        if(checkNotNull($('#preferentialFeeAmount').val()) === false){
+            return;
+        }
+        var _itemDic = {};
+        _itemDic.id = id;
+        _itemDic.version = version;
+        var needPayAmount = parseInt($("#needPayAmount").val());
+        if(check( $('#preferentialFeeAmount').val(),"DOWN_PAYMENT") === false){
+            return;
+        }
+        var preferentialFeeAmount = parseInt($('#preferentialFeeAmount').val());
+        if(preferentialFeeAmount > needPayAmount){
+            layer.msg("优惠金额不能大于优惠前金额");
+            return;
+        }
+        var needPayAmount = needPayAmount-preferentialFeeAmount;
+        _itemDic.discountAmount = preferentialFeeAmount * 100;
+        _itemDic.needPayAmount = needPayAmount * 100;
+        _itemDic.discountAmountForLog = preferentialFeeAmount * 100;
+        _itemDic.companyId = companyId;
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            data:_itemDic,
+            url:"/contractBills/preferential",
+            success:function(obj){
+                if(obj.code === "200"){
+                    layer.msg("优惠成功");
+                    parent.window.location.href="/contractBills/page";
+                }else{
+                    layer.msg(obj.msg);
+                    setTimeout(function (){
+                        parent.window.location.href="/contractBills/page"
+                    },2000);
+                }
+            },error : function (){
+                layer.msg("系统异常，请联系管理员");
+            }
+        })
+    }
+</script>
+</html>

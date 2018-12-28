@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/merchant_add.css">
+</head>
+<body>
+<style>
+.categoryTitle{
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    padding-top: 20px;
+}
+.categoryTitle .unfocus {
+    margin: 0 28px;
+    color: #999;
+}
+.categoryTitle .focus {
+    color: #2476e9;
+    margin: 0 38px;
+}
+.categoryTitle img {
+    margin-top: 6px;
+    width: 308px;
+}
+.house_basic{
+    margin-left: 137px;
+    margin-top: 55px;
+}
+.house_message .textInput{border: 1px solid #ddd; font-size: 12px; border-radius: 2px; width: 140px; padding-left: 10px; height: 32px;padding: 0 0 0 10px}
+.floor_set{float: left; margin-right: 20px;}
+.floor_set .lab{font-size: 12px; color: #666}
+.house_basic h2{
+  font-size: 14px;
+  color: #333333;
+  padding-bottom: 15px;
+}
+.house_basic .auto{
+  font-size: 12px;
+  color: #666;
+  margin-top: 25px;
+  position: relative;
+}
+.house_basic .auto input[type=checkbox] {
+  margin-right: 4px;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: -2px;
+  left: 65px;
+  background: url("../img/many_unselect@2x.png") no-repeat;
+  background-size: 100%;
+}
+.house_basic .auto input[type=checkbox]:checked {
+  background: url("../img/many_select@2x.png") no-repeat;
+  background-size: 100%;
+
+}
+.house_basic .auto input[type=checkbox] + label {
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+  margin-left: 20px;
+}
+.addTitle {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 32px;
+    margin: 27px 0 26px;
+    background-color: #f3f3f3;
+}
+.addTitle img {
+    margin: auto 10px;
+    width: 20px;
+    height: 20px;
+}
+.addTitle span {
+    font-size: 14px;
+    margin: auto 15px;
+}
+
+.addContent_left {
+  display: flex;
+  align-items: center;
+  width: 180px;
+  height: 32px;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+.addContent_left img {
+    margin: auto 10px;
+    width: 20px;
+    height: 20px;
+}
+.addContent_left input {
+    height: 26px;
+    margin: 0 5px;
+    padding-left: 9px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+.addContent_right {
+  margin-left: 20px;
+  border-left: #DDD solid 1px;
+  padding-left: 0px;
+  flex: 1;
+}
+.addContent_right .room {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 60px;
+    height: 40px;
+    margin: 2px 0 0 15px;
+    padding: 0 0px 0px 0;
+}
+.addContent_right .room img {
+      position: absolute;
+      display: none;
+      width: 14px;
+      height: 14px;
+      top: -5px;
+      right: -7px;
+}
+.addContent_right .room:hover img {
+    display: block;
+}
+
+</style>
+<style>
+.category{display: flex; margin-bottom: 20px;}
+.addContent_left .floor{width: 45px;}
+.addContent_left .floor_num{position: relative; width: 60px; font-size: 12px;}
+.addContent_left .floor_num input{width: 65px; height: 26px;padding-left: 15px}
+.addContent_left .floor_num .dw{position: absolute; top: 6px; right:-3px}
+.room_num{border:#ccc 1px solid;width: 59px;height: 28px;padding-left: 10px;background: #F3F3F3}
+.addContent_right .room{font-size: 12px;}
+.bottomBt{
+  margin-left: 330px;
+  margin-top: 40px;
+}
+.bottomBt a.button {
+    background: #2476E9;
+    border-radius: 2px;
+    width: 200px;
+    height: 32px;
+    color: white;
+    font: 14px/20px 'PingFangSC-Regular';
+    margin-left: 20px;
+    display: inline-block;
+    text-align: center;
+    line-height: 32px;
+    font-size: 14px;
+}
+</style>
+<div class="pageTitle">
+    房屋管理 <i class="dot"></i> 新增房屋
+</div>
+<div class="content">
+    <div class="categoryTitle">
+        <div>
+            <span class="unfocus">业态基本信息</span>
+            <span class="focus">房屋基本信息</span>
+            <span class="unfocus">完成业态新增</span>
+        </div>
+        <img src="../img/progress_bar2@2x.png"/>
+    </div>
+    <div class="house_basic">
+        <h2>中环百联商城</h2>
+        <div class="house_message">
+            <div class="floor_set">
+                <span class="lab">区域：</span>
+                <input type="text" class="textInput"  placeholder="请输入区域名称">
+            </div>
+            <div class="floor_set">
+                <span class="lab">楼宇：</span>
+                <input type="text" class="textInput"  placeholder="请输入楼宇名称">
+            </div>
+            <div class="floor_set">
+                <span class="lab">单元：</span>
+                <input type="text" class="textInput"  placeholder="请输入单元名称">
+            </div>
+            <div class="floor_set">
+                <span class="lab">楼层总高：</span>
+                <input type="text" class="textInput"  placeholder="请输入单元名称">
+                <span style="position: absolute; top: 8px; right:0px">层</span>
+                <span style="color: red;margin-left: 5px">*</span>
+            </div>
+            <div style="clear:both"></div>
+          </div>
+
+          <p class="auto">
+            <span>便捷设置：</span>
+            <input type="checkbox" id="equalFaren" onclick="">
+            <label for="equalFaren">自动生成房间号</label>
+          </p>
+          <div class="addTitle">
+            <img class="addRow" src="../img/increase@2x1.png">
+            <span class="addTitle_house">楼层</span>
+            <span class="addTitle_house">房间数量</span>
+          </div>
+          <div class="category_wrap">
+
+            <div class="category">
+              <!-- <div class="addContent_left clearfix">
+                <img src="../image/cancel@2x.png" @click="removeRow(index)"/>
+                <input type="text" maxlength="2" class="floor" oninput="this.value=this.value.replace(/\D/g,'')">
+                <div class="floor_num">
+                  <input id="rooomNum" type="tel" maxlength="3" oninput="this.value=this.value.replace(/\D/g,'')">
+                  <span class="dw">间</span>
+                </div>
+              </div> -->
+              <!-- <div class="addContent_right " v-if="roomRow[index].roomNum != undefined">
+                <span class="room" v-for="(num,ind) in roomRow[index].roomNum" @focus="showClose()">
+                  <input class="room_num" maxlength="5"  value="201" />
+                  <img src="../image/delete_s@2x.png" />
+                </span>
+              </div> -->
+            </div>
+
+          </div>
+
+
+    </div>
+    <p class="bottomBt">
+      <a class="button commitInfo"  href="javascript:;">保存信息</a>
+      <a class="button" href="javascript:;">保存并继续添加</a>
+    </p>
+</div>
+
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.js"></script>
+<script src="../lib/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="../js/base.js"></script>
+
+
+<script>
+
+let roomRow = [];
+var floorRow = '';
+
+function addRowfunc(row){
+  $(".category_wrap").empty();
+  for(let i= 0; i<row.length; i++ ){
+    floorRow =  '<article class="category">'+
+                  '<div class="addContent_left clearfix">'+
+                    '<img class="removeRow" alt="'+i+'" src="../img/cancel@2x.png" />'+
+                    '<input type="text" index="'+i+'" maxlength="2" class="floor" value="'+ roomRow[i].floorNum +'">'+
+                    '<div class="floor_num">'+
+                      '<input id="rooomNum" type="tel" maxlength="3" index="'+i+'" value="'+ roomRow[i].roomTotle +'">'+
+                      '<span class="dw">间</span>'+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="addContent_right">'+
+                  '</div>'
+                '</article>'
+    $(".category_wrap").append(floorRow)
+    if(row[i].roomNum.length > 0){
+      $("body").find(".addContent_right").eq(i).empty();
+      for(let j= 0; j<row[i].roomNum.length; j++ ){
+        roomItem =  '<span class="room">'+
+                      '<input class="room_num" maxlength="5" value="'+row[i].roomNum[j]+'" />'+
+                      '<img class="removeRoom" pIndex="'+ i +'" index="'+ j +'"   src="../img/delete_s@2x.png" />'+
+                    '</span>'
+        $("body").find(".addContent_right").eq(i).append(roomItem);
+      }
+    }
+  }
+}
+
+
+//添加楼层
+$('.addTitle').bind('click', function() {
+  console.log(roomRow)
+  roomRow.push({floorNum: '', roomTotle: '', roomNum: []})
+  addRowfunc(roomRow)
+});
+
+// 删除楼层
+$(".category_wrap").delegate(".removeRow", "click", function() {
+  roomRow.splice($(this).attr("alt"), 1);
+  addRowfunc(roomRow)
+});
+
+//添加楼层数
+$(".category_wrap").delegate(".floor", "keyup", function() {
+  roomRow[$(this).attr("index")].floorNum = $(this).val
+});
+
+//添加楼层里的房间
+$(".category_wrap").delegate("#rooomNum", "blur", function() {
+  var self_floor = $(this).parent().parent(".addContent_left").find(".floor").val()
+  roomRow[$(this).attr("index")].roomTotle = $(this).val()
+  roomRow[$(this).attr("index")].floorNum = self_floor
+  let fval = $(this).val()
+  roomRow[$(this).attr("index")].roomNum= []
+  for (let i = 1; i <= $(this).val(); i++) {
+    if(i < 10){
+      var selfVal = fval.toString() + '0' + i
+    }else {
+      var selfVal = fval.toString() + i
+    }
+    roomRow[$(this).attr("index")].roomNum.push(selfVal)
+  }
+  addRowfunc(roomRow)
+});
+
+$(".category_wrap").delegate(".removeRoom", "click", function() {
+  console.log($(this).attr("pIndex"),$(this).attr("index"))
+  roomRow[$(this).attr("pIndex")].roomNum.splice($(this).attr("alt"), 1);
+  addRowfunc(roomRow)
+});
+
+//添加楼层
+$('.commitInfo').bind('click', function() {
+  console.log(roomRow)
+});
+
+
+
+</script>
+</body>
+</html>

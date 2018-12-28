@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<div th:fragment="topBar">
+    <div class="logo-div">
+        <i class="logo" onclick="jumpIndex()"></i>
+    </div>
+    <span class="bar-title">幸会物业平台</span>
+    <div class="bar-right">
+        <i class="/css">
+            <i class="new"></i>
+        </i>
+        <div class="person" id="person">
+            <i class="icon"></i>
+            <span class="unselect">你好！[[${session.SESSION_USER.nickname}]]</span>
+            <i class="downArrow"></i>
+            <div class="list unselect">
+                <!--<span onclick="personInfo();">个人信息</span>-->
+                <span onclick="editPwdClick();">修改密码</span>
+                <span class="exit"><a href="/logout">退出</a></span>
+            </div>
+        </div>
+    </div>
+</div>

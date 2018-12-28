@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+     <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/staff_add.css">
+</head>
+<body>
+<div class="pageTitle">
+  权限管理 <i class="dot"></i> 新增员工
+</div>
+
+<div class="content">
+  <div class="title">新建员工<span class="title_sub"></span></div>
+   <ul>
+    <li class="yuangong"><label for="idStr">员工姓名：</label><input name="" type="text" placeholder="请输入员工姓名">
+      <i class="warn">*</i>
+    </li>
+    <li class="yuangong"><label for="username">员工电话：</label><input name="" type="text" placeholder="请输入员工联系电话">
+      <i class="warn">*</i>
+    </li>
+    <li class="yuangong"><label for="pwd">员工类型：</label>
+
+    <select required  class="status" placeholder="请选择员工类型" name="" id="">
+        <option value="" data-hidden="true" disabled selected hidden>请选择员工类型</option>
+        <option value="2">开发</option>
+        <option value="3">测试</option>
+      </select>
+      <i class="warn">*</i>
+    </li>
+    <li class="yuangong"><label for="idStr">员工部门：</label>
+
+  <select required class="status" placeholder="请选择员工类型" name="" id="">
+        <option value="" data-hidden="true" disabled selected hidden>请选择员工类型</option>
+        <option value="2">开发</option>
+        <option value="3">测试</option>
+      </select>
+      <i class="warn">*</i>
+    </li>
+    <li class="yuangong"><label for="username">员工状态：</label>
+       <div class=" unselect hetong depart">
+              <input class="label1" type="radio" id="open" name="statustype">
+              <label for="open">启用</label>
+              <input class="label1" type="radio" id="close" name="statustype">
+              <label for="close">关闭</label>
+         </div>
+    </li>
+  
+  </ul>
+   <div class="title">员工服务业态</div>
+   <ul class="yetai">
+    <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label2">A小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label  class="label2">B小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label  class="label2">A小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label  class="label2">B小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label  class="label2">A小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label  class="label2">B小区</label>
+    </li>
+    
+  </ul>
+  <div class="title" style="margin-top: 30px !important;">
+    运营范围
+  </div>
+   <ul class="fanwei">
+    <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">A小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">B小区</label>
+    </li>
+     
+    <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">A小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">B小区</label>
+    </li>
+    <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">A小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">B小区</label>
+    </li>
+    <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">A小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">B小区</label>
+    </li>
+    <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">A小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">B小区</label>
+    </li>
+    <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">A小区</label>
+    </li>
+     <li>
+        <input class="" type="checkbox" value="" name="selectItem"><label class="label3">B小区</label>
+    </li>
+  </ul>
+  
+  <button class="add">确定添加</button>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.js"></script>
+<script src="../lib/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

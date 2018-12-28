@@ -1,0 +1,235 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<body>
+<div layout:fragment="content">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/contract_business.css">
+    <div class="pageTitle">
+        合同管理 <i class="dot"></i> 商业楼宇
+    </div>
+    <div class="content">
+
+
+        <div class="title">合同信息</div>
+        <ul>
+            <li><label>房间信息：</label><input class="default" value="幸会小区-7栋-1单元-101室" type="text" placeholder=""></li>
+            <li><label>房屋面积：</label><input class="default" value="90㎡" type="text" placeholder="请输入法人联系电话"></li>
+        </ul>
+        <ul>
+            <li><label><b>合同模版</b>：</label><input value="90㎡" type="text" placeholder="请输入法人联系电话"></li>
+            <li><label><b>租期时长</b>：</label><input value="90㎡" type="text" placeholder="请输入法人联系电话"></li>
+            <li><label><b>合同起止</b>：</label><input type="text" class="layui-input" id="htDate"></li>
+        </ul>
+
+        <div class="title" style="margin-top: 35px">甲方信息<span>（*为必填项）</span><span style="margin-left: 192px;"></span>乙方信息<span>（*为必填项）</span></div>
+        <ul>
+            <li><label>甲方名称：</label><input value="" type="text" placeholder="请输入客户名称"><i class="warn">*</i></li>
+            <li><label>乙方名称：</label><input value="" type="text" placeholder="请输入客户名称"><i class="warn">*</i></li>
+        </ul>
+        <ul>
+            <li><label>甲方电话：</label><input value="" type="text" placeholder="请输入甲方电话"><i class="warn">*</i></li>
+            <li><label>乙方电话：</label><input value="" type="text" placeholder="请输入乙方电话"><i class="warn">*</i></li>
+        </ul>
+        <ul>
+            <li><label>代理人：</label><input value="" type="text" placeholder="请输入甲方代理人"><i class="warn">*</i></li>
+            <li><label>代理人：</label><input value="" type="text" placeholder="请输入乙方代理人"><i class="warn">*</i></li>
+        </ul>
+        <ul>
+            <li><label class="tx">甲方地址：</label><textarea rows="3" cols="20" placeholder="请输入公司地址"></textarea><i class="warn">*</i></li>
+            <li><label class="tx">乙方地址：</label><textarea rows="3" cols="20" placeholder="请输入公司地址"></textarea><i class="warn">*</i></li>
+        </ul>
+        <div class="title line"></div>
+
+
+        <div class="title">租金信息</div>
+        <ul>
+            <li><label>房屋租金：</label><input value="" type="text" placeholder="请输入房屋租金"><i class="warn">*</i></li>
+            <li><label>房屋押金：</label><input value="" type="text" placeholder="请输入房屋押金"><i class="warn">*</i></li>
+        </ul>
+        <ul>
+            <li>
+                <label>付款方式：</label>
+                <label class="label_radio">押</label>
+                <input style="width:80px; " type="text">
+                <label class="label_radio">付</label>
+                <input style="width:80px; " type="text">
+            </li>
+            <li><label>每年递增：</label><input value="" type="text" placeholder="请输入租金每年递增比例"><i class="warn">*</i></li>
+
+        </ul>
+        <div class="title line"></div>
+
+
+
+        <div class="title">其他信息<a style="font-size:12px;" href="javascript:;" class="addItem"><img src="/img/increase@2x1.png" alt="">添加</a></div>
+        <div  class="feeList">
+            <ul>
+                <li>
+                    <label>费用类型：</label>
+                    <select class="status" name="" id="">
+                        <option value="" disabled data-hidden="true" selected hidden>请选择费用类型</option>
+                        <option value="FWZJ">租金</option>
+                        <option value="FWYJ">押金</option>
+                        <option value="FWDJ">定金</option>
+                        <option value="WYF">物业费</option>
+                        <option value="TCF">停车费</option>
+                        <option value="WXF">维修费</option>
+                        <option value="OTHER">其他费用</option>
+                    </select>
+                </li>
+                <li>
+                    <label>缴费周期：</label>
+                    <select class="status" name="" id="">
+                        <option class="tis" value="" disabled data-hidden="true" selected hidden>请输入缴费周期</option>
+                        <option value="ONETIME">单次</option>
+                        <option value="PERIOD">周期性</option>
+                    </select>
+                    <i class="warn">*</i>
+                </li>
+                <li><label>金额：</label><input value="" type="text" placeholder="请输入承租人证件号"><i class="tis">元/月</i></li>
+                <li style="width: 40px"><a href="javascript:;" class="delete"></a></li>
+            </ul>
+        </div>
+        <div class="title line"></div>
+
+        <div class="title identity">合同附件</div>
+        <ul>
+            <li style="width: 200px;">
+                <input type="file" accept="image/*" id="file_Xuke" multiple  onchange="fileChange(this);" value="" style="display:none;">
+                <img id="img_file_Xuke" src="/img/add_photos@2x.png" alt="">
+                <i></i>
+                <span>合同附件</span>
+            </li>
+            <li style="width: 200px;">
+                <input type="file" accept="image/*" id="file_Front" multiple onchange="fileChange(this);" value="" style="display:none;">
+                <img id="img_file_Front" src="/img/add_photos@2x.png" alt="">
+                <i></i>
+                <span>合同附件</span>
+            </li>
+        </ul>
+        <button class="submit">下一步</button>
+    </div>
+
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script>
+
+        var roomRow = [{typesFee: '', paymentCycle: '', rent: ''}];
+        //添加楼层
+        $('.addItem').bind('click', function() {
+            console.log(roomRow)
+            roomRow.push({typesFee: '', paymentCycle: '', rent: ''})
+            addRowfunc(roomRow)
+        });
+
+        function addRowfunc(row){
+            $(".feeList").empty();
+            for(let i= 0; i<row.length; i++ ){
+                floorRow = '<ul>'+
+                    '<li>'+
+                    '<label>费用类型：</label>'+
+                    '<select class="status" name="" id="">'+
+                    '<option value="" disabled data-hidden="true" selected hidden>请选择费用类型</option>'+
+                    '<option value="FWZJ">租金</option>'+
+                    '<option value="FWYJ">押金</option>'+
+                    '<option value="FWDJ">定金</option>'+
+                    '<option value="WYF">物业费</option>'+
+                    '<option value="TCF">停车费</option>'+
+                    '<option value="WXF">维修费</option>'+
+                    '<option value="OTHER">其他费用</option>'+
+                    '</select>'+
+                    '</li>'+
+                    '<li>'+
+                    '<label>缴费周期：</label>'+
+                    '<select class="status" name="" id="">'+
+                    '<option class="tis" value="" disabled data-hidden="true" selected hidden>请输入缴费周期</option>'+
+                    '<option value="ONETIME">单次</option>'+
+                    '<option value="PERIOD">周期性</option>'+
+                    '</select>'+
+                    '<i class="warn">*</i>'+
+                    '</li>'+
+                    '<li><label>金额：</label><input value="" type="text" placeholder="请输入承租人证件号"><i class="tis">元/月</i></li>'+
+                    '<li style="width: 40px"><a href="javascript:;" class="delete" index='+ i +'></a></li>'
+                '</ul>'
+
+                $(".feeList").append(floorRow)
+            }
+        }
+
+
+        // 删除楼层
+        $(".feeList").delegate(".delete", "click", function() {
+            roomRow.splice($(this).attr("index"), 1);
+            addRowfunc(roomRow)
+        });
+
+        $(function(){
+            function bindClickEvent(id){
+                var obj = document.getElementById(id);
+                var obj2 = document.getElementById('img_'+id);
+                obj2.addEventListener("click", function (e) {
+                    if (obj) {
+                        console.log(1);
+                        obj.click();
+                    }
+                    // console.log(2,obj2,obj);
+                    e.preventDefault();
+                }, false);
+                // console.log(1,obj2,obj);
+            }
+
+            bindClickEvent("file_Xuke");
+            bindClickEvent("file_Front");
+            bindClickEvent("file_Back");
+
+        });
+
+        function fileChange(obj) {
+            var file = obj.files[0];
+            var temp = obj.files[0].name;
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                var urlData = this.result;
+                var imgObjId = "img_"+$(obj).attr("id");
+                var $imgobj = $("#"+imgObjId);
+                $imgobj.attr("src",urlData);
+                $imgobj.parent().find('i').show();
+                $imgobj.val(urlData);
+                //判断文件格式，只有jpg,jpeg和png三种文件格式可以上传
+                var img_id=$(obj).val();
+                var index= img_id.indexOf(".");
+                img_id=img_id.substring(index);
+                if(img_id!=".jpg"&&img_id!=".JPG"&&img_id!=".JPEG"&&img_id!=".jpeg"&&img_id!=".png"&&img_id!=".PNG"){
+                    layer.msg("不是指定图片格式，重新选择");
+                    $imgobj.parent().find('i').click();
+                }
+                //判断文件大小，大于2M不能上传
+                var imgSize = $(obj).attr("id");
+                var fileSize =  document.getElementById(imgSize).files[0].size; //获得文件大小；
+                if(fileSize>"2097152"){
+                    layer.msg("文件过大，请放小于2M的文件");
+                    $imgobj.parent().find('i').click();
+                }
+            };
+        }
+
+
+
+
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#htDate', //指定元素
+                range: '~'
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

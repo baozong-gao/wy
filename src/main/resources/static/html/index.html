@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>申鑫物业平台</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body id="testID">
+  <div class="topBar">
+    <div class="logo-div">
+      <i class="logo"></i>
+    </div>
+    <span class="bar-title">申鑫物业平台</span>
+    <div class="bar-right">
+      <i class="alert">
+        <i class="new"></i>
+      </i>
+      <div class="person" id="person">
+        <i class="icon"></i>
+        <span class="unselect">你好！user</span>
+        <i class="downArrow"></i>
+        <div class="list unselect">
+          <span>个人信息</span>
+          <span onclick="editPwdClick();" >修改密码</span>
+          <span class="exit"><a href="/logout">退出</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-part">
+    <ul class="leftPannel unselect">
+      <li>
+        <div>
+          <div><i class="icon company_management"></i><span>公司管理</span></div>
+        </div>
+        <ul>
+          <li data-url="company_manage.html">
+            <span>公司管理</span>
+          </li>
+          <li>
+            <span>
+              员工管理
+            </span>
+          </li>
+          <li>
+            <span>
+              辅助服务
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <div>
+          <div style="position:  relative; z-index: 10; ">
+            <i class="icon formats"></i><span>业态管理</span>
+          </div>
+        </div>
+        <ul>
+          <li  data-url="yetai_manage.html">
+            <span>业态管理</span>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <div>
+          <div>
+            <i class="icon housing"></i><span>房屋管理</span>
+          </div>
+        </div>
+        <ul>
+          <li  data-url="building_manage.html">
+            <span>房屋管理</span>
+          </li>
+          <li  data-url="room_add.html">
+            <span>房屋新增</span>
+          </li>
+          <li  data-url="add-more-room.html">
+            <span>批量新增</span>
+          </li>
+        </ul>
+      </li>
+      <li data-url="customer_manage.html">
+        <div>
+          <div>
+            <i class="icon customer"></i><span>客户管理</span>
+          </div>
+        </div>
+        <ul>
+          <li data-url="yetai_manage.html">
+            <span>
+              客户管理
+            </span>
+          </li>
+          <li>2</li>
+        </ul>
+      </li>
+      <li>
+        <div>
+          <div>
+            <i class="icon constract"></i><span>合同管理</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div>
+            <i class="icon financial"></i><span>财务管理</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div>
+            <i class="icon property"></i><span>物业管理</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div>
+            <i class="icon system"></i><span>系统管理</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="contentPannel">
+      <div>
+        <iframe src="hetong_add.html" frameborder="0"  id="son_iframe" onload="">
+        </iframe>
+      </div>
+    </div>
+  </div>
+  <div class="dialog_div" style="">
+    <iframe src="" frameborder="0" width="400px" height="230px" id="dialog" onload="" scrolling="no">
+      </iframe>
+  </div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+  function stopDefault(e) {
+    if ( e && e.preventDefault ) {
+      e.preventDefault();
+    }else{
+      window.event.returnValue = false;
+    }
+    return false;
+  }
+  document.getElementById("person").addEventListener("click",function(e){
+    var $this = $(this);
+    if(!$this.hasClass('click')){
+      $this.addClass('click');
+      stopDefault(e);
+    }
+  },true);
+
+  function hidePersonEditDiv(){
+    var $this = $('.person');
+    if($this.hasClass('click')){
+      $this.removeClass('click');
+    }
+  }
+
+  document.getElementById("testID").addEventListener("click",hidePersonEditDiv,true);
+
+  var iframe = document.getElementById('son_iframe');
+  iframe.onload = function() {
+    iframe.contentDocument.onclick = hidePersonEditDiv;
+}
+
+  $(function(){
+    var selectItem = null;
+    var selectLiItem = null;
+    $('.leftPannel > li ul li').each(function(index,element){
+      $(element).click(function(){
+        var $this = $(element);
+        var $li = $this.parent().parent();
+        if(selectLiItem){
+          selectLiItem.removeClass('selected');
+        }
+        $li.addClass('selected');
+        selectLiItem = $li;
+        if(selectItem){
+          selectItem.removeClass('selected');
+        }
+        $this.addClass('selected');
+        selectItem = $this;
+        var value = $this.attr('data-url');
+        $('iframe').attr('src',value);
+      });
+    });
+    // $('.leftPannel > li ul>li').each(function(index,element){
+    //   var $element = $(element);
+    //     $element.click(function(){
+    //       // console.log($element);
+    //       if(!$element.hasClass('selected')){
+    //         if(selectItem){
+    //           selectItem.removeClass('selected');
+    //         }
+    //         $element.addClass('selected');
+    //         selectItem  = $element;
+    //         // console.log(selectItem);
+    //       }
+    //       let value = $element.attr('data-url');
+    //       $('iframe').attr('src',value);
+    //     });
+    //   });
+  });
+  var _fn = null;
+  function showChildFrame(url,width,height,fn){
+    _fn = fn;
+    var $dialog_div = $('.dialog_div');
+    $dialog_div.css('display','flex');
+    var $dialog = $dialog_div.find('#dialog');
+    $dialog.width(width);
+    $dialog.height(height);
+    $dialog.attr('src',url);
+  }
+  function closeChildFrame(isSure,json){
+    var $dialog_div = $('.dialog_div');
+    $dialog_div.css('display','none');
+    if (isSure && _fn) {
+      _fn(json);
+    }
+  }
+
+  function getRes(obj){
+    console.log(obj);
+  }
+  function openService(){
+    showChildFrame('editPwd.html','400px','300px',getRes);
+  }
+
+  function editPwdClick(){
+    hidePersonEditDiv();
+    openService();
+  }
+
+</script>
+</body>
+</html>

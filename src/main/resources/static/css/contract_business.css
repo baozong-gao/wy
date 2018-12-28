@@ -1,0 +1,287 @@
+.content {
+    padding-left: 14px;
+}
+.content .title {
+    margin-top: 19px;
+    font: bold 14px/20px '宋体';
+    color: #333;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.content .title span {
+    font: 12px/20px '宋体';
+    font-weight: normal;
+
+}
+.content .title.line {
+    border-top: 1px dashed #DDDDDD;
+    padding-top: 10px;
+    margin-right: 20px;
+}
+.content ul {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1100px;
+}
+.content ul li {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 327px;
+    padding-top: 20px;
+    position: relative;
+}
+.content ul li .tis {
+    position: absolute;
+    top: 28px;
+    right: 52px;
+    font-size: 12px;
+    color: #666;
+    z-index: 10;
+}
+
+.content ul li label {
+    font: 12px/17px 'PingFangSC-Regular';
+    color: #333;
+    text-align: right;
+    width: 60px;
+}
+.content ul li label.tx{
+    height: 85px;
+    line-height: 30px;
+}
+.content ul li input[type=text],.content ul li select  {
+    border: 1px solid #ccc;
+    height: 32px;
+    width: 220px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font: 12px/17px 'PingFangSC-Regular';
+
+}
+.content ul li input[type=text].default
+{
+    background: #F5F9FF;
+    border: 1px solid #B8D6FF;
+    border-radius: 3px;
+    color: #2476E9;
+    font-weight: bold;
+}
+
+.content ul li textarea {
+    resize: none;
+    border: 1px solid #ccc;
+    height: 85px;
+    width: 220px;
+    padding-left: 10px;
+    border-radius: 3px;
+    font: 12px/17px 'PingFangSC-Regular';
+    padding-top: 5px;
+}
+
+.content ul li textarea::-webkit-input-placeholder{
+    color:#b6b6b6;
+}
+.content ul li textarea:-moz-placeholder{
+    color:#b6b6b6;
+}
+.content ul li textarea::-moz-placeholder{
+    color:#b6b6b6;
+}
+.content ul li textarea:-ms-input-placeholder{
+    color:#b6b6b6;
+}
+
+.content ul li i.tis{
+    color: #666;
+    font-size: 12px;
+    font-style: normal;
+    margin-left: 3px;
+}
+.content ul li select{
+    color: #333;
+}
+.content ul li select option:first-child{
+    color: #999;
+}
+.content ul li input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-left: 22px;
+    margin-right: 10px;
+    background: url("../img/radio_unselect@2x.png") no-repeat;
+    background-size: 100%;
+}
+.content ul li input[type="radio"]:checked {
+    background: url("../img/radio_select@2x.png") no-repeat;
+    background-size: 100%;
+}
+.content ul li .label_radio {
+    color: #333;
+    text-align: right;
+    width: 13px;
+    margin-right: 10px;
+    margin-left: 7px;
+}
+
+.content ul li i.warn {
+    margin-left: 10px;
+    font-style: normal;
+    content: '12';
+    width: 8px;
+    height: 20px;
+    color: #d7352c;
+    font: 14px/20px 'PingFangSC-Regular';
+}
+
+.addItem, .getSelect{
+    font: 14px/14px '微软雅黑';
+    color: #333;
+    display: inline-block;
+    margin-left: 15px;
+    border-left: 1px solid #b9b5b5;
+    padding-left: 15px;
+}
+.addItem img{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+
+.content .identity + ul {
+    display: -webkit-box;
+    display: flex;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.content .identity + ul li {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    margin-right: 30px;
+    position: relative;
+}
+.content .identity + ul li img {
+    width: 200px;
+    height: 120px;
+}
+.content .identity + ul li i {
+    display: none;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: -10px;
+    background: url("../img/delete_s@2x.png") no-repeat;
+    background-size: 100%;
+}
+.content .identity + ul li span {
+    font: 12px/17px 'PingFangSC-Regular';
+    color: #333;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+
+.content .feeList a.delete{
+    background: url("../img/cancel@2x.png") no-repeat;
+    background-size: 20px;
+    margin-left: 20px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.content button.submit {
+    background: #2476E9;
+    border-radius: 2px;
+    width: 200px;
+    height: 32px;
+    color: white;
+    font: 14px/20px 'PingFangSC-Regular';
+    margin: 60px 0 60px 300px;
+}
+
+.content input{
+    border: 1px solid #ccc;
+    height: 32px;
+    width: 220px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font: 12px/17px 'PingFangSC-Regular';
+}
+
+.content p.bot{width: 100%; text-align: center}
+.content button.submit {
+    background: #2476E9;
+    border-radius: 2px;
+    width: 200px;
+    height: 32px;
+    color: white;
+    font: 14px/20px 'PingFangSC-Regular';
+    margin: 60px 0 60px 400px;
+    display: inline-block;
+}
+.topbar{
+    background: #F5F9FF;
+    border: 1px solid #B8D6FF;
+    line-height: 40px;
+    padding: 0 10px;
+    font: 12px/40px "PingFangSC-Medium";
+    color: #2476E9;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+.topbar em{
+    font-style: normal;
+    margin-right: 30px;
+
+}
+
+.fiterInput{position: absolute; top: 120px; left: 0px;display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 12px;
+    padding-left: 28px;
+}
+.fiterInput input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-left: 22px;
+    margin-right: 5px;
+    background: url("../img/radio_unselect@2x.png") no-repeat;
+    background-size: 100%;
+    margin-top: 0;
+}
+.fiterInput input[type="radio"]:checked {
+    background: url("../img/radio_select@2x.png") no-repeat;
+    background-size: 100%;
+}
+
+.content input[type="file"] {
+    position: absolute;
+    top: 20px;
+    left: -10px;
+    width: 200px;
+    height: 120px;
+    opacity: 0;
+}
+
+.otherSelect .layui-input{width: 95px!important;}
+
+.feeList li .selectpicker{display: block!important;}
+.feeList li  .layui-unselect{display: none!important;}
+
+.layui-form select {
+    display: block!important;
+}

@@ -1,0 +1,157 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        财务管理 <i class="dot"></i> 收入账单详情
+    </div>
+    <div class="content">
+
+        <div class="row1">
+            <ul>
+                <li style="padding-left: 10px">
+                    <span>承租人：</span>
+                    <span id="bookerName"></span>
+                </li>
+                <li>
+                    <span>承租人手机：</span>
+                    <span id="bookerMobile"></span>
+                </li>
+                <li>
+                    <span>房间信息：</span>
+                    <span id="roomDesc"></span>
+                </li>
+                <li>
+                    <span>合同编号：</span>
+                    <span id="contractId"></span>
+                </li>
+                <li>
+                    <span>账期：</span>
+                    <span id="feeDate"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row2">
+            收入账单
+        </div>
+
+        <div>
+            <table class="layui-hide" id="contractFeesDetailTbl"></table>
+        </div>
+
+    </div>
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/contract_fees_detail.css">
+
+
+    <script type="text/javascript" th:inline="javascript">
+        var id =[[${rout}]].id;
+
+        $(function(){
+
+            var feeStartDate = [[${rout}]].feeStartDate;
+            var feeEndDate = [[${rout}]].feeEndDate;
+
+            var feeStartYear = feeStartDate.substring(0,4);
+            var feeStartMonth = feeStartDate.substring(4,6);
+            var feeStartDay = feeStartDate.substring(6,8);
+
+            var feeEndYear = feeEndDate.substring(0,4);
+            var feeEndMonth = feeEndDate.substring(4,6);
+            var feeEndDay = feeEndDate.substring(6,8);
+
+            var newFeeStartDate = feeStartYear + "/" + feeStartMonth + "/" + feeStartDay;
+            var newFeeEndDate = feeEndYear + "/" + feeEndMonth + "/" + feeEndDay;
+
+            $('#contractId').html([[${rout}]].contractId);
+            $('#feeDate').html(newFeeStartDate + " ~ " + newFeeEndDate)
+            $('#bookerName').html([[${rout}]].bookerName);
+            $('#bookerMobile').html([[${rout}]].bookerMobile);
+            $('#roomDesc').html([[${rout}]].roomDesc);
+        });
+
+
+        layui.use(['table'],function (){
+            var table = layui.table;
+            var data = [
+                {field: 'feeType', title: '费用类型', templet:function (d) {
+                        if(d.feeType === 'FWZJ'){
+                            return '房屋租金'
+                        }else if(d.feeType === 'FWYJ'){
+                            return '房屋押金'
+                        }else if(d.feeType === 'FWDJ'){
+                            return '房屋定金'
+                        }else if(d.feeType === 'WYF'){
+                            return '物业费'
+                        }else if(d.feeType === 'TCF'){
+                            return '停车费'
+                        }else if(d.feeType === 'WXF'){
+                            return '维修费'
+                        }else if(d.feeType === 'OTHER'){
+                            return '其他费用'
+                        }else {
+                            return '未知'
+                        }
+
+                    }},
+                {field: 'feePayType', title:'费用支付类型', templet:function (d) {
+                        if(d.feePayType === 'ONETIME'){
+                            return '单次'
+                        }else if(d.feePayType === 'PERIOD'){
+                            return '周期性'
+                        }
+                    }},
+                {field: 'feePhase', title:'账单期数'},
+                {field: 'penaltyFee', title:'违约金（元）'},
+                {field: '', title:'实际账单金额（元）', templet:function (d) {
+                        return d.afterAmount/100;
+                    }},
+                {field: 'feeStatus', title:'状态', templet:function (d) {
+                        if(d.feeStatus === 'INITIAL'){
+                            return '新生成初始'
+                        }else if(d.feeStatus === 'AUDIT'){
+                            return '已修改'
+                        }else if(d.feeStatus === 'CHECKED'){
+                            return '已审核'
+                        }else if(d.feeStatus === 'BILLED'){
+                            return '已进入应收账单'
+                        }else if(d.feeStatus === 'OVERDUE'){
+                            return '已逾期'
+                        }else{
+                            return '未知'
+                        }
+                    }},
+                {field: 'operator', title:'操作人'}
+            ]
+
+            table.render({
+                elem: '#contractFeesDetailTbl',
+                url: '/contractFeeAccountingLog/search',
+                method: 'post',
+                cols: [data],
+                even: true,
+                page: true,
+                request: {
+                    limitName: 'rows'
+                },
+                response:{
+                    dataName:'data',
+                    dataSecName:'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                },
+                where: {
+                    contractFeeId: id
+                },
+                id: 'reloadTbl'
+            })
+        })
+    </script>
+</div>
+</body>
+</html>

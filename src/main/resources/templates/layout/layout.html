@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>申鑫物业平台</title>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script src="/js/base.js"></script>
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon"/>
+</head>
+<body id="testID">
+<div class="topBar" th:include="components/topBar :: topBar" />
+<div class="bottom-part">
+<div>
+    <div th:replace="components/appBar :: appBar" />
+    <div class="contentPannel" >
+        <div class="subView" layout:fragment="content"/>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+    function stopDefault(e) {
+        if ( e && e.preventDefault ) {
+            e.preventDefault();
+        }else{
+            window.event.returnValue = false;
+        }
+        return false;
+    }
+
+    document.getElementById("person").addEventListener("click",function(e){
+        var $this = $(this);
+        if(!$this.hasClass('click')){
+            $this.addClass('click');
+        }
+    },true);
+
+    function hidePersonEditDiv(){
+        var $this = $('.person');
+        if($this.hasClass('click')){
+            $this.removeClass('click');
+        }
+    }
+
+    function closeLayer() {
+        layer.closeAll();
+    }
+
+    function showMsg(msg) {
+        layer.msg(msg);
+    }
+    
+    function afterTimeLogout() {
+        setTimeout(function(){
+            parent.window.location.href = "/logout";
+        },1000);
+    }
+
+    document.getElementById("testID").addEventListener("click",hidePersonEditDiv,true);
+
+    function editPwdClick() {
+        hidePersonEditDiv();
+        //示范一个公告层
+        layer.open({
+            type: 1
+            ,title: false //不显示标题栏
+            ,closeBtn: true
+            ,area: '400px;'
+            ,shade: 0.1
+            ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+//            ,btn: ['火速围观', '残忍拒绝']
+            ,btnAlign: 'c'
+            ,moveType: 0 //拖拽模式，0或者1
+            ,content:
+            '<iframe src="/user/goToChangepwdPage" frameborder="0" style="height: 300px;width: 100%;"></iframe>'
+//            ,success: function(layero){
+//                console.log(layero,layero[0]);
+//            }
+        });
+    }
+    //点击图标跳转回首页
+    function jumpIndex(){
+        window.location.href = "/index"
+    }
+    $(function(){
+//        var selectItem = null;
+//        var selectLiItem = null;
+//        $('.leftPannel > li ul li').each(function(index,element){
+//            $(element).click(function(){
+//                var $this = $(element);
+//                var $li = $this.parent().parent();
+//                if(selectLiItem){
+//                    selectLiItem.removeClass('selected');
+//                }
+//                $li.addClass('selected');
+//                selectLiItem = $li;
+//                if(selectItem){
+//                    selectItem.removeClass('selected');
+//                }
+//                $this.addClass('selected');
+//                selectItem = $this;
+//                var value = $this.attr('data-url');
+//                $('iframe').attr('src',value);
+//            });
+//        });
+    });
+</script>
+</body>
+</html>

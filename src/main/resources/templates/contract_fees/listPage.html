@@ -1,0 +1,122 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+
+    <link rel="stylesheet" href="/css/contract_business.css">
+
+    <div class="pageTitle">
+        公司管理 <i class="dot"></i> 账单计划
+    </div>
+    <style>
+
+    </style>
+    <div class="content" id="content">
+        <div class="topbar">
+            <span class="tit">房间信息：</span><em> [[${room?.roomDesc}]]</em>
+            <span class="tit">房间面积：</span><em> [[${room?.roomSize}]]㎡</em>
+            <span class="tit">合同模版：</span><em> [[${contract?.contractTemplateId}]]</em>
+            <span class="tit">租期时长：</span><em> [[${contract?.contractPeriod}]]个月</em>
+            <span class="tit">合同起止：</span><em> [[|${contract?.contractStartDate} - ${contract?.contractEndDate}|]]</em>
+        </div>
+        <table class="layui-hide" id="companyTbl" ></table>
+        <p class="bot"><button style="margin: 60px 0 60px 0px" class="submit">完成</button></p>
+    </div>
+
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/company_manage.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script type="text/javascript">
+
+        layui.use('table',function(){
+            var table = layui.table;
+
+            var data = [
+                {field: 'roomId',title: "房间信息",sort: true}
+                ,{field: 'feeType',title: "费用类型",templet: function (d) {
+                    if(d.feeType === 'FWZJ'){
+                        return '租金';
+                    }else if(d.feeType === 'FWYJ'){
+                        return '押金';
+                    }else if(d.feeType === 'FWDJ'){
+                        return '订金';
+                    }else if(d.feeType === 'WYF'){
+                        return '物业费';
+                    }else if(d.feeType === 'TCF'){
+                        return '停车费';
+                    }else if(d.feeType === 'WXF'){
+                        return '维修费';
+                    }else if(d.feeType === 'OTHER'){
+                        return '其它';
+                    }else {
+                        return d.feeType;
+                    }
+                }}
+                ,{field: 'linkName',title: "业主／承租人",templet: function(d){
+                    return '[[${contract?.principleName}]]'
+                }}
+                ,{field: 'address',title: "业态名称",templet: function(d){
+                    return '[[${room?.propertyName}]]'
+                }}
+                ,{field: 'linkPhone',title: "楼宇名称",templet: function(d){
+                    return '[[${room?.buildingName}]]'
+                }}
+                ,{field: 'feeAmount',title: "费用金额(元)"}
+                ,{field: 'contractId',title: "合同编号",}
+                ,{field: 'feePhase',title: "账期",templet: function(d){
+                    return d.feePhase + "/"+d.feePeriod;
+                }}
+                ,{field: 'receivableDate',title: "应收日期"}
+                ,{field: 'feeStatus',title: "账单状态",templet: function (d) {
+                    if(d.feeStatus === 'INITIAL'){
+                        return '新生成';
+                    }else if(d.feeStatus === 'AUDIT'){
+                        return '已修改';
+                    }else if(d.feeStatus === 'CHECKED'){
+                        return '已审核';
+                    }else if(d.feeStatus === 'PAYING'){
+                        return '支付处理中';
+                    }else if(d.feeStatus === 'PAID'){
+                        return '支付成功';
+                    }else if(d.feeStatus === 'OVERDUE'){
+                        return '已逾期';
+                    }else {
+                        return d.feeStatus;
+                    }
+                }}
+            ];
+
+            //数据库中读取已知数据
+            table.render({
+                elem: '#companyTbl'
+                ,url: '/contract/fees/search/[[${contractId}]]'
+                ,method: 'post'
+                ,cols: [data]
+                ,even: true
+                ,limit: 1000
+                ,request:{
+                    limitName: 'data'
+                }
+                ,response:{
+                    dataName:'data',
+                    dataName:'data',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                ,id:"testReload"
+            });
+
+
+
+        });
+
+
+    </script>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        物业管理 <i class="dot"></i> 报修管理
+    </div>
+    <div class="content">
+        <div class="title">甲方信息</div>
+        <ul>
+            <li><label>报修单号：</label><input name="" type="text" readonly>
+            </li>
+            <li><label>所属物业：</label><input name="" type="text"  readonly>
+            </li>
+            <li class="title_show"><label>标题：</label><textarea name="" readonly></textarea>
+            </li>
+            <li><label>房间号：</label><input name="" type="text"  readonly>
+            </li>
+            <li class="louyu"><label>楼宇：</label><input name="" type="text" readonly>
+            </li>
+            <li><label>预估报修金额：</label><input name="" type="text"  readonly>
+            </li>
+            <li><label>创建时间：</label><input name="" type="text" readonly>
+            </li>
+            <li><label>报修类型：</label><input name="" type="text"  readonly>
+            </li>
+            <li><label>分支类型：</label><input name="" type="text" readonly>
+            </li>
+            <li><label>联系人：</label><input name="" type="text"  readonly>
+            </li>
+            <li><label>联系电话：</label><input name="" type="text" readonly>
+            </li>
+            <li><label>状态：</label><input name="" type="text"  readonly>
+            </li>
+            <li><label>受理时间：</label><input name="" type="text" readonly>
+            </li>
+            <li><label>维修日期：</label><input name="" type="text"  readonly="readonly">
+            </li>
+            <li><label>上门时段：</label><input name="" type="text" readonly>
+            </li>
+            <li><label>描述说明：</label><input name="" type="text" >
+            </li>
+
+        </ul>
+        <div class="title line">报修投诉图片
+            <div class="tool tool-fold unselect">
+                <div class="item item-fold">收起<i class="arrow"></i></div>
+                <div class="item item-show">展开<i class="arrow"></i></div>
+            </div>
+        </div>
+        <ul>
+            <img class="repair_img" src="/img/404.png" alt="">
+        </ul>
+        <div class="title line">服务详情
+            <div class="tool tool-fold unselect">
+                <div class="item item-fold">收起<i class="arrow"></i></div>
+                <div class="item item-show">展开<i class="arrow"></i></div>
+            </div>
+        </div>
+        <ul>
+            <table class="layui-hide" id="serve_detail"></table>
+        </ul>
+        <div class="title line identity">工程经理所选费用模板
+            <div class="tool tool-fold unselect">
+                <div class="item item-fold">收起<i class="arrow"></i></div>
+                <div class="item item-show">展开<i class="arrow"></i></div>
+            </div>
+        </div>
+        <ul style="width:480px;">
+            <table class="layui-hide" id="fee_moban"></table>
+        </ul>
+    </div>
+
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/repair_edit.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+
+        $(function(){
+
+            $('.identity + ul>li>i').click(function(){
+                var inputFile = $(this).parent().find('input')[0];
+                clearInputFile(inputFile);
+                $(this).parent().find('img').attr("src","/img/add_photos@2x.png");
+                $(this).hide();
+            });
+
+            $('.line > .tool').click(function(e){
+                console.log(this);
+                var $this = $(this);
+                if($this.hasClass('tool-fold')){
+                    $this.removeClass('tool-fold');
+                    $this.parent().find('+ul').hide();
+                }else{
+                    $this.addClass('tool-fold');
+                    $this.parent().find('+ul').show();
+                }
+            });
+        });
+
+        layui.use('table', function(){
+            var table = layui.table;
+            var data = [
+                {field: 'id', title: '序号'},
+                {field: 'type', title: '人员类型'},
+                {field: 'service', title: '服务人员'},
+                {field: 'level', title: '评价登记'},
+                {field: 'status', title: '状态'},
+                {field: 'desc', title: '描述说明'},
+                {field: 'date', title: '时间'},
+                {field: 'operate', title: '操作人员'}
+                ];
+            table.render({
+                elem: '#serve_detail'
+                ,cols:[data]
+                ,data:[{
+                    "id": "1"
+                    ,"type": "A2978"
+                    ,"service": "A2978"
+                    ,"level": "满意"
+                    ,"status": "正常"
+                    ,"desc": "300"
+                    ,"date": "2017.12.12"
+                    ,"operate": "操作人员"
+
+                }]
+                ,even: true
+//                ,page: true
+                ,request:{
+                    limitName: 'rows'
+                }
+                ,response:{
+                    dataName:'data',
+                    dataSecName:'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                ,id:'reloadTbl'
+            });
+
+            var data2 = [
+                {field: 'type', title: '报修类型'},
+                {field: 'service', title: '报修内容'},
+                {field: 'fee', title: '报修费用'}
+            ];
+            table.render({
+                elem: '#fee_moban'
+                ,cols:[data2]
+                ,data:[{
+                    "type": "燃气维修"
+                    ,"service": "燃气维修"
+                    ,"fee": "1/12"
+                }]
+                ,even: true
+//                ,page: true
+                ,request:{
+                    limitName: 'rows'
+                }
+                ,response:{
+                    dataName:'data',
+                    dataSecName:'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                ,id:'reloadTbl'
+            });
+        });
+
+    </script>
+</div>
+</body>
+</html>

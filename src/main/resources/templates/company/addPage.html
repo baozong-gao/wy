@@ -1,0 +1,422 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        公司管理 <i class="dot"></i> 新增公司
+    </div>
+    <form id="f1">
+    <div class="content" id="content">
+        <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+        <ul>
+            <li><label for="companyName">公司名称：</label><input name="companyName" type="text" placeholder="请输入公司公司名称" id="companyName">
+                <i class="warn">*</i>
+            </li>
+            <li><label for="grade">公司等级：</label><input name="grade" type="text" value="1" id="grade" readonly="readonly">
+                <i class="warn">*</i>
+            </li>
+            <li><label for="servicePhone">客服电话：</label><input name="servicePhone" type="text" placeholder="请输入客服电话" id="servicePhone">
+                <i class="warn">*</i>
+            </li>
+            <li class="addr"><label for="address">公司地址：</label><input name="address" type="text"  placeholder="请输入公司地址" id="address">
+                <i class="warn">*</i>
+            </li>
+
+        </ul>
+        <div class="title line">法人信息
+            <div class="tool tool-fold unselect">
+                <div class="item item-fold">收起<i class="arrow"></i></div>
+                <div class="item item-show">展开<i class="arrow"></i></div>
+            </div>
+        </div>
+        <ul>
+            <li><label for="legalName">法人姓名：</label><input name="legalName" type="text" placeholder="请输入公司法人姓名" id="legalName">
+                <i class="warn">*</i>
+            </li>
+            <li><label for="legalPhone">手机号：</label><input name="legalPhone" type="text" placeholder="请输入法人联系电话" id="legalPhone">
+                <i class="warn">*</i>
+            </li>
+            <li><label for="legalIdNo">身份证号：</label><input name="legalIdNo" type="text"  placeholder="请输入法人身份证号" id="legalIdNo">
+                <i class="warn">*</i>
+            </li>
+            <li><label for="legalEmail">邮箱：</label><input name="legalEmail" type="text" placeholder="请输入角色邮箱" id="legalEmail">
+                <i class="warn">*</i>
+            </li>
+        </ul>
+        <div class="title line">
+            联系人信息
+            <i class="shuxian"></i>
+            <input type="checkbox" id="equalFaren" onclick="checkboxOnclick(this)">
+            <label for="equalFaren">同法人信息</label>
+            <div class="tool tool-fold unselect">
+                <div class="item item-fold">收起<i class="arrow"></i></div>
+                <div class="item item-show">展开<i class="arrow"></i></div>
+            </div>
+        </div>
+        <ul id="linkDiv">
+            <li><label for="linkName">联系人：</label><input name="linkName" type="text" placeholder="请输入联系人姓名" id="linkName">
+                <i class="warn">*</i>
+            </li>
+            <li><label for="linkPhone">手机号：</label><input name="linkPhone" type="text" placeholder="请输入联系人电话" id="linkPhone">
+                <i class="warn">*</i>
+            </li>
+            <li><label for="linkIdNo">身份证号：</label><input name="linkIdNo" type="text"  placeholder="请输入联系人身份证号" id="linkIdNo">
+                <i class="warn">*</i>
+            </li>
+            <li><label for="linkEmail">邮箱：</label><input name="linkEmail" type="text" placeholder="请输入联系人邮箱" id="linkEmail">
+                <i class="warn">*</i>
+            </li>
+        </ul>
+        <div class="title line identity">证件信息
+            <div class="tool tool-fold unselect">
+                <div class="item item-fold">收起<i class="arrow"></i></div>
+                <div class="item item-show">展开<i class="arrow"></i></div>
+            </div>
+        </div>
+        <ul>
+            <li>
+                <input type="file" accept="image/*" id="file_Xuke" multiple  onchange="fileChange(this);" style="display:none;">
+                <img id="img_file_Xuke" src="/img/add_photos@2x.png" alt="">
+                <i></i>
+                <span>营业许可证</span>
+                <span style="color: #d7352c">*</span>
+            </li>
+            <li>
+        <input type="file" accept="image/*" id="file_Front" multiple onchange="fileChange(this);" style="display:none;">
+                <img id="img_file_Front" src="/img/add_photos@2x.png" alt="">
+                <i></i>
+                <span>身份证正面</span>
+                <span style="color: #d7352c">*</span>
+            </li>
+            <li>
+                <input type="file" accept="image/*" id="file_Back" multiple onchange="fileChange(this);" style="display:none;">
+                <img id="img_file_Back" src="/img/add_photos@2x.png" alt="">
+                <i></i>
+                <span>身份证反面</span>
+                <span style="color: #d7352c">*</span>
+            </li>
+        </ul>
+        <button class="submit" type="button" onclick="check()">完成</button>
+</div>
+    </form>
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/layui/css/layui.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/merchant_add.css">
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/base.js"></script>
+<script src="/lib/layui/layui.all.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript">
+    function clearInputFile(f){
+        if(f.value){
+            try{
+                f.value = ''; //for IE11, latest Chrome/Firefox/Opera...
+            }catch(err){
+            }
+            if(f.value){ //for IE5 ~ IE10
+                var form = document.createElement('form'), ref = f.nextSibling, p = f.parentNode;
+                form.appendChild(f);
+                form.reset();
+                p.insertBefore(f,ref);
+            }
+        }
+    }
+    $(function(){
+        function bindClickEvent(id){
+            var obj = document.getElementById(id);
+            var obj2 = document.getElementById('img_'+id);
+            obj2.addEventListener("click", function (e) {
+                if (obj) {
+                    obj.click();
+                }
+                // console.log(2,obj2,obj);
+                e.preventDefault();
+            }, false);
+            // console.log(1,obj2,obj);
+        }
+
+        bindClickEvent("file_Xuke");
+        bindClickEvent("file_Front");
+        bindClickEvent("file_Back");
+
+        $('.identity + ul>li>i').click(function(){
+            var inputFile = $(this).parent().find('input')[0];
+            clearInputFile(inputFile);
+            $(this).parent().find('img').attr("src","/img/add_photos@2x.png");
+            $(this).hide();
+        });
+
+        $('.line > .tool').click(function(e){
+            var $this = $(this);
+            if($this.hasClass('tool-fold')){
+                $this.removeClass('tool-fold');
+                $this.parent().find('+ul').hide();
+            }else{
+                $this.addClass('tool-fold');
+                $this.parent().find('+ul').show();
+            }
+        });
+    });
+
+    function fileChange(obj) {
+        alert(123);
+        console.log(obj);
+        var file = obj.files[0];
+        var temp = obj.files[0].name;
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            var urlData = this.result;
+            var imgObjId = "img_"+$(obj).attr("id");
+            var $imgobj = $("#"+imgObjId);
+            $imgobj.attr("src",urlData);
+            $imgobj.parent().find('i').show();
+            $imgobj.val(urlData);
+            //判断文件格式，只有jpg,jpeg和png三种文件格式可以上传
+            var img_id=$(obj).val();
+            var index= img_id.indexOf(".");
+            img_id=img_id.substring(index);
+            if(img_id!=".jpg"&&img_id!=".JPG"&&img_id!=".JPEG"&&img_id!=".jpeg"&&img_id!=".png"&&img_id!=".PNG"){
+                layer.msg("不是指定图片格式，重新选择");
+                $imgobj.parent().find('i').click();
+            }
+            //判断文件大小，大于2M不能上传
+            var imgSize = $(obj).attr("id");
+            var fileSize =  document.getElementById(imgSize).files[0].size; //获得文件大小；
+            if(fileSize>"2097152"){
+                layer.msg("文件过大，请放小于2M的文件");
+                $imgobj.parent().find('i').click();
+            }
+        };
+    }
+
+    function fileChange(obj) {
+        var file = obj.files[0];
+        console.log(file);
+        var temp = obj.files[0].name;
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            var urlData = this.result;
+            var imgObjId = "img_"+$(obj).attr("id");
+            var $imgobj = $("#"+imgObjId);
+            $imgobj.attr("src",urlData);
+            $imgobj.parent().find('i').show();
+            $imgobj.val(urlData);
+            //判断文件格式，只有jpg,jpeg和png三种文件格式可以上传
+            var img_id=$(obj).val();
+            var index= img_id.indexOf(".");
+            img_id=img_id.substring(index);
+            if(img_id!=".jpg" && img_id!=".JPG" && img_id!=".JPEG" && img_id!=".jpeg" && img_id!=".png" && img_id!=".PNG"){
+                layer.msg("不是指定图片格式，重新选择");
+                $imgobj.parent().find('i').click();
+            }
+            //判断文件大小，大于2M不能上传
+            var imgSize = $(obj).attr("id");
+            var fileSize =  document.getElementById(imgSize).files[0].size; //获得文件大小；
+            if(fileSize>"2097152"){
+                layer.msg("文件过大，请放小于2M的文件");
+                $imgobj.parent().find('i').click();
+            }
+        };
+    }
+
+    //同法人信息checkbox
+    function checkboxOnclick(checkbox) {
+        if(checkbox.checked == true){
+            $('#linkName').val($('#legalName').val());
+            $('#linkPhone').val($('#legalPhone').val());
+            $('#linkIdNo').val($('#legalIdNo').val());
+            $('#linkEmail').val($('#legalEmail').val());
+        }else{
+            $('#linkDiv input').val("");
+        }
+    }
+
+    //校验
+    function check(){
+        var i= 0;
+        $(" input[type=text],input[type=file]").each(function(){
+            var value = $.trim($(this).val());
+            if(value ==='' || value == null){
+                i = 1;
+                $(this).focus();
+            }
+        });
+        if(i === 1){
+            layer.msg("请填写所有必填项");
+            return false;
+        }
+        var check = false;
+        var servicePhone=$('#servicePhone').val();
+        var isPhone=/^([0-9]{3,4}-)?[0-9]{7,8}$/;
+        var isMob=/^0?1[3|4|5|7|8][0-9]\d{8}$/;
+        var phoneAndMobile = /(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$/;
+        if(phoneAndMobile.test(servicePhone)){
+            check = true;
+        }else{
+            layer.msg("请输入正确的客服电话");
+            check = false;
+            $('#servicePhone').val("");
+            $('#servicePhone').focus();
+            return;
+        }
+        if(isMob.test($('#legalPhone').val())){
+            check = true;
+        }else{
+            layer.msg("请输入正确的法人手机号");
+            check = false;
+            $('#legalPhone').val("");
+            $('#legalPhone').focus();
+            return;
+        }
+        var regIdCard=/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+        if(regIdCard.test($('#legalIdNo').val())){
+            check = true;
+        }else {
+            layer.msg("请输入正确的法人身份号");
+            check = false;
+            $('#legalIdNo').val("");
+            $('#legalIdNo').focus();
+            return;
+        }
+        var email = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+        if(email.test($('#legalEmail').val())){
+            check = true;
+        }else{
+            layer.msg("请输入正确的法人邮箱");
+            check = false;
+            $('#legalEmail').val("");
+            $('#legalEmail').focus();
+            return;
+        }
+        if(isMob.test($('#linkPhone').val())){
+            check = true;
+        }else{
+            layer.msg("请输入正确的联系人手机号");
+            check = false;
+            $('#linkPhone').val("");
+            $('#linkPhone').focus();
+            return;
+        }
+        if(regIdCard.test($('#linkIdNo').val())){
+            check = true;
+        }else {
+            layer.msg("请输入正确的联系人身份号");
+            check = false;
+            $('#linkIdNo').val("");
+            $('#linkIdNo').focus();
+            return;
+        }
+        if(email.test($('#linkEmail').val())){
+            check = true;
+        }else{
+            layer.msg("请输入正确的联系人邮箱");
+            check = false;
+            $('#linkEmail').val("");
+            $('#linkEmail').focus();
+            return;
+        }
+        if(check = true){
+            achieveBtn();
+        }
+    };
+
+    //完成按钮，增加
+    function achieveBtn(){
+        var garde = $('#grade').val();
+        var companyName = $('#companyName').val();
+        var servicePhone = $('#servicePhone').val();
+        var address = $('#address').val();
+        var legalName = $('#legalName').val();
+        var legalPhone = $('#legalPhone').val();
+        var legalIdNo = $('#legalIdNo').val();
+        var legalEmail = $('#legalEmail').val();
+        var linkName = $('#linkName').val();
+        var linkPhone = $('#linkPhone').val();
+        var linkIdNo = $('#linkIdNo').val();
+        var linkEmail = $('#linkEmail').val();
+        var imgFileXuke = $('#img_file_Xuke').val();
+        var imgFileFront = $('#img_file_Front').val();
+        var imgFileBack = $('#img_file_Back').val();
+/*        var fileXuke = $('#file_Xuke').val();
+        var indexX= fileXuke.indexOf(".");
+        fileXuke=fileXuke.substring(indexX);
+        var fileFront = $('#file_Front').val();
+        var indexF= fileFront.indexOf(".");
+        fileFront=fileFront.substring(indexF);
+        var fileBack = $('#file_Back').val();
+        var indexB= fileBack.indexOf(".");
+        fileBack=fileBack.substring(indexB);*/
+//         var data = {
+//             grade:garde,
+//             companyName:companyName,
+//             servicePhone:servicePhone,
+//             address:address,
+//             legalName:legalName,
+//             legalPhone:legalPhone,
+//             legalIdNo:legalIdNo,
+//             legalEmail:legalEmail,
+//             linkName:linkName,
+//             linkPhone:linkPhone,
+//             linkIdNo:linkIdNo,
+//             linkEmail:linkEmail,
+//             imgFileXuke:imgFileXuke,
+//             imgFileFront:imgFileFront,
+//             imgFileBack:imgFileBack,
+// /*            fileXuke:fileXuke,
+//             fileFront:fileFront,
+//             fileBack:fileBack*/
+//         }
+        var data = $('#f1').serialize();
+        $.post("/company/add",data,function(obj,status){
+            if(obj.code == '200'){
+                layer.alert("增加成功")
+                window.history.back();
+            }else{
+                layer.alert(obj.msg);
+            }
+        },'json')
+
+
+
+        // $.ajax({
+        //     type:'POST',
+        //     dataType:'JSON',
+        //     data:{
+        //         grade:garde,
+        //         companyName:companyName,
+        //         servicePhone:servicePhone,
+        //         address:address,
+        //         legalName:legalName,
+        //         legalPhone:legalPhone,
+        //         legalIdNo:legalIdNo,
+        //         legalEmail:legalEmail,
+        //         linkName:linkName,
+        //         linkPhone:linkPhone,
+        //         linkIdNo:linkIdNo,
+        //         linkEmail:linkEmail,
+        //         imgFileXuke:imgFileXuke,
+        //         imgFileFront:imgFileFront,
+        //         imgFileBack:imgFileBack
+        //     },
+        //     url:'/company/add',
+        //     success:function(obj){
+        //         if(obj.code == '200'){
+        //             layer.alert("增加成功")
+        //             window.history.back();
+        //         }else{
+        //             layer.alert(obj.msg);
+        //         }
+        //     },error:function(){
+        //         layer.alert("服务器异常，请联系管理员");
+        //     }
+        // })
+    }
+
+</script>
+</div>
+</body>
+</html>

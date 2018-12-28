@@ -1,0 +1,326 @@
+body {
+  min-width: 1200px;
+  min-height: 600px;
+}
+
+.topBar {
+  background-color: #313E69;
+  height: 60px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+}
+.topBar .bar-title {
+  -webkit-box-flex: 1;
+          flex: 1;
+  font: 20px/28px 'PingFangSC-Medium';
+  color: #fff;
+  margin-left: 20px;
+}
+.topBar .logo-div {
+  width: 80px;
+  height: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+.topBar .logo-div i.logo {
+  content: '';
+  width: 80px;
+  height: 60px;
+  background: url(../img/logo@2x.jpg) no-repeat;
+  background-size: 100%;
+}
+.topBar .bar-right {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+}
+.topBar .bar-right span {
+  color: #fff;
+  font: 12px/17px 'PingFangSC-Regular';
+}
+.topBar .bar-right i.alert {
+  display: none;
+  width: 20.7px;
+  height: 25.3px;
+  background: url("../img/news@2x.png") no-repeat;
+  background-size: 100%;
+  margin-right: 30px;
+  position: relative;
+}
+.topBar .bar-right i.alert i.new {
+  position: absolute;
+  right: -7px;
+  top: 2px;
+  display: block;
+  width: 19px;
+  height: 12px;
+  background: url("../img/there_news@2x.png") no-repeat;
+  background-size: 100%;
+}
+.topBar .bar-right .person {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  position: relative;
+}
+.topBar .bar-right .person i.icon {
+  width: 34px;
+  height: 34px;
+  background: url("../img/default_portrait@2x.png") no-repeat;
+  background-size: 100%;
+  margin-right: 9.4px;
+}
+.topBar .bar-right .person i.downArrow {
+  width: 12.4px;
+  height: 6px;
+  background: url("../img/pack@2x.png") no-repeat;
+  background-size: 100%;
+  margin: 0 30.4px;
+}
+.topBar .bar-right .person.click .list {
+  display: -webkit-box;
+  display: flex;
+}
+.topBar .bar-right .person .list {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ddd;
+  width: 160px;
+  height: 82px;
+  top: 50px;
+  left: 18px;
+  z-index: 11;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: center;
+          align-items: center;
+  box-shadow: 0px 2px 8px 2px #888888;
+}
+.topBar .bar-right .person .list span {
+  -webkit-box-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  border-bottom: 1px solid #eee;
+  width: 140px;
+  font: 14px/20px 'PingFangSC-Regular';
+  color: #333;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+.topBar .bar-right .person .list span.exit {
+  border-bottom: 0;
+  color: #F0665E;
+  font: 14px/20px 'PingFangSC-Medium';
+}
+
+.bottom-part {
+  display: -webkit-box;
+  display: flex;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.bottom-part .leftPannel {
+  width: 240px;
+  height: 100%;
+  overflow: scroll;
+  background-color: #fff;
+}
+.bottom-part .leftPannel::-webkit-scrollbar, .bottom-part .leftPannel::-webkit-scrollbar-track, .bottom-part .leftPannel::-webkit-scrollbar-thumb {
+  width: 0px;
+  height: 0px;
+  background-color: rgba(255, 255, 255, 0);
+}
+.bottom-part .leftPannel i.icon {
+  width: 30px;
+  height: 30px;
+  background-size: 100% !important;
+}
+.bottom-part .leftPannel i.icon.company_management {
+  background: url("../img/company_management@2x.png") no-repeat;
+}
+.bottom-part .leftPannel i.icon.formats {
+  background: url("../img/formats@2x.png") no-repeat;
+}
+.bottom-part .leftPannel i.icon.housing {
+  background: url("../img/housing@2x.png") no-repeat;
+}
+.bottom-part .leftPannel i.icon.customer {
+  background: url("../img/customer@2x.png") no-repeat;
+}
+.bottom-part .leftPannel i.icon.constract {
+  background: url("../img/contract@2x.png") no-repeat;
+}
+.bottom-part .leftPannel i.icon.financial_manage {
+  background: url("../img/financial@2x.png") no-repeat;
+}
+.bottom-part .leftPannel i.icon.property {
+  background: url("../img/property@2x.png") no-repeat;
+}
+.bottom-part .leftPannel i.icon.system {
+  background: url("../img/system@2x.png") no-repeat;
+}
+.bottom-part .leftPannel i.icon.contract {
+  background: url("../img/contractB@2x.png") no-repeat;
+}
+.bottom-part .leftPannel > li {
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+}
+.bottom-part .leftPannel > li.selected > div > div {
+  background-color: #F6F6F6;
+}
+.bottom-part .leftPannel > li:hover > div > div {
+  background-color: #F6F6F6;
+}
+.bottom-part .leftPannel > li:hover ul {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+.bottom-part .leftPannel > li > div > div {
+  width: 80px;
+  position: relative;
+  z-index: 10;
+  color: #333;
+  -webkit-box-flex: 1;
+          flex: 1;
+  font: 14px/20px 'PingFangSC-Medium';
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  height: 80px;
+}
+.bottom-part .leftPannel > li > div > div span {
+  margin-top: 6px;
+}
+.bottom-part .leftPannel > li ul {
+  position: absolute;
+  z-index: 9;
+  width: 143px;
+  color: white;
+  left: 80px;
+  min-height: 0;
+  background-color: #F6F6F6;
+  -webkit-transition: all 0.5s cubic-bezier(0.08, 0.72, 0.71, 0.96);
+  transition: all 0.5s cubic-bezier(0.08, 0.72, 0.71, 0.96);
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  -webkit-transform: rotateY(90deg);
+          transform: rotateY(90deg);
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  border: 1px solid #ddd;
+}
+.bottom-part .leftPannel > li:nth-last-of-type(1) ul,
+.bottom-part .leftPannel > li:nth-last-of-type(2) ul{
+  bottom: 0;
+}
+.bottom-part .leftPannel > li ul li {
+  font: 14px/20px 'PingFangSC-Regular';
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  height: 50px;
+  color: #999999;
+}
+.bottom-part .leftPannel > li ul li.selected a span {
+  background-color: #EDEDED;
+  color: #333333;
+}
+.bottom-part .leftPannel > li ul li a:hover {
+  text-decoration: none;
+}
+.bottom-part .leftPannel > li ul li a span {
+  border-radius: 17px;
+  width: 126px;
+  height: 34px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  color: #999999;
+}
+.bottom-part .leftPannel > li ul li a span:hover {
+  background-color: #EDEDED;
+  color: #333333;
+}
+.bottom-part .contentPannel {
+  -webkit-box-flex: 1;
+          flex: 1;
+  background-color: #F6F7FB;
+  position: absolute;
+  top: 0;
+  left: 80px;
+  bottom: 0;
+  right: 0;
+  display: -webkit-box;
+  display: flex;
+  padding-left: 16px;
+  padding-top: 16px;
+}
+.bottom-part .contentPannel > div {
+  background-color: white;
+  overflow: scroll;
+  height: 100%;
+  width: 100%;
+  /*min-width: 1000px;*/
+  position: relative;
+}
+.bottom-part .contentPannel > div .layui-laypage select {
+  height: 22px;
+  line-height: 22px;
+  padding: 3px 20px 0px 5px;
+}
+.bottom-part .contentPannel iframe {
+  width: 100%;
+  height: 100%;
+}
+.bottom-part .contentPannel .content {
+  padding-right: 20px;
+}
+
+.dialog_div {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  z-index: 20;
+}

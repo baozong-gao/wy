@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.SeqMapper" >
+
+  <select id="getSysUsrSeq" resultType="java.lang.Integer">
+    <![CDATA[ select USER_ID_SEQ.nextval from dual]]>
+  </select>
+
+  <select id="getFunctionSeq" resultType="java.lang.Integer">
+    <![CDATA[ select FUNC_ID_SEQ.nextval from dual]]>
+  </select>
+
+  <select id="getRoleSeq" resultType="java.lang.Integer">
+    <![CDATA[select ROLE_ID_SEQ.nextval from dual]]>
+  </select>
+  <select id="getCompanySeq" resultType="java.lang.Integer">
+    <![CDATA[ select COMPANY_ID_SEQ.nextval from dual]]>
+  </select>
+  <select id="getEmployeeSeq" resultType="java.lang.Integer">
+    <![CDATA[ select COMPANY_EMPLOYEE_SEQ.nextval from dual]]>
+  </select>
+  <select id="getBuildingSeq" resultType="java.lang.Integer">
+    <![CDATA[ select BUILDING_INFO_SEQ.nextval from dual]]>
+  </select>
+  <select id="getClientSeq" resultType="java.lang.Integer">
+    <![CDATA[ select CLIENT_ID_SEQ.nextval from dual]]>
+  </select>
+  <select id="getDepartmentSeq" resultType="java.lang.Integer">
+    <![CDATA[ select COMPANY_DEPARTMENT_SEQ.nextval from dual]]>
+  </select>
+  <select id="getContractFeesSeq" resultType="java.lang.Integer">
+    <![CDATA[ select CONTRACT_SEQ.nextval from dual]]>
+  </select>
+  <select id="getRoomSeq" resultType="java.lang.Integer">
+    <![CDATA[ select ROOM_INFO_SEQ.nextval from dual]]>
+  </select>
+  <select id="getContractInfoSeq" resultType="java.lang.Integer">
+    <![CDATA[ select CONTRACT_INFO_SEQ.nextval from dual]]>
+  </select>
+  <select id="getContractSeq" resultType="java.lang.Integer">
+    <![CDATA[ select CONTRACT_INFO_SEQ.nextval from dual]]>
+  </select>
+  <select id="getContractFeeCategorySeq" resultType="java.lang.Integer">
+    <![CDATA[ select CONTRACT_FEE_CATEGORY_SEQ.nextval from dual]]>
+  </select>
+  <select id="getContractTemplateSeq" resultType="java.lang.Integer">
+    <![CDATA[ select CONTRACT_TEMPLATE_SEQ.nextval from dual]]>
+  </select>
+  <select id="getContractBillsSeq" resultType="java.lang.Integer">
+    <![CDATA[ select CONTRACT_BILLS_SEQ.nextval from dual]]>
+  </select>
+  <select id="getContractFeeAccountingLogSeq" resultType="java.lang.Integer">
+    <![CDATA[ select CONTRACT_FEE_ACCOUNTING_SEQ.nextval from dual]]>
+  </select>
+  <select id="getContractBillAccountingLogSeq" resultType="java.lang.Integer">
+    <![CDATA[ select CONTRACT_BILL_ACCOUNTING_SEQ.nextval from dual]]>
+  </select>
+</mapper>

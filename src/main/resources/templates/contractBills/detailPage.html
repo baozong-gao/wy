@@ -1,0 +1,120 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+
+    <div class="pageTitle">
+        财务管理 <i class="dot"></i> 应收账单详情
+    </div>
+
+    <div class="content">
+        <div class="row1">
+            <ul>
+                <li style="padding-left: 10px">
+                    <span>承租人：</span>
+                    <span id="bookerName"></span>
+                </li>
+                <li>
+                    <span>承租人手机：</span>
+                    <span id="bookerMobile"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row2">
+            账单列表
+        </div>
+
+        <div class="row3">
+            <table class="layui-hide" id="contractBillsDetailTbl"></table>
+        </div>
+
+        <div class="row4">
+            <ul>
+                <li class="li1">
+                    <span>应收金额：</span>
+                    <span id="billAmount"></span>
+                    <span>元</span>
+                </li>
+                <li class="li2" style="padding-left: 20px">
+                    <span>实收金额：</span>
+                    <span id="needPayAmount"></span>
+                    <span>元</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/contract_bills_detail.css">
+
+<script type="text/javascript" th:inline="javascript">
+    var rout = [[${rout}]],
+        id = rout.id;
+
+    $(function () {
+        $('#bookerName').html(rout.bookerName);
+        $('#bookerMobile').html(rout.bookerMobile);
+        $('#billAmount').html(rout.billAmount);
+        $('#needPayAmount').html(rout.needPayAmount);
+    });
+
+    layui.use(['table'],function () {
+        var table = layui.table;
+        var data = [
+            {field:'contractId', title:'合同号'},
+            {field:'contractFeeId', title:'收入账单号'},
+            {field:'roomDesc', title:'房间描述'},
+            {field:'billAmount', title:'应收金额（元）'},
+            {field:'penaltyAmount', title:'违约金（元）'},
+            {field:'afterAmount', title:'实际账单金额（元）'},
+            {field:'', title:'状态', templet: function (d) {
+                    if(d.billStatus === 'INITIAL'){
+                       return '新生成初始'
+                    }else if(d.billStatus === 'AUDIT'){
+                        return '已修改'
+                    }else if(d.billStatus === 'CHECKED'){
+                        return '已审核'
+                    }else if(d.billStatus === 'PAYING'){
+                        return '支付中'
+                    }else if(d.billStatus === 'PAID'){
+                        return '已支付'
+                    }else if(d.billStatus === 'OVERDUE'){
+                        return '已逾期'
+                    }else {
+                        return '未知'
+                    }
+                }},
+            {field:'operator', title:'操作人'}
+        ]
+
+        table.render({
+            elem: '#contractBillsDetailTbl',
+            url: '/ContractBillAccountingLog/search',
+            method: 'post',
+            cols: [data],
+            even: true,
+            page: true,
+            request: {
+                limitName: 'rows'
+            },
+            response:{
+                dataName:'data',
+                dataSecName:'rows',
+                statusCode: 200,
+                countName: 'total'
+            },
+            where: {
+                contractBillId: id
+            },
+            id: 'reloadTbl'
+        })
+    })
+</script>
+
+</div>
+</body>
+</html>

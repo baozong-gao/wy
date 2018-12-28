@@ -1,0 +1,139 @@
+
+.content-test {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  background-color: white;
+  width: 312px;
+  height: 300px;
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #333;
+}
+.content-test .topBar {
+  height: 30px;
+  background-color: #f0f0f0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  padding: 0 10px;
+  -webkit-box-pack: justify;
+          justify-content-test: space-between;
+}
+.content-test .topBar .title-in {
+  font: 14px/20px 'PingFangSC-Medium';
+  color: #333;
+  margin-left: 3px;
+}
+.content-test .topBar button {
+  font: 12px/17px 'PingFangSC-Medium';
+  color: #2374e5;
+  display: -webkit-box;
+  /* display: flex; */
+  -webkit-box-align: center;
+  align-items: center;
+  background-color: transparent;
+  /* float: right; */
+  flex: 1;
+  text-align: right;
+}
+.content-test .topBar button i {
+  width: 14px;
+  height: 14px;
+  background: urL("../img/editor@2x.png") no-repeat;
+  background-size: 100%;
+  margin-right: 6px;
+}
+.content-test .room_info {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content-test: center;
+  border-bottom: 1px solid #ddd;
+  padding:10px 0 0 13px;
+}
+.content-test .order{
+  padding:10px 0 0 13px;
+}
+.content-in .room_info p, .content-in .order p{
+  margin-bottom: 3px!important;
+}
+.content-test .room_Num {
+  font: 14px/20px 'PingFangSC-Medium';
+  color: #333;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  padding-left: 13px;
+  -webkit-box-flex: 1;
+          flex: 1;
+}
+.content-in .bt{
+  border-top: 1px solid #ddd;
+  text-align: right;
+}
+.content-in .bt a{
+  border: 1px solid #FF5C5C;
+  border-radius: 2px;
+  padding: 3px 10px;
+  text-align: center;
+  color: #FF5C5C;
+  margin: 10px 10px 0 0;
+  display: inline-block;
+}
+.content-in .bt a.blue{
+  border: 1px solid #2476E9;
+  color: #2476E9;
+}
+.content-in .bt a.yellow{
+  border: 1px solid #FFA42F;
+  color: #FFA42F;
+}
+.content-test .room_Num i {
+  margin-left: 17px;
+  background-color: #ddd;
+  width: 70px;
+  height: 70px;
+}
+.popover{
+  display: block!important;
+}
+.popover-in {
+  position: absolute;
+  top: -93px;
+  left: 92px;
+  z-index: 1060;
+  display: none;
+  max-width: 576px;
+  padding: 1px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: normal;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  line-break: auto;
+}

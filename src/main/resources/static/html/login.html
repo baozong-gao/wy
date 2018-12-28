@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/bootoast/bootoast.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+  <div class="content">
+    <div class="middle">
+      <i class="logo"></i>
+      <div class="ad">
+      </div>
+      <div class="form">
+        <span class="title">用户登录</span>
+        <input class="tel" type="text" placeholder="手机号 / 登录帐号">
+        <input class="pwd" type="password" placeholder="请输入密码">
+        <div class="secure">
+          <input class="code" type="text" placeholder="请输入验证码">
+          <span>SDFGRT</span>
+        </div>
+        <button onclick="">登录</button>
+        <p class="errorMsg"></p>
+      </div>
+    </div>
+    <div class="bottom_txt">
+      <span class="contact">联系客服：400-6420866</span>
+      <span class="copyright">Copyright © 2017 上海申鑫电子支付股份有限公司 | ICP证: 沪ICP备123456789号</span>
+    </div>
+  </div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../lib/bootoast/bootoast.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+  function myclick(){
+    bootoast({
+        message: 'This is an info toast message',
+        position:'right-bottom',
+        type: 'danger',
+        timeout:2
+      });
+  }
+</script>
+</body>
+</html>

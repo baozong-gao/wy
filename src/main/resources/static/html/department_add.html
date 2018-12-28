@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/system_add.css">
+</head>
+<body>
+<div class="pageTitle">
+  系统管理 <i class="dot"></i> 部门新增
+</div>
+
+<div class="content">
+
+   <div class="title">填写功能信息<span class="title_sub">（*为必填项）</span></div>
+   <ul>
+      <li>
+      <label for="depart_name">部门名称：</label>
+        <input style="width: 320px" name="depart_name" type="text" placeholder="请输入部门名称">
+        <i class="warn">*</i>
+      </li>
+      <li>
+        <label for="depart_contact">部门负责人：</label>
+        <input style="width: 320px" name="depart_contact" type="text" placeholder="请输入角色父级">
+        <i class="warn">*</i>
+      </li>
+      <li>
+        <label for="depart_phone">负责人电话：</label>
+        <input style="width: 320px" name="depart_phone" type="text" placeholder="请输入角色等级">
+        <i class="warn">*</i>
+        </li>
+   </ul>
+   <div class="title line unselect hetong depart">
+      &nbsp&nbsp &nbsp&nbsp状态：
+        <input type="radio" id="open" name="statustype">
+        <label for="open">启用</label>
+        <input type="radio" id="close" name="statustype">
+        <label for="close">关闭</label>
+   </div>
+  <button>保存</button>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.ContractInfoDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.ContractInfoDAO" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="CONTRACT_TEMPLATE_ID" property="contractTemplateId" jdbcType="DECIMAL" />
+    <result column="PRINCIPLE_NAME" property="principleName" jdbcType="VARCHAR" />
+    <result column="PRINCIPLE_MOBILE" property="principleMobile" jdbcType="VARCHAR" />
+    <result column="PRINCIPLE_ADDRESS" property="principleAddress" jdbcType="VARCHAR" />
+    <result column="PRINCIPLE_AGENT" property="principleAgent" jdbcType="VARCHAR" />
+    <result column="PRINCIPLE_AGENT_MOBILE" property="principleAgentMobile" jdbcType="VARCHAR" />
+    <result column="PRINCIPLE_AGENT_ADDRESS" property="principleAgentAddress" jdbcType="VARCHAR" />
+    <result column="PRINCIPLE_AGENT_REMARK" property="principleAgentRemark" jdbcType="VARCHAR" />
+    <result column="CONTRA_NAME" property="contraName" jdbcType="VARCHAR" />
+    <result column="CONTRA_MOBILE" property="contraMobile" jdbcType="VARCHAR" />
+    <result column="CONTRA_ADDRESS" property="contraAddress" jdbcType="VARCHAR" />
+    <result column="CONTRA_AGENT" property="contraAgent" jdbcType="VARCHAR" />
+    <result column="CONTRA_AGENT_MOBILE" property="contraAgentMobile" jdbcType="VARCHAR" />
+    <result column="CONTRA_AGENT_ADDRESS" property="contraAgentAddress" jdbcType="VARCHAR" />
+    <result column="CONTRA_AGENT_REMARK" property="contraAgentRemark" jdbcType="VARCHAR" />
+    <result column="RELATED_CLIENT_ID" property="relatedClientId" jdbcType="DECIMAL" />
+    <result column="THIRD_PARTY_NAME" property="thirdPartyName" jdbcType="VARCHAR" />
+    <result column="THIRD_PARTY_MOBILE" property="thirdPartyMobile" jdbcType="VARCHAR" />
+    <result column="CONTRACT_PERIOD" property="contractPeriod" jdbcType="DECIMAL" />
+    <result column="CONTRACT_START_DATE" property="contractStartDate" jdbcType="CHAR" />
+    <result column="CONTRACT_END_DATE" property="contractEndDate" jdbcType="CHAR" />
+    <result column="CONTRACT_CLOSE_DATE" property="contractCloseDate" jdbcType="CHAR" />
+    <result column="CONTRACT_STATUS" property="contractStatus" jdbcType="VARCHAR" />
+    <result column="CONTRACT_TYPE" property="contractType" jdbcType="VARCHAR" />
+    <result column="SIGNER_NAME" property="signerName" jdbcType="VARCHAR" />
+    <result column="SIGNER_MOBILE" property="signerMobile" jdbcType="VARCHAR" />
+    <result column="SIGNER_ID_TYPE" property="signerIdType" jdbcType="VARCHAR" />
+    <result column="SIGNER_ID_NO" property="signerIdNo" jdbcType="VARCHAR" />
+    <result column="SIGNER_SEX" property="signerSex" jdbcType="VARCHAR" />
+    <result column="SIGN_DATE" property="signDate" jdbcType="CHAR" />
+    <result column="SIGN_TIME" property="signTime" jdbcType="CHAR" />
+    <result column="BOOKING_DATE" property="bookingDate" jdbcType="CHAR" />
+    <result column="BOOKING_TIME" property="bookingTime" jdbcType="CHAR" />
+    <result column="BOOKER_NAME" property="bookerName" jdbcType="VARCHAR" />
+    <result column="BOOKER_MOBILE" property="bookerMobile" jdbcType="VARCHAR" />
+    <result column="BOOKING_DAYS" property="bookingDays" jdbcType="DECIMAL" />
+    <result column="LAST_SIGN_DATE" property="lastSignDate" jdbcType="CHAR" />
+    <result column="BOOKING_REMARK" property="bookingRemark" jdbcType="VARCHAR" />
+    <result column="FEE_PAY_PERIOD" property="feePayPeriod" jdbcType="DECIMAL" />
+    <result column="FEE_HOLD_PERIOD" property="feeHoldPeriod" jdbcType="DECIMAL" />
+    <result column="PAY_AMT" property="payAmt" jdbcType="DECIMAL" />
+    <result column="DEPOSIT_AMT" property="depositAmt" jdbcType="DECIMAL" />
+    <result column="PROPERTY_AMT" property="propertyAmt" jdbcType="DECIMAL" />
+    <result column="FEE_PAY_TYPE" property="feePayType" jdbcType="VARCHAR" />
+    <result column="PROPERTY_CHANGE_CALCULATE" property="propertyChangeCalculate" jdbcType="VARCHAR" />
+    <result column="FEE_CHANGE_CALCULATE" property="feeChangeCalculate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, CONTRACT_TEMPLATE_ID, PRINCIPLE_NAME, PRINCIPLE_MOBILE, PRINCIPLE_ADDRESS, 
+    PRINCIPLE_AGENT, PRINCIPLE_AGENT_MOBILE, PRINCIPLE_AGENT_ADDRESS, PRINCIPLE_AGENT_REMARK, 
+    CONTRA_NAME, CONTRA_MOBILE, CONTRA_ADDRESS, CONTRA_AGENT, CONTRA_AGENT_MOBILE, CONTRA_AGENT_ADDRESS, 
+    CONTRA_AGENT_REMARK, RELATED_CLIENT_ID, THIRD_PARTY_NAME, THIRD_PARTY_MOBILE, CONTRACT_PERIOD, 
+    CONTRACT_START_DATE, CONTRACT_END_DATE, CONTRACT_CLOSE_DATE, CONTRACT_STATUS, CONTRACT_TYPE, 
+    SIGNER_NAME, SIGNER_MOBILE, SIGNER_ID_TYPE, SIGNER_ID_NO, SIGNER_SEX, SIGN_DATE, 
+    SIGN_TIME, BOOKING_DATE, BOOKING_TIME, BOOKER_NAME, BOOKER_MOBILE, BOOKING_DAYS, 
+    LAST_SIGN_DATE, BOOKING_REMARK, FEE_PAY_PERIOD, FEE_HOLD_PERIOD, PAY_AMT, DEPOSIT_AMT, 
+    PROPERTY_AMT, FEE_PAY_TYPE, PROPERTY_CHANGE_CALCULATE, FEE_CHANGE_CALCULATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractInfoDAOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CONTRACT_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from CONTRACT_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from CONTRACT_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractInfoDAOExample" >
+    delete from CONTRACT_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractInfoDAO" >
+    insert into CONTRACT_INFO (ID, COMPANY_ID, CONTRACT_TEMPLATE_ID, 
+      PRINCIPLE_NAME, PRINCIPLE_MOBILE, PRINCIPLE_ADDRESS, 
+      PRINCIPLE_AGENT, PRINCIPLE_AGENT_MOBILE, PRINCIPLE_AGENT_ADDRESS, 
+      PRINCIPLE_AGENT_REMARK, CONTRA_NAME, CONTRA_MOBILE, 
+      CONTRA_ADDRESS, CONTRA_AGENT, CONTRA_AGENT_MOBILE, 
+      CONTRA_AGENT_ADDRESS, CONTRA_AGENT_REMARK, 
+      RELATED_CLIENT_ID, THIRD_PARTY_NAME, THIRD_PARTY_MOBILE, 
+      CONTRACT_PERIOD, CONTRACT_START_DATE, CONTRACT_END_DATE, 
+      CONTRACT_CLOSE_DATE, CONTRACT_STATUS, CONTRACT_TYPE, 
+      SIGNER_NAME, SIGNER_MOBILE, SIGNER_ID_TYPE, 
+      SIGNER_ID_NO, SIGNER_SEX, SIGN_DATE, 
+      SIGN_TIME, BOOKING_DATE, BOOKING_TIME, 
+      BOOKER_NAME, BOOKER_MOBILE, BOOKING_DAYS, 
+      LAST_SIGN_DATE, BOOKING_REMARK, FEE_PAY_PERIOD, 
+      FEE_HOLD_PERIOD, PAY_AMT, DEPOSIT_AMT, 
+      PROPERTY_AMT, FEE_PAY_TYPE, PROPERTY_CHANGE_CALCULATE, 
+      FEE_CHANGE_CALCULATE)
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{contractTemplateId,jdbcType=DECIMAL}, 
+      #{principleName,jdbcType=VARCHAR}, #{principleMobile,jdbcType=VARCHAR}, #{principleAddress,jdbcType=VARCHAR}, 
+      #{principleAgent,jdbcType=VARCHAR}, #{principleAgentMobile,jdbcType=VARCHAR}, #{principleAgentAddress,jdbcType=VARCHAR}, 
+      #{principleAgentRemark,jdbcType=VARCHAR}, #{contraName,jdbcType=VARCHAR}, #{contraMobile,jdbcType=VARCHAR}, 
+      #{contraAddress,jdbcType=VARCHAR}, #{contraAgent,jdbcType=VARCHAR}, #{contraAgentMobile,jdbcType=VARCHAR}, 
+      #{contraAgentAddress,jdbcType=VARCHAR}, #{contraAgentRemark,jdbcType=VARCHAR}, 
+      #{relatedClientId,jdbcType=DECIMAL}, #{thirdPartyName,jdbcType=VARCHAR}, #{thirdPartyMobile,jdbcType=VARCHAR}, 
+      #{contractPeriod,jdbcType=DECIMAL}, #{contractStartDate,jdbcType=CHAR}, #{contractEndDate,jdbcType=CHAR}, 
+      #{contractCloseDate,jdbcType=CHAR}, #{contractStatus,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR}, 
+      #{signerName,jdbcType=VARCHAR}, #{signerMobile,jdbcType=VARCHAR}, #{signerIdType,jdbcType=VARCHAR}, 
+      #{signerIdNo,jdbcType=VARCHAR}, #{signerSex,jdbcType=VARCHAR}, #{signDate,jdbcType=CHAR}, 
+      #{signTime,jdbcType=CHAR}, #{bookingDate,jdbcType=CHAR}, #{bookingTime,jdbcType=CHAR}, 
+      #{bookerName,jdbcType=VARCHAR}, #{bookerMobile,jdbcType=VARCHAR}, #{bookingDays,jdbcType=DECIMAL}, 
+      #{lastSignDate,jdbcType=CHAR}, #{bookingRemark,jdbcType=VARCHAR}, #{feePayPeriod,jdbcType=DECIMAL}, 
+      #{feeHoldPeriod,jdbcType=DECIMAL}, #{payAmt,jdbcType=DECIMAL}, #{depositAmt,jdbcType=DECIMAL}, 
+      #{propertyAmt,jdbcType=DECIMAL}, #{feePayType,jdbcType=VARCHAR}, #{propertyChangeCalculate,jdbcType=VARCHAR}, 
+      #{feeChangeCalculate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractInfoDAO" >
+    insert into CONTRACT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="contractTemplateId != null" >
+        CONTRACT_TEMPLATE_ID,
+      </if>
+      <if test="principleName != null" >
+        PRINCIPLE_NAME,
+      </if>
+      <if test="principleMobile != null" >
+        PRINCIPLE_MOBILE,
+      </if>
+      <if test="principleAddress != null" >
+        PRINCIPLE_ADDRESS,
+      </if>
+      <if test="principleAgent != null" >
+        PRINCIPLE_AGENT,
+      </if>
+      <if test="principleAgentMobile != null" >
+        PRINCIPLE_AGENT_MOBILE,
+      </if>
+      <if test="principleAgentAddress != null" >
+        PRINCIPLE_AGENT_ADDRESS,
+      </if>
+      <if test="principleAgentRemark != null" >
+        PRINCIPLE_AGENT_REMARK,
+      </if>
+      <if test="contraName != null" >
+        CONTRA_NAME,
+      </if>
+      <if test="contraMobile != null" >
+        CONTRA_MOBILE,
+      </if>
+      <if test="contraAddress != null" >
+        CONTRA_ADDRESS,
+      </if>
+      <if test="contraAgent != null" >
+        CONTRA_AGENT,
+      </if>
+      <if test="contraAgentMobile != null" >
+        CONTRA_AGENT_MOBILE,
+      </if>
+      <if test="contraAgentAddress != null" >
+        CONTRA_AGENT_ADDRESS,
+      </if>
+      <if test="contraAgentRemark != null" >
+        CONTRA_AGENT_REMARK,
+      </if>
+      <if test="relatedClientId != null" >
+        RELATED_CLIENT_ID,
+      </if>
+      <if test="thirdPartyName != null" >
+        THIRD_PARTY_NAME,
+      </if>
+      <if test="thirdPartyMobile != null" >
+        THIRD_PARTY_MOBILE,
+      </if>
+      <if test="contractPeriod != null" >
+        CONTRACT_PERIOD,
+      </if>
+      <if test="contractStartDate != null" >
+        CONTRACT_START_DATE,
+      </if>
+      <if test="contractEndDate != null" >
+        CONTRACT_END_DATE,
+      </if>
+      <if test="contractCloseDate != null" >
+        CONTRACT_CLOSE_DATE,
+      </if>
+      <if test="contractStatus != null" >
+        CONTRACT_STATUS,
+      </if>
+      <if test="contractType != null" >
+        CONTRACT_TYPE,
+      </if>
+      <if test="signerName != null" >
+        SIGNER_NAME,
+      </if>
+      <if test="signerMobile != null" >
+        SIGNER_MOBILE,
+      </if>
+      <if test="signerIdType != null" >
+        SIGNER_ID_TYPE,
+      </if>
+      <if test="signerIdNo != null" >
+        SIGNER_ID_NO,
+      </if>
+      <if test="signerSex != null" >
+        SIGNER_SEX,
+      </if>
+      <if test="signDate != null" >
+        SIGN_DATE,
+      </if>
+      <if test="signTime != null" >
+        SIGN_TIME,
+      </if>
+      <if test="bookingDate != null" >
+        BOOKING_DATE,
+      </if>
+      <if test="bookingTime != null" >
+        BOOKING_TIME,
+      </if>
+      <if test="bookerName != null" >
+        BOOKER_NAME,
+      </if>
+      <if test="bookerMobile != null" >
+        BOOKER_MOBILE,
+      </if>
+      <if test="bookingDays != null" >
+        BOOKING_DAYS,
+      </if>
+      <if test="lastSignDate != null" >
+        LAST_SIGN_DATE,
+      </if>
+      <if test="bookingRemark != null" >
+        BOOKING_REMARK,
+      </if>
+      <if test="feePayPeriod != null" >
+        FEE_PAY_PERIOD,
+      </if>
+      <if test="feeHoldPeriod != null" >
+        FEE_HOLD_PERIOD,
+      </if>
+      <if test="payAmt != null" >
+        PAY_AMT,
+      </if>
+      <if test="depositAmt != null" >
+        DEPOSIT_AMT,
+      </if>
+      <if test="propertyAmt != null" >
+        PROPERTY_AMT,
+      </if>
+      <if test="feePayType != null" >
+        FEE_PAY_TYPE,
+      </if>
+      <if test="propertyChangeCalculate != null" >
+        PROPERTY_CHANGE_CALCULATE,
+      </if>
+      <if test="feeChangeCalculate != null" >
+        FEE_CHANGE_CALCULATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractTemplateId != null" >
+        #{contractTemplateId,jdbcType=DECIMAL},
+      </if>
+      <if test="principleName != null" >
+        #{principleName,jdbcType=VARCHAR},
+      </if>
+      <if test="principleMobile != null" >
+        #{principleMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAddress != null" >
+        #{principleAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAgent != null" >
+        #{principleAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAgentMobile != null" >
+        #{principleAgentMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAgentAddress != null" >
+        #{principleAgentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAgentRemark != null" >
+        #{principleAgentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="contraName != null" >
+        #{contraName,jdbcType=VARCHAR},
+      </if>
+      <if test="contraMobile != null" >
+        #{contraMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAddress != null" >
+        #{contraAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAgent != null" >
+        #{contraAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAgentMobile != null" >
+        #{contraAgentMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAgentAddress != null" >
+        #{contraAgentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAgentRemark != null" >
+        #{contraAgentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedClientId != null" >
+        #{relatedClientId,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdPartyName != null" >
+        #{thirdPartyName,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyMobile != null" >
+        #{thirdPartyMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPeriod != null" >
+        #{contractPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="contractStartDate != null" >
+        #{contractStartDate,jdbcType=CHAR},
+      </if>
+      <if test="contractEndDate != null" >
+        #{contractEndDate,jdbcType=CHAR},
+      </if>
+      <if test="contractCloseDate != null" >
+        #{contractCloseDate,jdbcType=CHAR},
+      </if>
+      <if test="contractStatus != null" >
+        #{contractStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="signerName != null" >
+        #{signerName,jdbcType=VARCHAR},
+      </if>
+      <if test="signerMobile != null" >
+        #{signerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="signerIdType != null" >
+        #{signerIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="signerIdNo != null" >
+        #{signerIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="signerSex != null" >
+        #{signerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=CHAR},
+      </if>
+      <if test="signTime != null" >
+        #{signTime,jdbcType=CHAR},
+      </if>
+      <if test="bookingDate != null" >
+        #{bookingDate,jdbcType=CHAR},
+      </if>
+      <if test="bookingTime != null" >
+        #{bookingTime,jdbcType=CHAR},
+      </if>
+      <if test="bookerName != null" >
+        #{bookerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookerMobile != null" >
+        #{bookerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="bookingDays != null" >
+        #{bookingDays,jdbcType=DECIMAL},
+      </if>
+      <if test="lastSignDate != null" >
+        #{lastSignDate,jdbcType=CHAR},
+      </if>
+      <if test="bookingRemark != null" >
+        #{bookingRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="feePayPeriod != null" >
+        #{feePayPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="feeHoldPeriod != null" >
+        #{feeHoldPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="payAmt != null" >
+        #{payAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="depositAmt != null" >
+        #{depositAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyAmt != null" >
+        #{propertyAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="feePayType != null" >
+        #{feePayType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyChangeCalculate != null" >
+        #{propertyChangeCalculate,jdbcType=VARCHAR},
+      </if>
+      <if test="feeChangeCalculate != null" >
+        #{feeChangeCalculate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractInfoDAOExample" resultType="java.lang.Integer" >
+    select count(*) from CONTRACT_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update CONTRACT_INFO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contractTemplateId != null" >
+        CONTRACT_TEMPLATE_ID = #{record.contractTemplateId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.principleName != null" >
+        PRINCIPLE_NAME = #{record.principleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principleMobile != null" >
+        PRINCIPLE_MOBILE = #{record.principleMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principleAddress != null" >
+        PRINCIPLE_ADDRESS = #{record.principleAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principleAgent != null" >
+        PRINCIPLE_AGENT = #{record.principleAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principleAgentMobile != null" >
+        PRINCIPLE_AGENT_MOBILE = #{record.principleAgentMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principleAgentAddress != null" >
+        PRINCIPLE_AGENT_ADDRESS = #{record.principleAgentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principleAgentRemark != null" >
+        PRINCIPLE_AGENT_REMARK = #{record.principleAgentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contraName != null" >
+        CONTRA_NAME = #{record.contraName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contraMobile != null" >
+        CONTRA_MOBILE = #{record.contraMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contraAddress != null" >
+        CONTRA_ADDRESS = #{record.contraAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contraAgent != null" >
+        CONTRA_AGENT = #{record.contraAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contraAgentMobile != null" >
+        CONTRA_AGENT_MOBILE = #{record.contraAgentMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contraAgentAddress != null" >
+        CONTRA_AGENT_ADDRESS = #{record.contraAgentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contraAgentRemark != null" >
+        CONTRA_AGENT_REMARK = #{record.contraAgentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relatedClientId != null" >
+        RELATED_CLIENT_ID = #{record.relatedClientId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thirdPartyName != null" >
+        THIRD_PARTY_NAME = #{record.thirdPartyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thirdPartyMobile != null" >
+        THIRD_PARTY_MOBILE = #{record.thirdPartyMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractPeriod != null" >
+        CONTRACT_PERIOD = #{record.contractPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contractStartDate != null" >
+        CONTRACT_START_DATE = #{record.contractStartDate,jdbcType=CHAR},
+      </if>
+      <if test="record.contractEndDate != null" >
+        CONTRACT_END_DATE = #{record.contractEndDate,jdbcType=CHAR},
+      </if>
+      <if test="record.contractCloseDate != null" >
+        CONTRACT_CLOSE_DATE = #{record.contractCloseDate,jdbcType=CHAR},
+      </if>
+      <if test="record.contractStatus != null" >
+        CONTRACT_STATUS = #{record.contractStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractType != null" >
+        CONTRACT_TYPE = #{record.contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signerName != null" >
+        SIGNER_NAME = #{record.signerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signerMobile != null" >
+        SIGNER_MOBILE = #{record.signerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signerIdType != null" >
+        SIGNER_ID_TYPE = #{record.signerIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signerIdNo != null" >
+        SIGNER_ID_NO = #{record.signerIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signerSex != null" >
+        SIGNER_SEX = #{record.signerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signDate != null" >
+        SIGN_DATE = #{record.signDate,jdbcType=CHAR},
+      </if>
+      <if test="record.signTime != null" >
+        SIGN_TIME = #{record.signTime,jdbcType=CHAR},
+      </if>
+      <if test="record.bookingDate != null" >
+        BOOKING_DATE = #{record.bookingDate,jdbcType=CHAR},
+      </if>
+      <if test="record.bookingTime != null" >
+        BOOKING_TIME = #{record.bookingTime,jdbcType=CHAR},
+      </if>
+      <if test="record.bookerName != null" >
+        BOOKER_NAME = #{record.bookerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookerMobile != null" >
+        BOOKER_MOBILE = #{record.bookerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookingDays != null" >
+        BOOKING_DAYS = #{record.bookingDays,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastSignDate != null" >
+        LAST_SIGN_DATE = #{record.lastSignDate,jdbcType=CHAR},
+      </if>
+      <if test="record.bookingRemark != null" >
+        BOOKING_REMARK = #{record.bookingRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feePayPeriod != null" >
+        FEE_PAY_PERIOD = #{record.feePayPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feeHoldPeriod != null" >
+        FEE_HOLD_PERIOD = #{record.feeHoldPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payAmt != null" >
+        PAY_AMT = #{record.payAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.depositAmt != null" >
+        DEPOSIT_AMT = #{record.depositAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.propertyAmt != null" >
+        PROPERTY_AMT = #{record.propertyAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feePayType != null" >
+        FEE_PAY_TYPE = #{record.feePayType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyChangeCalculate != null" >
+        PROPERTY_CHANGE_CALCULATE = #{record.propertyChangeCalculate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feeChangeCalculate != null" >
+        FEE_CHANGE_CALCULATE = #{record.feeChangeCalculate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update CONTRACT_INFO
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      CONTRACT_TEMPLATE_ID = #{record.contractTemplateId,jdbcType=DECIMAL},
+      PRINCIPLE_NAME = #{record.principleName,jdbcType=VARCHAR},
+      PRINCIPLE_MOBILE = #{record.principleMobile,jdbcType=VARCHAR},
+      PRINCIPLE_ADDRESS = #{record.principleAddress,jdbcType=VARCHAR},
+      PRINCIPLE_AGENT = #{record.principleAgent,jdbcType=VARCHAR},
+      PRINCIPLE_AGENT_MOBILE = #{record.principleAgentMobile,jdbcType=VARCHAR},
+      PRINCIPLE_AGENT_ADDRESS = #{record.principleAgentAddress,jdbcType=VARCHAR},
+      PRINCIPLE_AGENT_REMARK = #{record.principleAgentRemark,jdbcType=VARCHAR},
+      CONTRA_NAME = #{record.contraName,jdbcType=VARCHAR},
+      CONTRA_MOBILE = #{record.contraMobile,jdbcType=VARCHAR},
+      CONTRA_ADDRESS = #{record.contraAddress,jdbcType=VARCHAR},
+      CONTRA_AGENT = #{record.contraAgent,jdbcType=VARCHAR},
+      CONTRA_AGENT_MOBILE = #{record.contraAgentMobile,jdbcType=VARCHAR},
+      CONTRA_AGENT_ADDRESS = #{record.contraAgentAddress,jdbcType=VARCHAR},
+      CONTRA_AGENT_REMARK = #{record.contraAgentRemark,jdbcType=VARCHAR},
+      RELATED_CLIENT_ID = #{record.relatedClientId,jdbcType=DECIMAL},
+      THIRD_PARTY_NAME = #{record.thirdPartyName,jdbcType=VARCHAR},
+      THIRD_PARTY_MOBILE = #{record.thirdPartyMobile,jdbcType=VARCHAR},
+      CONTRACT_PERIOD = #{record.contractPeriod,jdbcType=DECIMAL},
+      CONTRACT_START_DATE = #{record.contractStartDate,jdbcType=CHAR},
+      CONTRACT_END_DATE = #{record.contractEndDate,jdbcType=CHAR},
+      CONTRACT_CLOSE_DATE = #{record.contractCloseDate,jdbcType=CHAR},
+      CONTRACT_STATUS = #{record.contractStatus,jdbcType=VARCHAR},
+      CONTRACT_TYPE = #{record.contractType,jdbcType=VARCHAR},
+      SIGNER_NAME = #{record.signerName,jdbcType=VARCHAR},
+      SIGNER_MOBILE = #{record.signerMobile,jdbcType=VARCHAR},
+      SIGNER_ID_TYPE = #{record.signerIdType,jdbcType=VARCHAR},
+      SIGNER_ID_NO = #{record.signerIdNo,jdbcType=VARCHAR},
+      SIGNER_SEX = #{record.signerSex,jdbcType=VARCHAR},
+      SIGN_DATE = #{record.signDate,jdbcType=CHAR},
+      SIGN_TIME = #{record.signTime,jdbcType=CHAR},
+      BOOKING_DATE = #{record.bookingDate,jdbcType=CHAR},
+      BOOKING_TIME = #{record.bookingTime,jdbcType=CHAR},
+      BOOKER_NAME = #{record.bookerName,jdbcType=VARCHAR},
+      BOOKER_MOBILE = #{record.bookerMobile,jdbcType=VARCHAR},
+      BOOKING_DAYS = #{record.bookingDays,jdbcType=DECIMAL},
+      LAST_SIGN_DATE = #{record.lastSignDate,jdbcType=CHAR},
+      BOOKING_REMARK = #{record.bookingRemark,jdbcType=VARCHAR},
+      FEE_PAY_PERIOD = #{record.feePayPeriod,jdbcType=DECIMAL},
+      FEE_HOLD_PERIOD = #{record.feeHoldPeriod,jdbcType=DECIMAL},
+      PAY_AMT = #{record.payAmt,jdbcType=DECIMAL},
+      DEPOSIT_AMT = #{record.depositAmt,jdbcType=DECIMAL},
+      PROPERTY_AMT = #{record.propertyAmt,jdbcType=DECIMAL},
+      FEE_PAY_TYPE = #{record.feePayType,jdbcType=VARCHAR},
+      PROPERTY_CHANGE_CALCULATE = #{record.propertyChangeCalculate,jdbcType=VARCHAR},
+      FEE_CHANGE_CALCULATE = #{record.feeChangeCalculate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractInfoDAO" >
+    update CONTRACT_INFO
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractTemplateId != null" >
+        CONTRACT_TEMPLATE_ID = #{contractTemplateId,jdbcType=DECIMAL},
+      </if>
+      <if test="principleName != null" >
+        PRINCIPLE_NAME = #{principleName,jdbcType=VARCHAR},
+      </if>
+      <if test="principleMobile != null" >
+        PRINCIPLE_MOBILE = #{principleMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAddress != null" >
+        PRINCIPLE_ADDRESS = #{principleAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAgent != null" >
+        PRINCIPLE_AGENT = #{principleAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAgentMobile != null" >
+        PRINCIPLE_AGENT_MOBILE = #{principleAgentMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAgentAddress != null" >
+        PRINCIPLE_AGENT_ADDRESS = #{principleAgentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="principleAgentRemark != null" >
+        PRINCIPLE_AGENT_REMARK = #{principleAgentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="contraName != null" >
+        CONTRA_NAME = #{contraName,jdbcType=VARCHAR},
+      </if>
+      <if test="contraMobile != null" >
+        CONTRA_MOBILE = #{contraMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAddress != null" >
+        CONTRA_ADDRESS = #{contraAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAgent != null" >
+        CONTRA_AGENT = #{contraAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAgentMobile != null" >
+        CONTRA_AGENT_MOBILE = #{contraAgentMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAgentAddress != null" >
+        CONTRA_AGENT_ADDRESS = #{contraAgentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contraAgentRemark != null" >
+        CONTRA_AGENT_REMARK = #{contraAgentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedClientId != null" >
+        RELATED_CLIENT_ID = #{relatedClientId,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdPartyName != null" >
+        THIRD_PARTY_NAME = #{thirdPartyName,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyMobile != null" >
+        THIRD_PARTY_MOBILE = #{thirdPartyMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPeriod != null" >
+        CONTRACT_PERIOD = #{contractPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="contractStartDate != null" >
+        CONTRACT_START_DATE = #{contractStartDate,jdbcType=CHAR},
+      </if>
+      <if test="contractEndDate != null" >
+        CONTRACT_END_DATE = #{contractEndDate,jdbcType=CHAR},
+      </if>
+      <if test="contractCloseDate != null" >
+        CONTRACT_CLOSE_DATE = #{contractCloseDate,jdbcType=CHAR},
+      </if>
+      <if test="contractStatus != null" >
+        CONTRACT_STATUS = #{contractStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        CONTRACT_TYPE = #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="signerName != null" >
+        SIGNER_NAME = #{signerName,jdbcType=VARCHAR},
+      </if>
+      <if test="signerMobile != null" >
+        SIGNER_MOBILE = #{signerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="signerIdType != null" >
+        SIGNER_ID_TYPE = #{signerIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="signerIdNo != null" >
+        SIGNER_ID_NO = #{signerIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="signerSex != null" >
+        SIGNER_SEX = #{signerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        SIGN_DATE = #{signDate,jdbcType=CHAR},
+      </if>
+      <if test="signTime != null" >
+        SIGN_TIME = #{signTime,jdbcType=CHAR},
+      </if>
+      <if test="bookingDate != null" >
+        BOOKING_DATE = #{bookingDate,jdbcType=CHAR},
+      </if>
+      <if test="bookingTime != null" >
+        BOOKING_TIME = #{bookingTime,jdbcType=CHAR},
+      </if>
+      <if test="bookerName != null" >
+        BOOKER_NAME = #{bookerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookerMobile != null" >
+        BOOKER_MOBILE = #{bookerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="bookingDays != null" >
+        BOOKING_DAYS = #{bookingDays,jdbcType=DECIMAL},
+      </if>
+      <if test="lastSignDate != null" >
+        LAST_SIGN_DATE = #{lastSignDate,jdbcType=CHAR},
+      </if>
+      <if test="bookingRemark != null" >
+        BOOKING_REMARK = #{bookingRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="feePayPeriod != null" >
+        FEE_PAY_PERIOD = #{feePayPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="feeHoldPeriod != null" >
+        FEE_HOLD_PERIOD = #{feeHoldPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="payAmt != null" >
+        PAY_AMT = #{payAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="depositAmt != null" >
+        DEPOSIT_AMT = #{depositAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyAmt != null" >
+        PROPERTY_AMT = #{propertyAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="feePayType != null" >
+        FEE_PAY_TYPE = #{feePayType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyChangeCalculate != null" >
+        PROPERTY_CHANGE_CALCULATE = #{propertyChangeCalculate,jdbcType=VARCHAR},
+      </if>
+      <if test="feeChangeCalculate != null" >
+        FEE_CHANGE_CALCULATE = #{feeChangeCalculate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractInfoDAO" >
+    update CONTRACT_INFO
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      CONTRACT_TEMPLATE_ID = #{contractTemplateId,jdbcType=DECIMAL},
+      PRINCIPLE_NAME = #{principleName,jdbcType=VARCHAR},
+      PRINCIPLE_MOBILE = #{principleMobile,jdbcType=VARCHAR},
+      PRINCIPLE_ADDRESS = #{principleAddress,jdbcType=VARCHAR},
+      PRINCIPLE_AGENT = #{principleAgent,jdbcType=VARCHAR},
+      PRINCIPLE_AGENT_MOBILE = #{principleAgentMobile,jdbcType=VARCHAR},
+      PRINCIPLE_AGENT_ADDRESS = #{principleAgentAddress,jdbcType=VARCHAR},
+      PRINCIPLE_AGENT_REMARK = #{principleAgentRemark,jdbcType=VARCHAR},
+      CONTRA_NAME = #{contraName,jdbcType=VARCHAR},
+      CONTRA_MOBILE = #{contraMobile,jdbcType=VARCHAR},
+      CONTRA_ADDRESS = #{contraAddress,jdbcType=VARCHAR},
+      CONTRA_AGENT = #{contraAgent,jdbcType=VARCHAR},
+      CONTRA_AGENT_MOBILE = #{contraAgentMobile,jdbcType=VARCHAR},
+      CONTRA_AGENT_ADDRESS = #{contraAgentAddress,jdbcType=VARCHAR},
+      CONTRA_AGENT_REMARK = #{contraAgentRemark,jdbcType=VARCHAR},
+      RELATED_CLIENT_ID = #{relatedClientId,jdbcType=DECIMAL},
+      THIRD_PARTY_NAME = #{thirdPartyName,jdbcType=VARCHAR},
+      THIRD_PARTY_MOBILE = #{thirdPartyMobile,jdbcType=VARCHAR},
+      CONTRACT_PERIOD = #{contractPeriod,jdbcType=DECIMAL},
+      CONTRACT_START_DATE = #{contractStartDate,jdbcType=CHAR},
+      CONTRACT_END_DATE = #{contractEndDate,jdbcType=CHAR},
+      CONTRACT_CLOSE_DATE = #{contractCloseDate,jdbcType=CHAR},
+      CONTRACT_STATUS = #{contractStatus,jdbcType=VARCHAR},
+      CONTRACT_TYPE = #{contractType,jdbcType=VARCHAR},
+      SIGNER_NAME = #{signerName,jdbcType=VARCHAR},
+      SIGNER_MOBILE = #{signerMobile,jdbcType=VARCHAR},
+      SIGNER_ID_TYPE = #{signerIdType,jdbcType=VARCHAR},
+      SIGNER_ID_NO = #{signerIdNo,jdbcType=VARCHAR},
+      SIGNER_SEX = #{signerSex,jdbcType=VARCHAR},
+      SIGN_DATE = #{signDate,jdbcType=CHAR},
+      SIGN_TIME = #{signTime,jdbcType=CHAR},
+      BOOKING_DATE = #{bookingDate,jdbcType=CHAR},
+      BOOKING_TIME = #{bookingTime,jdbcType=CHAR},
+      BOOKER_NAME = #{bookerName,jdbcType=VARCHAR},
+      BOOKER_MOBILE = #{bookerMobile,jdbcType=VARCHAR},
+      BOOKING_DAYS = #{bookingDays,jdbcType=DECIMAL},
+      LAST_SIGN_DATE = #{lastSignDate,jdbcType=CHAR},
+      BOOKING_REMARK = #{bookingRemark,jdbcType=VARCHAR},
+      FEE_PAY_PERIOD = #{feePayPeriod,jdbcType=DECIMAL},
+      FEE_HOLD_PERIOD = #{feeHoldPeriod,jdbcType=DECIMAL},
+      PAY_AMT = #{payAmt,jdbcType=DECIMAL},
+      DEPOSIT_AMT = #{depositAmt,jdbcType=DECIMAL},
+      PROPERTY_AMT = #{propertyAmt,jdbcType=DECIMAL},
+      FEE_PAY_TYPE = #{feePayType,jdbcType=VARCHAR},
+      PROPERTY_CHANGE_CALCULATE = #{propertyChangeCalculate,jdbcType=VARCHAR},
+      FEE_CHANGE_CALCULATE = #{feeChangeCalculate,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

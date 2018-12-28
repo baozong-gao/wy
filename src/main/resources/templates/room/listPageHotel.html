@@ -1,0 +1,593 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+
+    <div class="pageTitle">
+        房屋管理 <i class="dot"></i> 酒店公寓
+    </div>
+
+    <style>
+        .fiterInput{position: absolute; top: 65px; left: 300px;display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+        }
+        .fiterInput input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin-left: 22px;
+            margin-right: 10px;
+            background: url("../img/radio_unselect@2x.png") no-repeat;
+            background-size: 100%;
+            margin-top: 0;
+        }
+        .fiterInput input[type="radio"]:checked {
+            background: url("../img/radio_select@2x.png") no-repeat;
+            background-size: 100%;
+        }
+        .listDetail{padding: 20px 0 0 20px;
+            float: left;
+            position: relative;
+            height: 45px;}
+        .listDetail label{    font-size: 12px;
+            margin-right: 18px;
+            width: 67px;
+            float: left;
+            line-height: 30px;
+            text-align: right;}
+        .listDetail span{display: inline-block; background: #F5F9FF;
+            border: 1px solid #B8D6FF;
+            line-height: 30px;
+            font-size: 12px;
+            height: 30px;
+            border-radius: 2px; width: 210px; color: #2476E9; padding-left: 10px; }
+        .listDetail span em{
+            font-style: normal;
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            color: #2476E9;
+        }
+        .empty{ color: #08C664 ;}
+        .rent{ color: #499EFF ;}
+        .decoration{ color: #FF5C5C ;}
+        .normal{color:#FFAC23;}
+        .hold{ color: #FFA42F  ;}
+        .booking{ color: #8A85FF;}
+        .other{ color: #10920f;}
+        .live{color: #8A85FF;}
+        .detileBtn{margin-right: 10px;}
+        .entryBill {
+            background: #fff;
+            border: 1px solid #1AAD19;
+            border-radius: 2px;
+            width: 70px;
+            text-align: center;
+            font-size: 12px;
+            color: #1AAD19;
+            line-height: 21px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .backRoom{
+            background: #fff;
+            border: 1px solid #FF5722;
+            border-radius: 2px;
+            width: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #FF5722;
+            line-height: 21px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .layui-table-tips-main{display: none!important;}
+        .layui-table-tips-c{display: none!important;}
+    </style>
+
+
+
+    <div class="content">
+        <form id="searchForm" method="post" class="toolDiv">
+            <div id="searchPanel" class="row1" style="position: relative">
+                <span>搜索条件</span>
+                <span style="margin-left: 20px;">业态:</span>
+                <select class="grade" style="width: 160px; margin-left: 10px;"  title="请选择业态"  name="propertyId"  id="propertyId" onchange="getBuildList(1, this)">
+                    <!--<option value="BUSINESS">请选择</option>-->
+                </select>
+                <span style="margin-left: 20px;">楼宇:</span>
+                <select  class="grade" style="width: 160px; margin-left: 10px;" title="请选择楼宇" name="buildingId" id="buildingId"  onclick="getBuilding(this)">
+                </select>
+                <span style="margin-left: 20px;">状态:</span>
+                <select  class="grade" style="width: 100px; margin-left: 10px;" title="请选择状态" name="roomStatus" id="roomStatus">
+                    <option value="">请选择</option>
+                    <option value="EMPTY">空房</option>
+                    <option value="RENT">已出租</option>
+                    <option value="BOOKING">已预定</option>
+                    <option value="DECORATION">装修封房</option>
+                </select>
+
+                <input style="width: 100px;" type="text" id="unit" placeholder="输入单元">
+                <input style="width: 100px;" type="text" id="floor" placeholder="输入楼层">
+                <input style="width: 100px;" type="text" id="room" placeholder="输入房间号">
+
+                <button type="button" class="query-btn" data-type="reload" id="queryBtn"><i class="query"></i>查询</button>
+                <button type="button" class="clear-btn" onclick="resetData();">清空</button>
+
+
+            </div>
+            <div class="row2" id="toolbar">
+                <button type="button" class="add" onclick="window.location.href = '/room/addpage';"><i></i>新增</button>
+                <button type="button" class="edit btn-type" data-type="editItem"><i></i>修改</button>
+                <button type="button" class="delete btn-type" data-type="deleteItem"><i></i>删除</button>
+            </div>
+        </form>
+
+        <table class="layui-hide" id="demo"  lay-filter="demo"></table>
+
+    </div>
+
+    <style>
+        #entryBill{padding: 23px 39px 0;}
+        #entryBill .list{
+            margin-bottom: 15px;
+
+        }
+        #entryBill .list label{
+            font-size: 12px;
+            font-family: '宋体';
+        }
+        #entryBill .list input, #entryBill .list select{
+            font-family: PingFangSC-Regular;
+            font-size: 12px;
+            color: #CCCCCC; color: #333;border: 1px solid #CCCCCC;
+            border-radius: 2px;
+            width: 350px;
+            padding-left: 10px;
+            line-height: 33px;
+            margin-left: 10px;
+            display: inline-block;
+            height: 32px;
+        }
+
+        #entryBill .list .roomInfo{
+            background: #F5F9FF;
+            border: 1px solid #B8D6FF;
+            border-radius: 2px;
+        }
+
+    </style>
+    <div id="entryBill" style="display: none">
+        <div class="list"><label>房间信息:</label><input id="_roomId" name="roomId"  class="roomInfo" type="text" value="幸会小区-7栋-1单元-101室" disabled></div>
+        <div class="list"><label>账单描述:</label><input placeholder="请输入" name="feeRemark" type="text" value=""/></div>
+        <div class="list"><label>缴费类型:</label><select id="getyCycle" name="feePayType" onchange="getyCycle()"><option value="PERIOD">周期性</option><option value="ONETIME">单次</option></select></div>
+        <div class="list cycle"><label>周期起止:</label><input  name="feeStartDate" placeholder="请输入租期起止时间" type="text" class="layui-input" id="htDate1"></div>
+        <div style="display: none" class="list once"><label>应收日期:</label><input name="receivableDate" placeholder="请输入应收日期" type="text" class="layui-input" id="htDate2"></div>
+        <div class="list"  style="position: relative"><label>账单金额:</label><input name="feeAmount" placeholder="请输入账单金额" type="text" value=""><span style="position: absolute; top: 5px; right: 10px">元</span></div>
+        <input type="hidden" name="feeType" value="OTHER">
+    </div>
+
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/role_manage.css">
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/base.js"></script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+
+    <script type="text/javascript">
+
+        function getyCycle() {
+            var cycleVal = $("#getyCycle").val()
+            if(cycleVal == 'ONETIME'){
+                $(".once").show()
+                $(".cycle").hide()
+            }else {
+                $(".once").hide()
+                $(".cycle").show()
+            }
+
+        }
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#htDate1', //指定元素
+                range: '~'
+            });
+            laydate.render({
+                elem: '#htDate2', //指定元素
+            });
+        });
+
+
+        function entryBill(id,des,type) {
+            $("#_roomId").val(des)
+
+            layer.open({
+                type: 1,
+                content: $('#entryBill')
+                ,area: ['500px', '360px']
+                ,btn: [ '确定',]
+                ,yes: function(index, layero){
+                    layer.close(index)
+                    $("#entryBill").hide()
+                    var params = get_from_array();
+                    $.post("/contract/fees/add/"+id,params,
+                        function(obj){
+                            if(obj.code === '200'){
+                                layer.msg('添加成功');
+                            }else{
+                                layer.msg(obj.msg);
+                            }
+                        },'json');
+                }
+                ,cancel: function(index){
+                    $("#entryBill").hide()
+                }
+            });
+        }
+
+
+
+        function detail(id) {
+            $.ajax({
+                url:'/room/search/',
+                dataType:'json',
+                type:'post',
+                data: {id : id},
+                success:function(obj){
+                    if(obj.code === '200'){
+
+                        console.log(obj.data.rows[0])
+                        var infoDetail = obj_pro_null_handler(obj.data.rows[0])
+                        var roomType = ''
+                        if(infoDetail.roomType == "HOTEL"){
+                            roomType = '酒店公寓'
+                        }else if(infoDetail.roomType == "RESIDENCE"){
+                            roomType = '居民住宅'
+                        }else {
+                            roomType = '商业楼宇'
+                        }
+                        layer.open({
+                            type: 1,
+                            title: '房间详情',
+                            shadeClose:true,
+                            shade:0.5,
+                            fixed:false,
+                            area: ['700px', '320px'],
+                            content: '<div class="listDetail"><label>房间类型:</label><span>'+roomType+'</span></div>'+
+                            '<div class="listDetail"><label>业态名称:</label><span>'+infoDetail.propertyName+'</span></div>'+
+                            '<div class="listDetail"><label>楼宇:</label><span>'+infoDetail.buildingName+'</span></div>'+
+                            '<div class="listDetail"><label>单元:</label><span>'+infoDetail.unit+'</span></div>'+
+                            '<div class="listDetail"><label>楼层:</label><span>'+infoDetail.floor+'</span></div>'+
+                            '<div class="listDetail"><label>房间:</label><span>'+infoDetail.room+'</span></div>'+
+                            '<div class="listDetail"><label>朝向:</label><span>'+infoDetail.roomAspect+'</span></div>'+
+                            '<div class="listDetail"><label>面积:</label><span>'+infoDetail.roomSize  +'<em>m²</em></span></div>'+
+                            '<div class="listDetail"><label>租金:</label><span>'+infoDetail.roomRentPrice+'<em>元/月</em></span></div>'
+
+                        });
+
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },error: function(){ //失败
+                    layer.alert("服务器内部错误");
+                }
+            });
+
+        }
+
+        function obj_pro_null_handler(obj) {
+            for(var p in obj){
+                if(typeof(obj[p])!="function"){
+                    var i = obj[p];
+                    obj[p] = i == null ? '' : i;
+                }
+            }
+            return obj
+        }
+
+        getBusinessList(0,'HOTEL')//RESIDENCE BUSINESS
+
+        function getBusinessList(loadTime,self) {
+            loadTime == 0 ? businessChild(loadTime, self) : businessChild(loadTime,$(self).val())
+        }
+
+        function businessChild(lTime, type) {
+            $.ajax({
+                url:'/property/search/',
+                dataType:'json',
+                type:'post',
+                data: {propertyType : type},
+                success:function(obj){
+                    if(obj.code === '200'){
+                        appent_select_business("#propertyId",obj.data.rows)
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },error: function(){ //失败
+                    layer.alert("服务器内部错误");
+                }
+            });
+        }
+        function appent_select_business(child,obj) {
+            console.log(obj)
+            optionRow = '<option value="">请选择</option>'
+            $(child).append(optionRow)
+            for(var i= 0; i<obj.length; i++ ){
+                $(child).append('<option value="'+ obj[i].id +'">' + obj[i].propertyName + '</option>')
+            }
+        }
+
+        function getBuildList(type, selfVal) {
+            if($(selfVal).val() == ''){
+                return
+            }
+            $.ajax({
+                url:'/building/selectBuilding/',
+                dataType:'json',
+                type:'get',
+                data: {id : $(selfVal).val()},
+                success:function(obj){
+                    if(obj.code === '200'){
+                        appent_select_build("#buildingId",obj.data)
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },error: function(){ //失败
+                    layer.alert("服务器内部错误");
+                }
+            });
+        }
+
+        function getBuilding(selfVal) {
+            //$("select option").size()
+            //console.log( $(selfVal).find('option').length  )
+            var optionLenght = $(selfVal).find('option').length
+            if(optionLenght == 0){
+                layer.msg('请选择业态');
+            }
+
+        }
+
+        function appent_select_build(child,obj) {
+            $(child).empty();
+            optionRow = '<option value="">请选择</option>'
+            $(child).append(optionRow)
+            for(var i= 0; i<obj.length; i++ ){
+                $(child).append('<option value="'+ obj[i].ID +'">' + obj[i].BUILDING_NAME + '</option>')
+            }
+        }
+
+
+
+
+        $(function () {
+
+        });
+
+        layui.use('table', function(){
+            var table = layui.table;
+            var data = [
+                {type:'checkbox'}
+                ,{field: 'id', title: 'ID', sort: true ,width:150}
+                ,{field: 'propertyName', title: '业态'}
+                ,{field: 'buildingName', title: '楼宇'}
+                ,{field: 'unit',  title: '单元'}
+                ,{field: 'floor',  title: '楼层'}
+                ,{field: 'room', title: '房间号'}
+//                ,{field: 'roomDesc', title: '房间描述'}
+                ,{field: 'roomStatus', title: '房屋状态',templet: function(d){
+                    if(d.roomStatus === 'EMPTY'){ //EMPTY HOLD
+                        return '<span class="empty">空房</span>';
+                    }else if(d.roomStatus === 'RENT'){
+                        return '<span class="rent">已出租</span>';
+                    }else if(d.roomStatus === 'LIVE'){
+                        return '<span class="live">已入住</span>';
+                    }else if(d.roomStatus === 'DECORATION'){
+                        return '<span class="decoration">装修封房</span>';
+                    }else if(d.roomStatus === 'BOOKING'){
+                        return '<span class="booking">已预定</span>';
+                    }else{
+                        return '<span class="other"></span>';
+                    }
+                }}
+                ,{fixed:"right", width:280, align:"left", title:"操作",templet:function(d){
+                    if(d.roomStatus === 'LIVE'||d.roomStatus === 'RENT'){
+                        return '<button class="entryContract" onclick="dtailContract('+d.id+',\''+d.roomType+'\')">查看合同</button><button class="entryBill" onclick="entryBill('+d.id+',\''+d.roomDesc+'\',\''+d.roomType+'\')">录入账单</button><button class="detileBtn" onclick="detail('+d.id+')">详情</button> <button class="backRoom" onclick="check_out('+d.id+')">退房</button>';
+                    }else if(d.roomStatus === 'BOOKING'){
+                        return '<button class="residenceContract" onclick="residenceContract('+d.id+')">查看预定</button><button class="entryContract" onclick="entryContract('+d.id+',\''+d.roomType+'\')">录入合同</button><button class="detileBtn" onclick="detail('+d.id+')">详情</button>'
+                    }else if(d.roomStatus === 'EMPTY'){
+                        return '<button class="reserveBtn" onclick="reserve('+d.id+')">预定</button><button class="entryContract" onclick="entryContract('+d.id+',\''+d.roomType+'\')">录入合同</button><button class="detileBtn" onclick="detail('+d.id+')">详情</button>'
+                    }
+                }}
+            ];
+
+
+            table.render({
+                elem: '#demo'
+                ,url:'/room/search?pt=[[${pt}]]'
+                ,method: 'post'
+                ,cols:[data]
+                ,even: true
+                ,page: true //是否显示分页
+                ,request:{
+                    limitName: 'rows'
+                }
+                ,response:{
+                    dataName:'data',
+                    dataSecName:'rows',
+                    statusCode: 200,
+                    countName: 'total'
+                }
+                ,id:'testReload'
+            });
+
+
+            var $ = layui.$, active = {
+                reload: function(){
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: {
+                            propertyId: $('#propertyId').val(),
+                            buildingId: $('#buildingId').val(),
+                            unit: $('#unit').val(),
+                            floor: $('#floor').val(),
+                            roomStatus: $('#roomStatus').val(),
+                            room:$('#room').val()
+                        }
+                    });
+                },
+                editItem: function(){ //获取选中数据
+                    var checkStatus = table.checkStatus('testReload')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    window.location.href = '/room/updatepage/'+data[0].id;
+                },
+                deleteItem: function () {
+                    var checkStatus = table.checkStatus('testReload')
+                        ,data = checkStatus.data;
+                    if(data.length == 0){
+                        layer.msg('请选择一个对象');
+                        return;
+                    }
+                    if(data.length > 1){
+                        layer.msg('不能选择多个对象');
+                        return;
+                    }
+                    layer.confirm('确定要删除该房间吗？',{
+                        btn:['是','否']
+                    },function () {
+                        $.ajax({
+                            url:'/room/delete/'+data[0].id,
+                            dataType:'json',
+                            data:{},
+                            type:'POST',
+                            success:function(obj){
+                                if(obj.code === '200'){
+                                    layer.msg('删除成功');
+//                                window.location.reload();
+                                    resetData();
+                                }else{
+                                    layer.msg(obj.msg);
+                                }
+                            },error: function(){ //失败
+                                layer.alert("服务器内部错误");
+                            }
+                        });
+                    })
+                },
+                isAll: function(){ //验证是否全选
+                    var checkStatus = table.checkStatus('idTest');
+                    layer.msg(checkStatus.isAll ? '全选': '未全选')
+                }
+            };
+
+            $('#queryBtn , .btn-type').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+            //queryDate
+
+        });
+        function resetData(){
+            $('#searchForm')[0].reset();
+            $('#queryBtn').click();
+        }
+
+
+        function entryContract(id,type) {
+            var con_url = '';
+            if(type === 'BUSINESS'){
+                con_url = '/contract/business/addpage?rid='+id;
+            }
+            if(type === 'HOTEL'){
+                con_url = '/contract/hotel/addpage?rid='+id;
+            }
+            if(type === 'RESIDENCE'){
+                con_url = '/contract/residence/addpage?rid='+id;
+            }
+            window.location.href = con_url;
+        }
+        function dtailContract(id,type) {
+            if(type === 'BUSINESS'){
+                con_url = '/contract/business/updatepage?rid='+id;
+            }
+            if(type === 'HOTEL'){
+                con_url = '/contract/hotel/updatepage?rid='+id;
+            }
+            if(type === 'RESIDENCE'){
+                con_url = '/contract/residence/updatepage?rid='+id;
+            }
+            window.location.href = con_url;
+        }
+
+        function reserve(id) {
+            window.location.href = '/room/reservePage/'+id;
+        }
+
+        function check_out(id) {
+            layer.confirm('确认要退房吗', {icon: 3, title:'退房提示'}, function(index){
+                var url = '/room/checkout/'+id;
+                $.getJSON(url,function (obj) {
+                    if(obj.code === '200'){
+                        layer.msg('成功');
+                        window.location.href = '/room/page?pt=HOTEL'// + $('#roomType').val()
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                }).error(function(obj) {
+                    layer.msg(JSON.parse(obj.responseText).message);
+                });
+                layer.close(index);
+            });
+        }
+
+        function residenceContract(id){
+            layer.open({
+                type: 2,
+                title: '合同详情',
+                shadeClose:true,
+                shade:0.5,
+                fixed:false,
+                area: ['800px', '90%'],
+                content: ['/contractInfo/selectContractDetails/'+id,'no']
+            });
+        }
+
+        function get_from_array() {
+            var d = {};
+            var t = $('#entryBill').find("input, select").serializeArray();
+            $.each(t, function() {
+                d[this.name] = this.value;
+            });
+            return d;
+        }
+
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="pageTitle">
+        财务管理 <i class="dot"></i> 应收账单列表
+    </div>
+    <div class="content">
+        <form id="searchForm" class="toolDiv">
+            <div id="searchPanel" class="row1">
+                <span>搜索账单：</span>
+                <input type="text" placeholder="请输入房间信息" id="roomMsg" name="roomMsg">
+                <input type="text" placeholder="请输入承租人姓名" id="bookerName" name="bookerName">
+                <select id="contractType" name="contractName">
+                    <option value="">请选择账单状态</option>
+                    <option value="INITIAL">新生成初始</option>
+                    <option value="AUDIT">已修改</option>
+                    <option value="CHECKED">已审核</option>
+                    <option value="BILLED">已进入应收账单</option>
+                    <option value="OVERDUE">已逾期</option>
+                </select>
+                <input  lay-verify="required" name="contractStartDate" type="text"  id="htDate" placeholder="应收开始日期 - 应收结束日期">
+                <input type="text" placeholder="请输入合同编号" id="contractId" name="contractId">
+                <button type="button" class="query-btn" data-type="reload" id="queryBtn"><i class="query"></i>查询</button>
+                <button type="button" class="clear-btn" onclick="resetData();">清空</button>
+            </div>
+        </form>
+        <table class="layui-hide" id="contractBillTbl" lay-filter="demo"></table>
+    </div>
+
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/lib/layui/layui.all.js"></script>
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/contractBills.css">
+
+<script type="text/html" id="barDemo">
+    <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="favorable">优惠</button>
+    <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">详情</button>
+</script>
+
+<script>
+    layui.use(['table','laydate'],function () {
+        var table = layui.table,
+            laydate = layui.laydate;
+
+        //layui时间控制器
+        laydate.render({
+            elem: '#htDate',
+            range: '~'
+        });
+
+        //layui的table
+        var data = [
+            {type:'checkbox',fixed:'left'},
+            {field:'id'},
+            {field: 'contractId', title: '合同编号', sort: true},
+            {field: 'bookerName', title: '承租人'},
+            {field: 'billAmount', title: '账单金额（元）', templet:function (d) {
+                    return d.billAmount/100
+                }},
+            {field: 'discountAmount', title: "优惠金额（合计）", templet:function (d) {
+                    return d.discountAmount/100
+                }},
+            {field: 'needPayAmount', title: "实际需支付金额（元）", templet:function (d) {
+                        return d.needPayAmount/100;
+                }},
+            {field: 'penaltyAmount', title: '违约金（元）'},
+            {field: 'id', title: '应收日期'},
+            {field: 'billStatus', title: '账单状态', templet:function (d) {
+                    if(d.billStatus === "INITIAL"){
+                        return "新生成初始"
+                    }else if(d.billStatus === "NOTIFIED"){
+                        return "已通知"
+                    }else if(d.billStatus === "PROMOTED"){
+                        return "已通知"
+                    }else {
+                        return "未知"
+                    }
+                }},
+            {field: 'receivableDate', title: '逾期天数'},
+            {fixed: 'right', align:'center',title:'操作', width:200,toolbar: '#barDemo'}
+        ];
+        table.render({
+            elem: '#contractBillTbl',
+            url: '/contractBills/search',
+            method: 'post',
+            cols:[data],
+            even:true,
+            page:true,
+            request:{
+                limitName: 'rows'
+            },
+            response:{
+                dataName:'data',
+                dataSecName:'rows',
+                statusCode: 200,
+                countName: 'total'
+            },
+            id:'reloadTbl'
+        });
+
+        //监听工具条
+        table.on('tool(demo)', function(obj){
+            var data = obj.data
+            layEvent = obj.event;
+            if(layEvent === 'favorable'){
+                layer.open({
+                    type: 2,
+                    title: '优惠',
+                    shadeClose:true,
+                    shade:0.5,
+                    fixed:false,
+                    area: ['420px', '240px'],
+                    content: ['/contractBills/Preferentialpage/'+data.id,'no']
+                });
+            }else if(layEvent === 'detail'){
+                window.location.href = '/contractBills/detailpage/'+data.id;
+            }
+        });
+    })
+</script>
+</div>
+</body>
+</html>

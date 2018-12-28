@@ -1,0 +1,197 @@
+.content {
+    padding-left: 14px;
+    margin-bottom: 100px;
+}
+.content .title {
+    margin-top: 19px;
+    font: 14px/20px 'PingFangSC-Medium';
+    color: #333;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.content .title .title_sub {
+    font: 12px/20px 'PingFangSC-Regular';
+    color: #151515;
+}
+.content .title.line {
+    border-top: 1px dashed #DDDDDD;
+    padding-top: 10px;
+    margin-right: 20px;
+    position: relative;
+}
+.content .title.line .tool {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font: 14px/20px 'PingFangSC-Medium';
+    color: #2476e9;
+}
+.content .title.line .tool i {
+    width: 12px;
+    height: 7px;
+    background: url("../img/pack_up@2x.png") no-repeat;
+    background-size: 100%;
+    margin-left: 6px;
+}
+.content .title.line .tool .item-fold {
+    display: none;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.content .title.line .tool .item-show {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.content .title.line .tool .item-show i {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.content .title.line .tool.tool-fold .item-fold {
+    display: -webkit-box;
+    display: flex;
+}
+.content .title.line .tool.tool-fold .item-show {
+    display: none;
+}
+.content .title i.shuxian {
+    width: 2px;
+    height: 12px;
+    background-color: #ccc;
+    margin: 0 12px;
+}
+.content .title input[type=checkbox] {
+    margin-right: 4px;
+    width: 14px;
+    height: 14px;
+    background: url("../img/many_unselect@2x.png") no-repeat;
+    background-size: 100%;
+}
+.content .title input[type=checkbox]:checked {
+    background: url("../img/many_select@2x.png") no-repeat;
+    background-size: 100%;
+}
+.content .title input[type=checkbox] + label {
+    font: 12px/17px 'PingFangSC-Regular';
+    color: #333;
+}
+.content ul{
+    margin-top: 16px;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /*margin-left: 14px;*/
+    max-width: 1000px;
+}
+.content ul li {
+    display: -webkit-box;
+    display: flex;
+    height: 52px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.content ul li i.warn {
+    margin-left: 10px;
+    font-style: normal;
+    content: '12';
+    width: 8px;
+    height: 20px;
+    color: #d7352c;
+    font: 14px/20px 'PingFangSC-Regular';
+    margin-right: 30px;
+}
+.warn1 {
+    margin-left: 10px;
+    font-style: normal;
+    content: '12';
+    width: 8px;
+    height: 20px;
+    color: #d7352c;
+    font: 14px/20px 'PingFangSC-Regular';
+    margin-right: 30px;
+}
+.content ul li.louyu{
+    margin-right: 100px;
+}
+.content ul li label {
+    font: 12px/17px 'PingFangSC-Regular';
+    color: #333;
+    text-align: right;
+    width: 90px;
+}
+.content ul li label.radioLabel {
+    font: 14px/20px 'PingFangSC-Regular';
+    width: 28px;
+}
+
+.content ul li textarea {
+    align-self: flex-start;
+    resize: none;
+    border: 1px solid #ccc;
+    height: 74px;
+    width: 220px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font: 12px/17px 'PingFangSC-Regular';
+    padding-top: 5px;
+    margin-top:10px;
+}
+
+.content ul li textarea::-webkit-input-placeholder {
+    color: #CCCCCC;
+}
+.content ul li textarea:-moz-placeholder {
+    color: #CCCCCC;
+}
+.content ul li textarea::-moz-placeholder {
+    color: #CCCCCC;
+}
+.content ul li textarea:-ms-input-placeholder {
+    color: #CCCCCC;
+}
+.content ul li input {
+    border: 1px solid #ccc;
+    height: 32px;
+    width: 220px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font: 12px/17px 'PingFangSC-Regular';
+}
+
+.content ul .repair_img{
+    background-color: #ddd;
+    width: 150px;
+    height: 150px;
+    margin-left: 64px;
+}
+
+.content ul li input::-webkit-input-placeholder {
+    color: #CCCCCC;
+}
+.content ul li input:-moz-placeholder {
+    color: #CCCCCC;
+}
+.content ul li input::-moz-placeholder {
+    color: #CCCCCC;
+}
+.content ul li input:-ms-input-placeholder {
+    color: #CCCCCC;
+}
+.content ul li input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-left: 22px;
+    margin-right: 10px;
+    background: url("../img/radio_unselect@2x.png") no-repeat;
+    background-size: 100%;
+}
+.content ul li input[type="radio"]:checked {
+    background: url("../img/radio_select@2x.png") no-repeat;
+    background-size: 100%;
+}

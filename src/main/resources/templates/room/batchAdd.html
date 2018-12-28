@@ -1,0 +1,286 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<div layout:fragment="content">
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="../lib/bootstrap-select/css/bootstrap-select.min.css">-->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/room_batchAdd.css">
+    <div class="pageTitle">
+        房屋管理 <i class="dot"></i> 批量新增
+    </div>
+    <div class="content">
+        <div class="house_basic">
+            <div class="house_message">
+                <form method="post">
+                <div class="floor_set">
+                    <span class="lab">类型：</span>
+                    <select name="roomType" required class="textInput" onchange="getBusinessList(1, this)">
+                        <option value="BUSINESS">商业住宅</option>
+                        <option value="RESIDENCE">居民住宅</option>
+                        <option value="HOTEL">酒店房屋</option>
+                    </select>
+                </div>
+                <div class="floor_set">
+                    <span class="lab">业态：</span>
+                    <select style="width:200px;" class="textInput" title="请选择业态" name="propertyId"  id="businessList" onchange="getBuildList(1, this)">
+
+                    </select>
+                </div>
+                <div class="floor_set">
+                    <span class="lab">楼宇：</span>
+                    <select style="width:200px;" class="textInput" title="请输入楼宇" name="buildingId" id="buildingList">
+
+                    </select>
+                </div>
+                <div style="clear:both"></div>
+                </form>
+            </div>
+            <div class="query-title">房间信息</div>
+            <div class="items">
+                <button class="item download" onclick="window.location.href ='/xls_template/room_template.xlsx'; "><i></i><span>下载Excel模板</span></button>
+                <button class="item upload" onclick="$('#excel-file').click();"><i></i><span>上传已填模板</span></button>
+                <input type="file" id="excel-file" style="display: none">
+            </div>
+            <table class="layui-hide" id="buildingTbl" ></table>
+        </div>
+        <p class="bottomBt">
+            <button class="button commitInfo submit">保存信息</button>
+        </p>
+
+    </div>
+
+    <script src="../js/jquery-2.1.4.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap.js"></script>
+    <!--<script src="../lib/bootstrap-select/js/bootstrap-select.js"></script>-->
+    <script src="../lib/xlsx/xlsx.core.min.js"></script>
+    <script src="../js/base.js"></script>
+    <script>
+        var table = null;
+        layui.use('table',function(){
+            table = layui.table;
+        });
+
+        var data = [
+            {field: '__rowNum__',title: "编号",sort:true,templet: function(d){
+                return d.rowNum;
+            }}
+            ,{field: 'unit',title: "单元"}
+            ,{field: 'floor',title: "楼层"}
+            ,{field: 'room',title: "房间号"}
+            ,{field: 'roomAspect',title: "朝向"}
+            ,{field: 'roomSize',title: "面积"}
+            ,{field: 'roomRentPrice',title: "租金(元)"}
+            ,{field: 'ownerName',title: "产权所有人"}
+            ,{field: 'ownerType',title: "产权所有人类型"}
+        ];
+
+        var _roomdata = null;
+        function renderData(roomdata) {
+            console.log(roomdata);
+            _roomdata = roomdata;
+            //数据库中读取已知数据
+            table.render({
+                elem: '#buildingTbl'
+                ,method: 'post'
+                ,cols: [data]
+                ,even: true
+                ,page: true
+                ,data: roomdata
+//                ,limits: [5,10,20]
+//                ,request:{
+//                    limitName: 'rows'
+//                }
+//                ,response:{
+//                    dataName:'data',
+//                    dataSecName:'rows',
+//                    statusCode: 200,
+//                    countName: 'total'
+//                }
+                ,id:"testReload"
+            });
+        }
+
+
+        $('#excel-file').change(function(e) {
+            var files = e.target.files;
+            var fileReader = new FileReader();
+            fileReader.onload = function(ev) {
+                try {
+                    var data = ev.target.result,
+                        workbook = XLSX.read(data, {
+                            type: 'binary'
+                        }), // 以二进制流方式读取得到整份excel表格对象
+                        persons = []; // 存储获取到的数据
+                } catch (e) {
+                    console.log('文件类型不正确');
+                    return;
+                }
+
+                // 表格的表格范围，可用于判断表头是否数量是否正确
+                var fromTo = '';
+                // 遍历每张表读取
+                for (var sheet in workbook.Sheets) {
+                    if (workbook.Sheets.hasOwnProperty(sheet)) {
+                        fromTo = workbook.Sheets[sheet]['!ref'];
+                        persons = persons.concat(XLSX.utils.sheet_to_json(workbook.Sheets[sheet]));
+                        break;
+                    }
+                }
+                persons.splice(0,1);
+                persons.forEach(function(item,index){
+//                    console.log(item,index);
+                    item.rowNum = index+1;
+                })
+                renderData(persons);
+            };
+
+            // 以二进制方式打开文件
+            fileReader.readAsBinaryString(files[0]);
+        });
+
+//        var roomRow = [];
+//        var floorRow = '';
+
+        getBusinessList(0,'BUSINESS')//RESIDENCE BUSINESS
+
+        function getBusinessList(loadTime,self) {
+            loadTime == 0 ? businessChild(loadTime, self) : businessChild(loadTime,$(self).val())
+        }
+
+        function businessChild(lTime, type) {
+            $.ajax({
+                url:'/property/search/',
+                dataType:'json',
+                type:'post',
+                data: {propertyType : type},
+                success:function(obj){
+                    if(obj.code === '200'){
+                        appent_select_business("#businessList",obj.data.rows)
+                        console.log(obj.data.rows);
+                        if(lTime == 0 && obj.data.rows.length > 0){
+                            var fristId = obj.data.rows[0].id
+                            getBuildListChild(0, fristId)
+                        }
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },error: function(){ //失败
+                    layer.alert("服务器内部错误");
+                }
+            });
+        }
+
+        function getBuildListChild(loadTime, selfVal) {
+            //loadTime == 0 ? businessChild(loadTime, self) : businessChild(loadTime,$(self).val())
+            $.ajax({
+                url:'/building/selectBuilding/',
+                dataType:'json',
+                type:'get',
+                data: {id : selfVal},
+                success:function(obj){
+                    if(obj.code === '200'){
+                        appent_select_build("#buildingList",obj.data)
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },error: function(){ //失败
+                    layer.alert("服务器内部错误");
+                }
+            });
+        }
+        function getBuildList(type, selfVal) {
+            if($(selfVal).val() == ''){
+                return
+            }
+            $.ajax({
+                url:'/building/selectBuilding/',
+                dataType:'json',
+                type:'get',
+                data: {id : $(selfVal).val()},
+                success:function(obj){
+                    if(obj.code === '200'){
+                        appent_select_build("#buildingList",obj.data)
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                },error: function(){ //失败
+                    layer.alert("服务器内部错误");
+                }
+            });
+        }
+
+        function appent_select_build(child,obj) {
+            $(child).empty();
+            optionRow = '<option hidden value="">请选择</option>'
+            $(child).append(optionRow)
+            for(var i= 0; i<obj.length; i++ ){
+                //optionRow =  '<option value="'+ obj[i].ID +'">' + obj[i].BUILDING_NAME + '</option>'
+                $(child).append('<option value="'+ obj[i].ID +'">' + obj[i].BUILDING_NAME + '</option>')
+            }
+        }
+
+        function appent_select_business(child,obj) {
+            $(child).empty();
+            optionRow = '<option hidden value="">请选择</option>'
+            $(child).append(optionRow)
+            $('#buildingList').empty();
+            $('#buildingList').append(optionRow);
+            $('#buildingList').val('');
+            for(var i= 0; i<obj.length; i++ ){
+                //optionRow =  '<option value="'+ obj[i].id +'">' + obj[i].propertyName + '</option>'
+                $(child).append('<option value="'+ obj[i].id +'">' + obj[i].propertyName + '</option>')
+            }
+        }
+
+        function get_from_array() {
+            var d = {};
+            var t = $('form').serializeArray();
+            $.each(t, function() {
+                d[this.name] = this.value;
+            });
+            return d;
+        }
+
+        $('.commitInfo').bind('click', function() {
+            var params = get_from_array();
+            if(params['propertyId'].length == 0){
+                layer.alert('请选择业态');
+                return;
+            }
+            if(params['buildingId'].length == 0){
+                layer.alert('请选择楼宇');
+                return;
+            }
+            if(!_roomdata || _roomdata.length == 0){
+                layer.alert('请先导入房间');
+                return;
+            }
+            params.rooms = _roomdata;
+            console.log(_roomdata);
+            console.log(params);
+            console.log(JSON.stringify(params));
+            var pt = $("[name=roomType]").find("option:selected").val();
+            params['roomType'] = pt;
+            $.ajax({
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                type:'post',
+                url:'/room/batch',
+                data:JSON.stringify(params),
+                success:function(obj){
+                    if(obj.code === '200'){
+                        layer.msg('添加成功');
+                        setTimeout(function(){
+                            window.location.href = '/room/page?pt='+pt
+                        },500);
+                    }else{
+                        layer.msg(obj.msg);
+                    }
+                }});
+        });
+
+
+    </script>
+</div>
+</html>

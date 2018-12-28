@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/lib/Swiper-3.4.2/css/swiper.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+<div class="content">
+    <div class="middle">
+        <i class="logo"></i>
+        <div class="ad swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="/img/ad_convenient@2x.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="/img/ad_efficiency@2x.jpg" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="/img/ad_secure@2x.jpg" alt="">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <form id="loginForm" action="/login" method="post"  class="form">
+            <span class="title">用户登录</span>
+            <input class="tel" name="username" type="text" placeholder="手机号 / 登录帐号" >
+            <input class="pwd" name="password" type="password" placeholder="请输入密码" >
+            <div class="secure">
+                <input class="code" name="code" type="text" placeholder="请输入验证码">
+                <span onclick="changeImageSrc();"><img id="captcha_img" alt="点击更换" title="点击更换"
+                           src="/image/captcha-image" class="m"  style="position: relative; width: 100%;height:100%;"></span>
+            </div>
+            <button id="submitBtn" type="button" onclick="loginClick();">登录</button>
+            <p class="errorMsg" th:if="${param.error}" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></p>
+        </form>
+    </div>
+    <div class="bottom_txt">
+        <span class="contact">联系客服：400-6420866</span>
+        <span class="copyright">Copyright © 2017 上海申鑫电子支付股份有限公司 | ICP证: 沪ICP备16048892号</span>
+    </div>
+</div>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/lib/layui/layui.all.js"></script>
+<script src="/lib/Swiper-3.4.2/js/swiper.jquery.js"></script>
+<script src="/js/base.js"></script>
+<script type="text/javascript" th:inline="javascript">
+
+
+    if(![[${param.error}]]){
+        if (!(IEVersion() > 9) && IEVersion() != -1) {
+            window.location.href = "/browersError";
+//                layer.msg('您的浏览器版本过低,请更换浏览器或将浏览器升级');
+        }
+    }
+
+    if(self != top){
+        top.location.href=self.location.href;
+    }
+
+    $(function(){
+        var mySwiper = new Swiper('.swiper-container', {
+            direction: 'horizontal',
+            loop: true,
+//            speed:600,
+            autoplay:5000,
+            // 如果需要分页器
+            pagination: '.swiper-pagination'
+        });
+    });
+
+    $(".middle").bind("keydown",function(e){
+        // 兼容FF和IE和Opera
+        var theEvent = e || window.event;
+        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+        if (code == 13) {
+            //回车执行查询
+            $("#submitBtn").click();
+        }
+    });
+
+    function loginClick() {
+        var nameStr = $('.tel[name=username]').val();
+        var password = $('.pwd[name=password]').val();
+        var code = $('.code[name=code]').val().toLowerCase();
+        if(nameStr.length == 0){
+            layer.msg('请输入用户名');
+            return;
+        }
+        if(password.length == 0){
+            layer.msg('请输入密码');
+            return;
+        }
+        if(code.length == 0){
+            layer.msg('请输入验证码');
+            return;
+        }
+
+        document.forms[0].submit();
+    }
+    function changeImageSrc() {
+        $('#captcha_img').attr('src','/image/captcha-image');
+    }
+    
+
+</script>
+</body>
+</html>

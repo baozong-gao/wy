@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/room_add.css">
+</head>
+<body>
+<div class="pageTitle">
+  房屋管理 <i class="dot"></i> 新增房屋
+</div>
+<div class="content">
+  <ul>
+    <li><label for="idStr">业态名称：</label><input name="" type="text" placeholder="幸会公寓">
+      <!-- <i class="warn">*</i> -->
+    </li>
+  </ul>
+  <div class="title">基本信息<span class="title_sub">（*为必填项）</span></div>
+   <ul class="base">
+    <li><label for="idStr">楼宇：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <!-- <i class="warn">*</i> -->
+    </li>
+    <li><label for="username">单元：</label><input name="" type="text" placeholder="请输入法人联系电话">
+      <!-- <i class="warn">*</i> -->
+    </li>
+    <li class="floor"><label for="pwd">楼层：</label><input name="pwd" type="text"  placeholder="请输入公司域名">
+      <!-- <i class="warn">*</i> -->
+      <span>层</span>
+    </li>
+    <li><label for="idStr">房间：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <!-- <i class="warn">*</i> -->
+    </li>
+    <li><label for="username">朝向：</label><input name="" type="text" placeholder="请输入法人联系电话">
+      <!-- <i class="warn">*</i> -->
+    </li>
+    <li class="mianji"><label for="pwd">面积：</label><input name="pwd" type="text"  placeholder="请输入公司域名">
+      <!-- <i class="warn">*</i> -->
+      <span>m²</span>
+    </li>
+  </ul>
+   <div class="title line">法人信息</div>
+   <ul class="faren">
+    <li><label for="idStr">法人姓名：</label><input name="" type="text" placeholder="请输入公司法人姓名">
+      <i class="warn">*</i>
+    </li>
+    <li><label for="username">手机号：</label><input name="" type="text" placeholder="请输入法人联系电话">
+      <i class="warn">*</i>
+    </li>
+    <li><label for="pwd">身份证号：</label><input name="pwd" type="text"  placeholder="请输入公司域名">
+      <!-- <i class="warn">*</i> -->
+    </li>
+    <li><label for="email">邮箱：</label><input name="email" type="text" placeholder="请输入角色邮箱">
+      <!-- <i class="warn">*</i> -->
+    </li>
+  </ul>
+  <div class="title line unselect hetong">
+    合同类型：
+    <input type="radio" id="kechuzu" name="statustype">
+    <label for="kechuzu">可出租</label>
+    <input type="radio" id="ziyong" name="statustype">
+    <label for="ziyong">自用房</label>
+    <input type="radio" id="baoliu" name="statustype">
+    <label for="baoliu">保留住房</label>
+  </div>
+  <button>完成</button>
+</div>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

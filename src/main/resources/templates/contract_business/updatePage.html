@@ -1,0 +1,360 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<body>
+<div layout:fragment="content">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/contract_business.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <div class="pageTitle">
+        房间管理 <i class="dot"></i> 修改房间
+    </div>
+    <div class="content" style="position: relative;">
+        <!--layui-form-->
+        <form class="layui-form" action="/contract/business/update" method="post">
+            <input type="hidden" name="roomId" th:value="${room.id}">
+            <input type="hidden" name="id" th:value="${rout.id}">
+            <ul>
+                <li><label>房间信息：</label><input class="default" disabled th:value="${room.roomDesc}"  type="text" placeholder=""></li>
+                <li><label>房屋面积：</label><input class="default" disabled th:value="(${room.roomSize}?: '0') + '㎡'" type="text" placeholder="请输入法人联系电话"></li>
+            </ul>
+            <ul style="width: 1200px;">
+                <li>
+                    <label><b>合同模版</b>：</label>
+                    <select class="status" lay-verify="required" name="contractTemplateId">
+                        <option value="">请选择合同模版</option>
+                        <option th:each="t,i: ${temps}" th:value="${t.ID}" th:selected="${rout.contractTemplateId == t.ID}">[[${t.CONTRACT_TEMPLATE_NAME}]]</option>
+                    </select>
+                    <i class="warn">*</i>
+                </li>
+                <li><label><b>租期时长</b>：</label>
+                    <select class="status" lay-verify="required"  style="width:100px; ">
+                        <option value="">选择年</option>
+                        <option value="1">0年</option>
+                        <option value="1">1年</option>
+                        <option value="2">2年</option>
+                        <option value="3">3年</option>
+                        <option value="4">4年</option>
+                        <option value="5">5年</option>
+                        <option value="6">6年</option>
+                    </select>
+                    <!--<label class="label_radio">月</label>-->
+                    <select class="status"  lay-verify="required" style="width:100px; margin-left: 19px" >
+                        <option value="">选择月</option>
+                        <option value="1">1个月</option>
+                        <option value="2">2个月</option>
+                        <option value="3">3个月</option>
+                        <option value="4">4个月</option>
+                        <option value="5">5个月</option>
+                        <option value="6">6个月</option>
+                        <option value="7">7个月</option>
+                        <option value="8">8个月</option>
+                        <option value="9">9个月</option>
+                        <option value="10">10个月</option>
+                        <option value="11">11个月</option>
+                        <option value="12">12个月</option>
+                    </select>
+
+
+                    <!--<input  lay-verify="required" name="contractPeriod" value="" type="text" placeholder="请输入租期时长"><i class="warn">*</i></li>-->
+                <li><label><b>合同起止</b>：</label><input  lay-verify="required" name="contractStartDate" th:value="|${rout.contractStartDate} ~ ${rout.contractEndDate}|" type="text" class="layui-input" id="htDate"><i class="warn">*</i></li>
+            </ul>
+
+            <div class="title" style="margin-top: 35px">甲方信息<span>（*为必填项）</span><span style="margin-left: 192px;"></span>乙方信息<span>（*为必填项）</span></div>
+            <ul>
+                <li><label>甲方名称：</label><input name="principleName" th:value="${rout.principleName}" lay-verify="required" value="" type="text" placeholder="请输入甲方客户名称"><i class="warn">*</i></li>
+                <li><label>乙方名称：</label><input name="contraName" th:value="${rout.contraName}" lay-verify="required" value="" type="text" placeholder="请输入乙方客户名称"><i class="warn">*</i></li>
+            </ul>
+            <ul>
+                <li><label>代理人：</label><input name="principleAgent" th:value="${rout.principleAgent}" type="text" placeholder="请输入甲方代理人"></li>
+                <li><label>代理人：</label><input name="contraAgent" th:value="${rout.contraAgent}" type="text" placeholder="请输入乙方代理人"></li>
+            </ul>
+            <ul>
+                <li><label class="tx">甲方地址：</label><textarea  name="principleAddress" th:text="${rout.principleAddress}" rows="3" cols="20" placeholder="请输入甲方公司地址"></textarea></li>
+                <li><label class="tx">乙方地址：</label><textarea  name="contraAddress" th:text="${rout.contraAddress}" rows="3" cols="20" placeholder="请输入乙方公司地址"></textarea></li>
+            </ul>
+            <div class="title line"></div>
+
+
+            <div class="title">租金信息</div>
+            <ul style="width: 1500px; min-width: 1400px;">
+                <li><label>房屋租金：</label><input name="payAmt" th:value="${rout.payAmt}"  lay-verify="required" value="" type="text" placeholder="请输入房屋租金"><i class="warn">*</i><span class="tis">元/m²/月</span></li>
+                <li><label>房屋押金：</label><input name="depositAmt" th:value="${rout.depositAmt}"  lay-verify="required" value="" type="text" placeholder="请输入房屋押金"><span class="tis">元</span><i class="warn">*</i></li>
+                <li class="otherSelect">
+                    <label>付款方式：</label>
+                    <label class="label_radio">押</label>
+                    <select class="status" lay-verify="required" name="feeHoldPeriod" style="width:95px; ">
+                        <option value="">押金周期</option>
+                        <option value="1" th:selected="${rout.feeHoldPeriod == 1}">1个月</option>
+                        <option value="2" th:selected="${rout.feeHoldPeriod == 2}">2个月</option>
+                        <option value="3" th:selected="${rout.feeHoldPeriod == 3}">3个月</option>
+                        <option value="4" th:selected="${rout.feeHoldPeriod == 4}">4个月</option>
+                        <option value="5" th:selected="${rout.feeHoldPeriod == 5}">5个月</option>
+                        <option value="6" th:selected="${rout.feeHoldPeriod == 6}">6个月</option>
+                    </select>
+                    <label class="label_radio">付</label>
+                    <select class="status"  lay-verify="required" name="feePayPeriod" style="width:95px; " >
+                        <option value="">付款周期</option>
+                        <option value="1" th:selected="${rout.feePayPeriod == 1}">1个月</option>
+                        <option value="2" th:selected="${rout.feePayPeriod == 2}">2个月</option>
+                        <option value="3" th:selected="${rout.feePayPeriod == 3}">3个月</option>
+                        <option value="4" th:selected="${rout.feePayPeriod == 4}">4个月</option>
+                        <option value="5" th:selected="${rout.feePayPeriod == 5}">5个月</option>
+                        <option value="6" th:selected="${rout.feePayPeriod == 6}">6个月</option>
+                        <option value="7" th:selected="${rout.feePayPeriod == 7}">7个月</option>
+                        <option value="8" th:selected="${rout.feePayPeriod == 8}">8个月</option>
+                        <option value="9" th:selected="${rout.feePayPeriod == 9}">9个月</option>
+                        <option value="10" th:selected="${rout.feePayPeriod == 10}">10个月</option>
+                        <option value="11" th:selected="${rout.feePayPeriod == 11}">11个月</option>
+                        <option value="12" th:selected="${rout.feePayPeriod == 12}">12个月</option>
+                    </select>
+                </li>
+                <li><label>每年递增：</label><input style="width: 170px;" name="feeChangeCalculate" th:value="${rout.feeChangeCalculate}" type="text" placeholder="请输入租金每年递增比例"><span style=" right: 103px;" class="tis">%</span></li>
+            </ul>
+            <ul style="width: 1500px; min-width: 1400px;">
+                <li><label>物业费：</label><input name="propertyAmt"  lay-verify="required" th:value="${rout.propertyAmt}" type="text" placeholder="请输入房屋物业费"><i class="warn">*</i><span class="tis">元/m²/月</span></li>
+
+                <li>
+                    <label>缴费周期：</label>
+                    <select class="status" name="feePayType" id=""  lay-verify="required">
+                        <option value="" disabled data-hidden="true" selected hidden>请选择费用类型</option>
+                        <option value="ONETIME" th:selected="${rout.feePayType == 'ONETIME'}">单次</option>
+                        <option value="PERIOD" th:selected="${rout.feePayType == 'PERIOD'}">周期性</option>
+                    </select>
+                    <i class="warn">*</i>
+                </li>
+                <li><label>每年递增：</label><input style="width: 170px;" name="propertyChangeCalculate" th:value="${rout.propertyChangeCalculate}" type="text" placeholder="物业费每年递增比例"><span style=" right: 103px;" class="tis">%</span></li>
+
+            </ul>
+            <div class="title line"></div>
+
+            <div class="title">
+                其他信息
+                <a style="font-size:12px;" href="javascript:;" class="addItem"><img src="/img/increase@2x1.png" alt="">添加</a>
+                <!--<a style="font-size:12px;" href="javascript:;"  class="getSelect"><img src="/img/increase@2x1.png" alt="">test获取select值</a>-->
+
+            </div>
+            <div  class="feeList">
+                <input class="feesList" type="hidden" name="fees">
+                <ul th:each="f,i: ${cvs}" style="width: 1200px; height: 50px;">
+                    <li>
+                        <label>费用类型：</label>
+                        <select class="status feeType" name="feeType" value="FWDJ" id="" index="0" >
+                            <option value="" disabled data-hidden="true"  hidden>请选择费用类型</option>
+                            <option value="FWDJ" th:selected="${f.feeType == 'FWDJ'}">定金</option>
+                            <option value="TCF" th:selected="${f.feeType == 'TCF'}">停车费</option>
+                            <option value="WXF" th:selected="${f.feeType == 'WXF'}">维修费</option>
+                            <option value="OTHER" th:selected="${f.feeType == 'OTHER'}">其他费用</option>
+                        </select>
+                        <i class="warn">*</i>
+                    </li>
+                    <li>
+                        <label>缴费周期：</label>
+                        <select class="status feePayType" name="feePayType" id=""  index="0">
+                            <option class="tis" value="" disabled data-hidden="true" selected hidden>请输入缴费周期</option>
+                            <option value="ONETIME" th:selected="${f.feePayType == 'ONETIME'}">单次</option>
+                            <option value="PERIOD" th:selected="${f.feePayType == 'PERIOD'}">周期性</option>
+                        </select>
+                        <i class="warn">*</i>
+                    </li>
+                    <li><label>金额：</label><input class="feeAmount" name="feeAmount"  th:value="${f.feeAmount}" type="text" placeholder="请输入金额"><i class="tis">元/月</i><i class="warn">*</i></li>
+                    <li style="width: 40px"><a href="javascript:;" class="delete"></a></li>
+                </ul>
+            </div>
+
+
+            <div class="title line"></div>
+
+            <input class="putId0" name="attachIds" type="hidden" value="">
+            <input class="putId1" name="attachIds" type="hidden" value="">
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-top: 230px">
+                    <button class="submit" lay-submit="" lay-filter="demo1">下一步</button>
+                </div>
+            </div>
+        </form>
+
+        <div style=" position: absolute; bottom: 150px; left: 10px;">
+            <div class="title identity">合同附件</div>
+            <ul th:if="${#lists.isEmpty(rout?.attachIds)}">
+                <li style="width: 200px; position: relative">
+                    <form>
+                        <input type="file"  name="file"   accept="image/gif, image/jpeg, image/png, image/jpg" class="upload__input" value="" onchange="fileChange(this,1)">
+                        <img src="/img/add_photos@2x.png" alt="">
+                        <i onclick="deleteImg(this,0)"></i>
+                        <span>合同附件1</span>
+                    </form>
+                </li>
+                <li style="width: 200px; position: relative">
+                    <form>
+                        <input type="file"  name="file"   accept="image/gif, image/jpeg, image/png, image/jpg" class="upload__input" value="" onchange="fileChange(this,2)">
+                        <img src="/img/add_photos@2x.png" alt="">
+
+                        <i onclick="deleteImg(this,1)"></i>
+                        <span>合同附件2</span>
+                    </form>
+                </li>
+            </ul>
+            <ul th:unless="${#lists.isEmpty(rout?.attachIds)}">
+                <li style="width: 200px; position: relative" th:each="p,i: ${rout.attachIds}">
+                    <form>
+                        <input type="file"  name="file"   accept="image/gif, image/jpeg, image/png, image/jpg" class="upload__input" value="" onchange="fileChange(this,2)">
+                        <img th:src="${'/contract/business/download/' + p}" alt="">
+
+                        <i th:onclick="|deleteImg(this,${i.index})|" ></i>
+                        <span>合同附件</span>
+                    </form>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+    <script>
+
+        var roomRow = [{feeType: '', feePayType: '', feeAmount: ''}];
+        //添加楼层
+        $('.addItem').bind('click', function() {
+            roomRow.push({feeType: '', feePayType: '', feeAmount: ''})
+            addRowfunc()
+        });
+
+        // 删除楼层
+        $(".feeList").delegate(".delete", "click", function() {
+            roomRow.splice($(this).parents("ul").index(), 1);
+            $(this).parents("ul").remove()
+        });
+
+        function fileChange (self,num) {
+            var formData = new FormData($(self).parent('form')[0]);
+            $.ajax({
+                url: "/contract/business/upload",
+                type: 'POST',
+                data: formData,
+                dataType: 'JSON',
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (obj) {
+                    $(self).next().attr("src", "/contract/business/download/" + obj)
+                    $(".putId"+num).val(obj)
+                    $(self).siblings("i").show()
+
+                }, error: function () { //失败
+                    layer.alert("服务器内部错误");
+                }
+            })
+        }
+
+        function deleteImg(self,num) {
+
+            $.ajax({
+                url: "/contract/business/delAtt/"+$(self).siblings(".putId").val(),
+                type: 'get',
+                //data: formData,
+                dataType: 'JSON',
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (obj) {
+                    if(obj.code == 200){
+                        $(self).siblings("img").attr("src", "/img/add_photos@2x.png")
+                        $(".putId"+num).val('')
+                        $(self).hide()
+                    }
+
+                }, error: function () { //失败
+                    layer.alert("服务器内部错误");
+                }
+            })
+        }
+
+        function addRowfunc(){
+
+            floorRow = '<ul style="width: 1200px;">'+
+                '<li>'+
+                '<label>费用类型：</label>'+
+                '<select class="status feeType" name="" id="" >'+
+                '<option value="" disabled data-hidden="true" selected hidden>请选择费用类型</option>'+
+                '<option value="FWZJ">租金</option>'+
+                '<option value="FWYJ">押金</option>'+
+                '<option value="FWDJ">定金</option>'+
+                '<option value="WYF">物业费</option>'+
+                '<option value="TCF">停车费</option>'+
+                '<option value="WXF">维修费</option>'+
+                '<option value="OTHER">其他费用</option>'+
+                '</select>'+
+                '<i class="warn">*</i>'+
+                '</li>'+
+                '<li>'+
+                '<label>缴费周期：</label>'+
+
+                '<select class="status feePayType" name="" id="" >'+
+                '<option value="" disabled data-hidden="true" selected hidden>请输入缴费周期</option>'+
+                '<option value="ONETIME">单次</option>'+
+                '<option value="PERIOD">周期性</option>'+
+                '</select>'+
+                '<i class="warn">*</i>'+
+                '</li>'+
+                '<li><label>金额：</label><input value="" class="feeAmount" type="text" placeholder="请输入承租人证件号"><i class="tis">元/月</i><i class="warn">*</i></li>'+
+                '<li style="width: 40px"><a href="javascript:;" class="delete" ></a></li>'
+            '</ul>'
+            $(".feeList").append(floorRow)
+
+        }
+
+
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#htDate',
+                range: '~'
+            });
+        });
+
+        layui.use(['form', 'layedit', 'laydate'], function(){
+            var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+
+            //自定义验证规则
+            form.verify({
+                title: function(value){
+                    if(value.length < 5){
+                        return '标题至少得5个字符啊';
+                    }
+                }
+                ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+                ,content: function(value){
+                    layedit.sync(editIndex);
+                }
+            });
+
+
+            //监听提交
+            form.on('submit(demo1)', function(data){
+
+                $(".feeList ul li select.feeType").each(function(index,domEle){
+                    roomRow[index].feeType = $(domEle).val()
+                });
+                $(".feeList ul li select.feePayType").each(function(index,domEle){
+                    roomRow[index].feePayType = $(domEle).val()
+                });
+                $(".feeList ul li input.feeAmount").each(function(index,domEle){
+                    roomRow[index].feeAmount = $(domEle).val()
+                });
+                $(".feesList").val(JSON.stringify(roomRow))
+                return true;
+            });
+        });
+
+
+    </script>
+</div>
+</body>
+</html>

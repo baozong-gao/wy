@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.PropertyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.PropertyInfo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="PROPERTY_TYPE" property="propertyType" jdbcType="VARCHAR" />
+    <result column="PROPERTY_NAME" property="propertyName" jdbcType="VARCHAR" />
+    <result column="PROPERTY_SHORT_NAME" property="propertyShortName" jdbcType="VARCHAR" />
+    <result column="PROPERTY_EN_NAME" property="propertyEnName" jdbcType="VARCHAR" />
+    <result column="PROPERTY_ADDRESS" property="propertyAddress" jdbcType="VARCHAR" />
+    <result column="SERVICE_PHONE" property="servicePhone" jdbcType="VARCHAR" />
+    <result column="OWNER_TYPE" property="ownerType" jdbcType="VARCHAR" />
+    <result column="OWNER_NAME" property="ownerName" jdbcType="VARCHAR" />
+    <result column="LINK_NAME" property="linkName" jdbcType="VARCHAR" />
+    <result column="LINK_MOBILE" property="linkMobile" jdbcType="VARCHAR" />
+    <result column="LINK_EMAIL" property="linkEmail" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, PROPERTY_TYPE, PROPERTY_NAME, PROPERTY_SHORT_NAME, PROPERTY_EN_NAME, 
+    PROPERTY_ADDRESS, SERVICE_PHONE, OWNER_TYPE, OWNER_NAME, LINK_NAME, LINK_MOBILE, 
+    LINK_EMAIL, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.PropertyInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from PROPERTY_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.PropertyInfoExample" >
+    delete from PROPERTY_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.PropertyInfo" >
+    insert into PROPERTY_INFO (ID, COMPANY_ID, PROPERTY_TYPE, 
+      PROPERTY_NAME, PROPERTY_SHORT_NAME, PROPERTY_EN_NAME, 
+      PROPERTY_ADDRESS, SERVICE_PHONE, OWNER_TYPE, 
+      OWNER_NAME, LINK_NAME, LINK_MOBILE, 
+      LINK_EMAIL, REMARK)
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{propertyType,jdbcType=VARCHAR}, 
+      #{propertyName,jdbcType=VARCHAR}, #{propertyShortName,jdbcType=VARCHAR}, #{propertyEnName,jdbcType=VARCHAR}, 
+      #{propertyAddress,jdbcType=VARCHAR}, #{servicePhone,jdbcType=VARCHAR}, #{ownerType,jdbcType=VARCHAR}, 
+      #{ownerName,jdbcType=VARCHAR}, #{linkName,jdbcType=VARCHAR}, #{linkMobile,jdbcType=VARCHAR}, 
+      #{linkEmail,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.PropertyInfo" >
+    insert into PROPERTY_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="propertyType != null" >
+        PROPERTY_TYPE,
+      </if>
+      <if test="propertyName != null" >
+        PROPERTY_NAME,
+      </if>
+      <if test="propertyShortName != null" >
+        PROPERTY_SHORT_NAME,
+      </if>
+      <if test="propertyEnName != null" >
+        PROPERTY_EN_NAME,
+      </if>
+      <if test="propertyAddress != null" >
+        PROPERTY_ADDRESS,
+      </if>
+      <if test="servicePhone != null" >
+        SERVICE_PHONE,
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE,
+      </if>
+      <if test="ownerName != null" >
+        OWNER_NAME,
+      </if>
+      <if test="linkName != null" >
+        LINK_NAME,
+      </if>
+      <if test="linkMobile != null" >
+        LINK_MOBILE,
+      </if>
+      <if test="linkEmail != null" >
+        LINK_EMAIL,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(COMPANY_DEPARTMENT_SEQ.nextval),
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyType != null" >
+        #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyName != null" >
+        #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyShortName != null" >
+        #{propertyShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyEnName != null" >
+        #{propertyEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyAddress != null" >
+        #{propertyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePhone != null" >
+        #{servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null" >
+        #{ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkName != null" >
+        #{linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMobile != null" >
+        #{linkMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="linkEmail != null" >
+        #{linkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.PropertyInfoExample" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_INFO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.propertyType != null" >
+        PROPERTY_TYPE = #{record.propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyName != null" >
+        PROPERTY_NAME = #{record.propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyShortName != null" >
+        PROPERTY_SHORT_NAME = #{record.propertyShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyEnName != null" >
+        PROPERTY_EN_NAME = #{record.propertyEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyAddress != null" >
+        PROPERTY_ADDRESS = #{record.propertyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePhone != null" >
+        SERVICE_PHONE = #{record.servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerType != null" >
+        OWNER_TYPE = #{record.ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerName != null" >
+        OWNER_NAME = #{record.ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkName != null" >
+        LINK_NAME = #{record.linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkMobile != null" >
+        LINK_MOBILE = #{record.linkMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkEmail != null" >
+        LINK_EMAIL = #{record.linkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_INFO
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      PROPERTY_TYPE = #{record.propertyType,jdbcType=VARCHAR},
+      PROPERTY_NAME = #{record.propertyName,jdbcType=VARCHAR},
+      PROPERTY_SHORT_NAME = #{record.propertyShortName,jdbcType=VARCHAR},
+      PROPERTY_EN_NAME = #{record.propertyEnName,jdbcType=VARCHAR},
+      PROPERTY_ADDRESS = #{record.propertyAddress,jdbcType=VARCHAR},
+      SERVICE_PHONE = #{record.servicePhone,jdbcType=VARCHAR},
+      OWNER_TYPE = #{record.ownerType,jdbcType=VARCHAR},
+      OWNER_NAME = #{record.ownerName,jdbcType=VARCHAR},
+      LINK_NAME = #{record.linkName,jdbcType=VARCHAR},
+      LINK_MOBILE = #{record.linkMobile,jdbcType=VARCHAR},
+      LINK_EMAIL = #{record.linkEmail,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.PropertyInfo" >
+    update PROPERTY_INFO
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyType != null" >
+        PROPERTY_TYPE = #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyName != null" >
+        PROPERTY_NAME = #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyShortName != null" >
+        PROPERTY_SHORT_NAME = #{propertyShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyEnName != null" >
+        PROPERTY_EN_NAME = #{propertyEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyAddress != null" >
+        PROPERTY_ADDRESS = #{propertyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePhone != null" >
+        SERVICE_PHONE = #{servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE = #{ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        OWNER_NAME = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkName != null" >
+        LINK_NAME = #{linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMobile != null" >
+        LINK_MOBILE = #{linkMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="linkEmail != null" >
+        LINK_EMAIL = #{linkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.PropertyInfo" >
+    update PROPERTY_INFO
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      PROPERTY_TYPE = #{propertyType,jdbcType=VARCHAR},
+      PROPERTY_NAME = #{propertyName,jdbcType=VARCHAR},
+      PROPERTY_SHORT_NAME = #{propertyShortName,jdbcType=VARCHAR},
+      PROPERTY_EN_NAME = #{propertyEnName,jdbcType=VARCHAR},
+      PROPERTY_ADDRESS = #{propertyAddress,jdbcType=VARCHAR},
+      SERVICE_PHONE = #{servicePhone,jdbcType=VARCHAR},
+      OWNER_TYPE = #{ownerType,jdbcType=VARCHAR},
+      OWNER_NAME = #{ownerName,jdbcType=VARCHAR},
+      LINK_NAME = #{linkName,jdbcType=VARCHAR},
+      LINK_MOBILE = #{linkMobile,jdbcType=VARCHAR},
+      LINK_EMAIL = #{linkEmail,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+
+</mapper>

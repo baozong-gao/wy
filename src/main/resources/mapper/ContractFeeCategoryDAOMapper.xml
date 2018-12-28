@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shenxin.core.smartpropertymanagement.persist.mapper.ContractFeeCategoryDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.shenxin.core.smartpropertymanagement.persist.entity.ContractFeeCategoryDAO" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="CONTRACT_ID" property="contractId" jdbcType="DECIMAL" />
+    <result column="ROOM_ID" property="roomId" jdbcType="DECIMAL" />
+    <result column="FEE_PAY_TYPE" property="feePayType" jdbcType="VARCHAR" />
+    <result column="FEE_TYPE" property="feeType" jdbcType="VARCHAR" />
+    <result column="FEE_AMOUNT" property="feeAmount" jdbcType="DECIMAL" />
+    <result column="PENALTY_RATE" property="penaltyRate" jdbcType="DECIMAL" />
+    <result column="PENALTY_CALCULATE_TYPE" property="penaltyCalculateType" jdbcType="VARCHAR" />
+    <result column="FEE_PAY_PERIOD" property="feePayPeriod" jdbcType="DECIMAL" />
+    <result column="FEE_HOLD_PERIOD" property="feeHoldPeriod" jdbcType="DECIMAL" />
+    <result column="FEE_REMARK" property="feeRemark" jdbcType="VARCHAR" />
+    <result column="FEE_STATUS" property="feeStatus" jdbcType="VARCHAR" />
+    <result column="FEE_CHANGE_PERIOD" property="feeChangePeriod" jdbcType="DECIMAL" />
+    <result column="FEE_CHANGE_CALCULATE" property="feeChangeCalculate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, CONTRACT_ID, ROOM_ID, FEE_PAY_TYPE, FEE_TYPE, FEE_AMOUNT, PENALTY_RATE, 
+    PENALTY_CALCULATE_TYPE, FEE_PAY_PERIOD, FEE_HOLD_PERIOD, FEE_REMARK, FEE_STATUS, 
+    FEE_CHANGE_PERIOD, FEE_CHANGE_CALCULATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractFeeCategoryDAOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CONTRACT_FEE_CATEGORY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from CONTRACT_FEE_CATEGORY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from CONTRACT_FEE_CATEGORY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractFeeCategoryDAOExample" >
+    delete from CONTRACT_FEE_CATEGORY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractFeeCategoryDAO" >
+    insert into CONTRACT_FEE_CATEGORY (ID, COMPANY_ID, CONTRACT_ID, 
+      ROOM_ID, FEE_PAY_TYPE, FEE_TYPE, 
+      FEE_AMOUNT, PENALTY_RATE, PENALTY_CALCULATE_TYPE, 
+      FEE_PAY_PERIOD, FEE_HOLD_PERIOD, FEE_REMARK, 
+      FEE_STATUS, FEE_CHANGE_PERIOD, FEE_CHANGE_CALCULATE
+      )
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{contractId,jdbcType=DECIMAL}, 
+      #{roomId,jdbcType=DECIMAL}, #{feePayType,jdbcType=VARCHAR}, #{feeType,jdbcType=VARCHAR}, 
+      #{feeAmount,jdbcType=DECIMAL}, #{penaltyRate,jdbcType=DECIMAL}, #{penaltyCalculateType,jdbcType=VARCHAR}, 
+      #{feePayPeriod,jdbcType=DECIMAL}, #{feeHoldPeriod,jdbcType=DECIMAL}, #{feeRemark,jdbcType=VARCHAR}, 
+      #{feeStatus,jdbcType=VARCHAR}, #{feeChangePeriod,jdbcType=DECIMAL}, #{feeChangeCalculate,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractFeeCategoryDAO"
+          useGeneratedKeys="true" keyProperty="Id">
+    insert into CONTRACT_FEE_CATEGORY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="contractId != null" >
+        CONTRACT_ID,
+      </if>
+      <if test="roomId != null" >
+        ROOM_ID,
+      </if>
+      <if test="feePayType != null" >
+        FEE_PAY_TYPE,
+      </if>
+      <if test="feeType != null" >
+        FEE_TYPE,
+      </if>
+      <if test="feeAmount != null" >
+        FEE_AMOUNT,
+      </if>
+      <if test="penaltyRate != null" >
+        PENALTY_RATE,
+      </if>
+      <if test="penaltyCalculateType != null" >
+        PENALTY_CALCULATE_TYPE,
+      </if>
+      <if test="feePayPeriod != null" >
+        FEE_PAY_PERIOD,
+      </if>
+      <if test="feeHoldPeriod != null" >
+        FEE_HOLD_PERIOD,
+      </if>
+      <if test="feeRemark != null" >
+        FEE_REMARK,
+      </if>
+      <if test="feeStatus != null" >
+        FEE_STATUS,
+      </if>
+      <if test="feeChangePeriod != null" >
+        FEE_CHANGE_PERIOD,
+      </if>
+      <if test="feeChangeCalculate != null" >
+        FEE_CHANGE_CALCULATE,
+      </if>
+    </trim>
+    <selectKey resultType="decimal" keyProperty="id" order="BEFORE">
+      select TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(CONTRACT_FEE_CATEGORY_SEQ.nextval) as ID from dual
+    </selectKey>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractId != null" >
+        #{contractId,jdbcType=DECIMAL},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=DECIMAL},
+      </if>
+      <if test="feePayType != null" >
+        #{feePayType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeType != null" >
+        #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeAmount != null" >
+        #{feeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="penaltyRate != null" >
+        #{penaltyRate,jdbcType=DECIMAL},
+      </if>
+      <if test="penaltyCalculateType != null" >
+        #{penaltyCalculateType,jdbcType=VARCHAR},
+      </if>
+      <if test="feePayPeriod != null" >
+        #{feePayPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="feeHoldPeriod != null" >
+        #{feeHoldPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="feeRemark != null" >
+        #{feeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="feeStatus != null" >
+        #{feeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="feeChangePeriod != null" >
+        #{feeChangePeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="feeChangeCalculate != null" >
+        #{feeChangeCalculate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractFeeCategoryDAOExample" resultType="java.lang.Integer" >
+    select count(*) from CONTRACT_FEE_CATEGORY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update CONTRACT_FEE_CATEGORY
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contractId != null" >
+        CONTRACT_ID = #{record.contractId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.roomId != null" >
+        ROOM_ID = #{record.roomId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feePayType != null" >
+        FEE_PAY_TYPE = #{record.feePayType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feeType != null" >
+        FEE_TYPE = #{record.feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feeAmount != null" >
+        FEE_AMOUNT = #{record.feeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.penaltyRate != null" >
+        PENALTY_RATE = #{record.penaltyRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.penaltyCalculateType != null" >
+        PENALTY_CALCULATE_TYPE = #{record.penaltyCalculateType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feePayPeriod != null" >
+        FEE_PAY_PERIOD = #{record.feePayPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feeHoldPeriod != null" >
+        FEE_HOLD_PERIOD = #{record.feeHoldPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feeRemark != null" >
+        FEE_REMARK = #{record.feeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feeStatus != null" >
+        FEE_STATUS = #{record.feeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feeChangePeriod != null" >
+        FEE_CHANGE_PERIOD = #{record.feeChangePeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feeChangeCalculate != null" >
+        FEE_CHANGE_CALCULATE = #{record.feeChangeCalculate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update CONTRACT_FEE_CATEGORY
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      CONTRACT_ID = #{record.contractId,jdbcType=DECIMAL},
+      ROOM_ID = #{record.roomId,jdbcType=DECIMAL},
+      FEE_PAY_TYPE = #{record.feePayType,jdbcType=VARCHAR},
+      FEE_TYPE = #{record.feeType,jdbcType=VARCHAR},
+      FEE_AMOUNT = #{record.feeAmount,jdbcType=DECIMAL},
+      PENALTY_RATE = #{record.penaltyRate,jdbcType=DECIMAL},
+      PENALTY_CALCULATE_TYPE = #{record.penaltyCalculateType,jdbcType=VARCHAR},
+      FEE_PAY_PERIOD = #{record.feePayPeriod,jdbcType=DECIMAL},
+      FEE_HOLD_PERIOD = #{record.feeHoldPeriod,jdbcType=DECIMAL},
+      FEE_REMARK = #{record.feeRemark,jdbcType=VARCHAR},
+      FEE_STATUS = #{record.feeStatus,jdbcType=VARCHAR},
+      FEE_CHANGE_PERIOD = #{record.feeChangePeriod,jdbcType=DECIMAL},
+      FEE_CHANGE_CALCULATE = #{record.feeChangeCalculate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractFeeCategoryDAO" >
+    update CONTRACT_FEE_CATEGORY
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractId != null" >
+        CONTRACT_ID = #{contractId,jdbcType=DECIMAL},
+      </if>
+      <if test="roomId != null" >
+        ROOM_ID = #{roomId,jdbcType=DECIMAL},
+      </if>
+      <if test="feePayType != null" >
+        FEE_PAY_TYPE = #{feePayType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeType != null" >
+        FEE_TYPE = #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeAmount != null" >
+        FEE_AMOUNT = #{feeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="penaltyRate != null" >
+        PENALTY_RATE = #{penaltyRate,jdbcType=DECIMAL},
+      </if>
+      <if test="penaltyCalculateType != null" >
+        PENALTY_CALCULATE_TYPE = #{penaltyCalculateType,jdbcType=VARCHAR},
+      </if>
+      <if test="feePayPeriod != null" >
+        FEE_PAY_PERIOD = #{feePayPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="feeHoldPeriod != null" >
+        FEE_HOLD_PERIOD = #{feeHoldPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="feeRemark != null" >
+        FEE_REMARK = #{feeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="feeStatus != null" >
+        FEE_STATUS = #{feeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="feeChangePeriod != null" >
+        FEE_CHANGE_PERIOD = #{feeChangePeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="feeChangeCalculate != null" >
+        FEE_CHANGE_CALCULATE = #{feeChangeCalculate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shenxin.core.smartpropertymanagement.persist.entity.ContractFeeCategoryDAO" >
+    update CONTRACT_FEE_CATEGORY
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      CONTRACT_ID = #{contractId,jdbcType=DECIMAL},
+      ROOM_ID = #{roomId,jdbcType=DECIMAL},
+      FEE_PAY_TYPE = #{feePayType,jdbcType=VARCHAR},
+      FEE_TYPE = #{feeType,jdbcType=VARCHAR},
+      FEE_AMOUNT = #{feeAmount,jdbcType=DECIMAL},
+      PENALTY_RATE = #{penaltyRate,jdbcType=DECIMAL},
+      PENALTY_CALCULATE_TYPE = #{penaltyCalculateType,jdbcType=VARCHAR},
+      FEE_PAY_PERIOD = #{feePayPeriod,jdbcType=DECIMAL},
+      FEE_HOLD_PERIOD = #{feeHoldPeriod,jdbcType=DECIMAL},
+      FEE_REMARK = #{feeRemark,jdbcType=VARCHAR},
+      FEE_STATUS = #{feeStatus,jdbcType=VARCHAR},
+      FEE_CHANGE_PERIOD = #{feeChangePeriod,jdbcType=DECIMAL},
+      FEE_CHANGE_CALCULATE = #{feeChangeCalculate,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectContractResidenceList" parameterType="java.math.BigDecimal" resultType="map">
+    select FEE_TYPE,FEE_PAY_TYPE,FEE_AMOUNT from CONTRACT_FEE_CATEGORY where CONTRACT_ID = #{contractId,jdbcType=DECIMAL}
+  </select>
+</mapper>

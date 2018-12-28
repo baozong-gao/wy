@@ -1,0 +1,445 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<div layout:fragment="content">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/hotelContract_add.css">
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/lib/layui/layui.all.js"></script>
+    <style>
+        .layui-form-radio {
+            line-height: 28px;
+            margin: 0px 10px 0 0 !important;
+            padding-right: 10px;
+            cursor: pointer;
+            font-size: 0;
+        }
+
+        .layui-form-radio {
+            line-height: 28px;
+            /* margin: 0px 10px 0 0; */
+            /* padding-right: 10px; */
+            cursor: pointer;
+            font-size: 0;
+            padding: 0 !important;
+        }
+
+        .layui-form-radio > i {
+            margin-right: 2px !important;
+        }
+
+        .sex_male {
+            margin-right: 25px;
+        }
+
+        .content ul li select {
+            border: 1px solid #ccc;
+            height: 32px;
+            width: 220px;
+            padding-left: 10px;
+            border-radius: 2px;
+            font: 12px/17px 'PingFangSC-Regular';
+            display: block !important;;
+        }
+
+        .checks {
+            display: flex;
+            align-items: center;
+        }
+
+        .layui-form input[type=radio] {
+            display: block;
+        !important;
+        }
+
+        .sex_male {
+            width: 16px !important;
+        }
+
+        .addPerson{
+            font: 14px/14px '微软雅黑';
+            color: #333;
+            display: inline-block;
+            margin-left: 15px;
+            border-left: 1px solid #b9b5b5;
+            padding-left: 15px;
+        }
+
+        .addPerson img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+    </style>
+    <div class="pageTitle">
+        合同管理 <i class="dot"></i> 酒店合同
+    </div>
+    <div class="content">
+        <form class="layui-form" action="/contract/hotel/add" method="post">
+            <div class="title">合同信息</div>
+            <input type="hidden" name="roomId" th:value="${room.id}">
+            <ul>
+                <li><label>房间信息：</label><input class="default" th:value="${room.roomDesc}" type="text" placeholder="">
+                </li>
+                <li><label>预设租金：</label><input class="default" th:value="(${room.roomRentPrice}?: '0') + '元/月'"
+                                               type="text"
+                                               placeholder="">
+                </li>
+            </ul>
+            <ul style="width: 1200px;">
+                <li>
+                    <label><b>合同模版</b>：</label>
+                    <select class="status" lay-search="" name="contractTemplateId">
+                        <option value="">请选择合同模版</option>
+                        <option th:each="t,i: ${temps}" th:value="${t.ID}">[[${t.CONTRACT_TEMPLATE_NAME}]]</option>
+                    </select>
+                    <i class="warn">*</i>
+                </li>
+                <!--<li><label><b>租期时长</b>：</label> <select class="status" lay-verify="required"  style="width:100px; ">-->
+                    <!--<option value="">选择年</option>-->
+                    <!--<option value="1">0年</option>-->
+                    <!--<option value="1">1年</option>-->
+                    <!--<option value="2">2年</option>-->
+                    <!--<option value="3">3年</option>-->
+                    <!--<option value="4">4年</option>-->
+                    <!--<option value="5">5年</option>-->
+                    <!--<option value="6">6年</option>-->
+                <!--</select>-->
+                    <!--&lt;!&ndash;<label class="label_radio">月</label>&ndash;&gt;-->
+                    <!--<select class="status"  lay-verify="required" style="width:100px; margin-left: 19px" >-->
+                        <!--<option value="">选择月</option>-->
+                        <!--<option value="1">1个月</option>-->
+                        <!--<option value="2">2个月</option>-->
+                        <!--<option value="3">3个月</option>-->
+                        <!--<option value="4">4个月</option>-->
+                        <!--<option value="5">5个月</option>-->
+                        <!--<option value="6">6个月</option>-->
+                        <!--<option value="7">7个月</option>-->
+                        <!--<option value="8">8个月</option>-->
+                        <!--<option value="9">9个月</option>-->
+                        <!--<option value="10">10个月</option>-->
+                        <!--<option value="11">11个月</option>-->
+                        <!--<option value="12">12个月</option>-->
+                    <!--</select>-->
+                <!--</li>-->
+                <li><label><b>合同起止</b>：</label><input name="contractStartDate" lay-verify="required" type="text"
+                                                      class="layui-input" id="htDate"><i class="warn">*</i></li>
+            </ul>
+            <div class="title" style="margin-top: 35px">承租人信息</span><span style="margin-left: 192px;"></span></span>
+            </div>
+            <ul>
+                <li><label>承租人：</label><input value="" name="principleName" lay-verify="required" type="text"
+                                              placeholder="请输入承租人姓名"><i class="warn">*</i></li>
+                <li><label>手机号：</label><input value="" name="principleMobile" lay-verify="required" type="text"
+                                              placeholder="请输入手机号"><i class="warn">*</i></li>
+                <li>
+                    <label>性别：</label>
+
+                    <div class="checks sex">
+                        <input class="signerSex" type="radio" value="1" name="signerSex">
+                        <label class="sex_male">男</label>
+                        <input class="signerSex" type="radio" value="0" name="signerSex">
+                        <label class="sex_male">女</label>
+                    </div>
+                </li>
+            </ul>
+            <ul>
+                <li><label>证件类型：</label>
+                    <select class="status czCardType" name="czCardType" lay-verify="required">
+                        <option value="" disabled data-hidden="true" selected hidden>请选择证件类型</option>
+                        <option value="FWZJ">身份证</option>
+                        <!--<option value="FWYJ">押金</option>-->
+                    </select>
+                    <i class="warn">*</i></li>
+                <li><label>证件号：</label><input value="" name="czCardIdNo" lay-verify="required" type="text"
+                                              placeholder=""><i class="warn">*</i></li>
+            </ul>
+            <div class="title line"></div>
+            <div class="title">入主人信息<a style="font-size:12px;" href="javascript:;" class="addPerson"><img
+                    src="/img/increase@2x1.png" alt="">添加</a></div>
+            <div class="personList">
+                <input class="personsList" type="hidden" name="livers">
+                <ul>
+                    <li>
+                        <label>入住人：</label>
+                        <input value="" class="liverName" name="liverName" lay-verify="required" type="text"
+                               placeholder="请输入入住人姓名"><i
+                            class="warn">*</i>
+                    </li>
+                    <li>
+                        <label>手机号：</label>
+                        <input value="" class="liverMobile" name="liverMobile" lay-verify="required|phone|number"
+                               type="text"
+                               placeholder="请输入入住人手机号"><i class="warn">*</i>
+                    </li>
+                    <li>
+                        <label>性别：</label>
+                        <input class="checks sex liverSex" type="radio" value="1" name="liverSex0">
+                        <label class="sex_male">男</label>
+                        <input class="checks sex liverSex" type="radio" value="0" name="liverSex0">
+                        <label class="sex_male">女</label>
+                    </li>
+                    <li style="width: 40px"><a href="javascript:;" class="delete"></a></li>
+               <!-- </ul>
+                <ul>-->
+                    <li>
+                        <label>证件类型：</label>
+                        <select class="status liverIdType" name="liverIdType" lay-verify="required">
+                            <option value="" disabled data-hidden="true" selected hidden>请选择证件类型</option>
+                            <option value="FWZJ">身份证</option>
+                            <!--<option value="FWYJ">押金</option>-->
+                        </select>
+                    </li>
+                    <li><label>证件号：</label><input value="" class="liverIdNo" name="liverIdNo"
+                                                  type="text" lay-verify="required"
+                                                  placeholder="请输入证件号"><i class="warn">*</i></li>
+                </ul>
+            </div>
+            <div class="title line"></div>
+
+            <div class="title">租金信息</div>
+            <ul>
+                <li><label>房屋租金：</label><input value="" name="payAmt" type="text" lay-verify="required"
+                                               placeholder="请输入房屋租金"><i class="warn">*</i></li>
+                <li><label>房屋押金：</label><input value="" name="depositAmt" type="text" lay-verify="required"
+                                               placeholder="请输入房屋押金"><i class="warn">*</i></li>
+            </ul>
+            <ul>
+                <li>
+                    <label>付款方式：</label>
+                    <label class="label_radio">押</label>
+                    <input style="width:80px; " name="feePayPeriod" type="text" lay-verify="required">
+                    <label class="label_radio">付</label>
+                    <input style="width:80px; " name="feeHoldPeriod" type="text" lay-verify="required">
+                </li>
+                <li><label>每年递增：</label><input value="" name="" type="text"
+                                               placeholder="请输入租金每年递增比例"><i class="warn">*</i></li>
+            </ul>
+            <div class="title line"></div>
+
+            <div class="title">其他费用<a style="font-size:12px;" href="javascript:;" class="addItem"><img
+                    src="/img/increase@2x1.png" alt="">添加</a></div>
+            <div class="feeList">
+                <input class="feesList" type="hidden" name="fees">
+                <ul>
+                    <li>
+                        <label>费用类型：</label>
+                        <select class="status feeType" name="feeType" id="feeType">
+                            <option value="" disabled data-hidden="true" selected hidden>请选择费用类型</option>
+                            <option value="FWZJ">租金</option>
+                            <option value="FWYJ">押金</option>
+                            <option value="FWDJ">定金</option>
+                            <option value="WYF">物业费</option>
+                            <option value="TCF">停车费</option>
+                            <option value="WXF">维修费</option>
+                            <option value="OTHER">其他费用</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>缴费周期：</label>
+                        <select class="status feePayType" name="feePayType" id="feePayType">
+                            <option class="tis" value="" disabled data-hidden="true" selected hidden>请输入缴费周期</option>
+                            <option value="ONETIME">单次</option>
+                            <option value="PERIOD">周期性</option>
+                        </select>
+                        <i class="warn">*</i>
+                    </li>
+                    <li><label>金额：</label><input value="" class="feeAmount" name="feeAmount" type="text"
+                                                 placeholder="请输入金额"><i class="tis">元/月</i>
+                    </li>
+                    <li style="width: 40px"><a href="javascript:;" class="delete"></a></li>
+                </ul>
+            </div>
+            <div class="title line"></div>
+
+            <div class="title identity">合同附件</div>
+            <ul>
+                <li style="width: 200px;" class="img-upload-but">
+                    <img class="dn" src=""/>
+                    <input type='file' accept="image/*" onchange="upload(this)" id="file_Xuke"
+                           style="width: 100%;height: 100%;">
+                    <input type="text" name="hotelBPic"
+                           data-options="prompt:'请输入正面照.',required:false,validType:'length[2, 3000000]'"
+                           editable="false" value="" style="display:none;">
+
+                    <p class="img-upload-name">合同附件</p>
+                </li>
+                <li style="width: 200px;" class="img-upload-but">
+                    <img class="dn" src=""/>
+                    <input type='file' accept="image/*" onchange="upload(this)" id="file_Front"
+                           style="width: 100%;height: 100%;">
+                    <input type="text" name="hotelAPic"
+                           data-options="prompt:'请输入正面照.',required:false,validType:'length[2, 3000000]'"
+                           editable="false" value="" style="display:none;">
+
+                    <p class="img-upload-name">合同附件</p>
+                </li>
+            </ul>
+            <button class="submit" lay-submit="" lay-filter="form1">下一步</button>
+        </form>
+    </div>
+
+
+    <script type="text/javascript">
+        console.log(10);
+        var personRow = [{liverName: '', liverMobile: '', liverSex: '', liverIdType: '', liverIdNo: ''}];
+        //添加
+        $('.addPerson').bind('click', function () {
+            personRow.push({liverName: '', liverMobile: '', liverSex: '', liverIdType: '', liverIdNo: ''});
+            addPersonRowfunc();
+        });
+        console.log(5);
+        // 删除
+        $(".personList").delegate(".delete", "click", function () {
+/*            personRow.splice($(this).parents("ul").index(), 1);
+            $(this).parents("ul").remove()
+            $(this).parents("ul").next().remove()*/
+            personRow.splice($(this).parents("ul").index(), 1);
+            $(this).parents("ul").remove();
+        });
+
+        var i = 0;
+        function addPersonRowfunc() {
+            i++;
+            floorRow = '<ul>' +
+            '<li>' +
+            '<label>入住人：</label><input value="" class="liverName" type="text" placeholder="请输入入住人姓名"><i class="warn">*</i>' +
+            '</li>' +
+            '<li>' +
+            ' <label>手机号：</label><input value="" class="liverMobile" type="text" placeholder="请输入入住人手机号"><i class="warn">*</i>' +
+            '</li>' +
+            '<li><label for="username">性别：</label>' +
+            '<div class="checks sex">' +
+            '<input class="liverSex" type="radio" value="1" name="liverSex' + i + '">' +
+            '<label class="sex_male" for="male">男</label>' +
+            '<input class="liverSex" type="radio" value="0" name="liverSex' + i + '">' +
+            '<label class="sex_male" for="female">女</label>' +
+            '</div>' +
+            '</li>' +
+            '<li style="width: 40px"><a href="javascript:;" class="delete"></a></li>' +
+            /*'</ul>' +
+            '<ul>' +*/
+            '<li>' +
+            '<label>证件类型：</label>' +
+            '<select class="status liverIdType" name="" id="">' +
+            '<option value="" disabled data-hidden="true" selected hidden>请选择证件类型</option>' +
+            '<option value="FWZJ">身份证</option>' +
+            '<option value="FWYJ">押金</option>' +
+            '</select>' +
+            '</li>' +
+            '<li><label>证件号：</label><input value="" class="liverIdNo" type="text" placeholder="请输入证件号"><i class="warn">*</i></li>'
+            '</li>' +
+            '</ul>';
+
+            $(".personList").append(floorRow);
+        }
+        console.log(4);
+        var roomRow = [{feeType: '', feePayType: '', feeAmount: ''}];
+        $('.addItem').bind('click', function () {
+            roomRow.push({feeType: '', feePayType: '', feeAmount: ''});
+            addRowfunc();
+        });
+
+        // 删除
+        $(".feeList").delegate(".delete", "click", function () {
+            roomRow.splice($(this).parents("ul").index(), 1);
+            $(this).parents("ul").remove();
+        });
+        console.log(3);
+        function addRowfunc() {
+            floorRow = '<ul style="width: 1200px;">' +
+            '<li>' +
+            '<label>费用类型：</label>' +
+            '<select class="status feeType" name="" id="" >' +
+            '<option value="" disabled data-hidden="true" selected hidden>请选择费用类型</option>' +
+            '<option value="FWDJ">定金</option>' +
+            '<option value="TCF">停车费</option>' +
+            '<option value="WXF">维修费</option>' +
+            '<option value="OTHER">其他费用</option>' +
+            '</select>' +
+            '<i class="warn">*</i>' +
+            '</li>' +
+            '<li>' +
+            '<label>缴费周期：</label>' +
+
+            '<select class="status feePayType" name="" id="" >' +
+            '<option value="" disabled data-hidden="true" selected hidden>请输入缴费周期</option>' +
+            '<option value="ONETIME">单次</option>' +
+            '<option value="PERIOD">周期性</option>' +
+            '</select>' +
+            '<i class="warn">*</i>' +
+            '</li>' +
+            '<li><label>金额：</label><input value="" class="feeAmount" type="text" placeholder=""><i class="tis">元/月</i><i class="warn">*</i></li>' +
+            '<li style="width: 40px"><a href="javascript:;" class="delete" ></a></li>'
+            '</ul>';
+            $(".feeList").append(floorRow);
+        }
+
+        function upload(e) {
+            var file = e.files[0];
+            var reader = new FileReader();
+            var self = this;
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                console.log('THIS IS =>', this.result);
+                $(e).prev().attr({
+                    src: this.result
+                });
+                $(e).prev().show();
+                $(e).next().val(this.result);
+            }
+        }
+        console.log(2);
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#htDate', //指定元素
+                range: '~'
+            });
+        });
+console.log(1);
+        layui.use('form', function () {
+            var form = layui.form;
+            form.verify({
+                username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                        return '用户名不能有特殊字符';
+                    }
+                },
+                pass: [
+                    /^[\S]{6,12}$/
+                    , '密码必须6到12位，且不能出现空格'
+                ]
+            });
+            form.on('submit(form1)', function (data) {
+                $(".personList ul li input.liverName").each(function (index, domEle) {
+                    personRow[index].liverName = $(domEle).val()
+                    personRow[index].liverSex = $('input[name=liverSex' + index + ']:checked').val()
+                });
+                $(".personList ul li input.liverMobile").each(function (index, domEle) {
+                    personRow[index].liverMobile = $(domEle).val()
+                });
+                $(".personList ul li select.liverIdType").each(function (index, domEle) {
+                    personRow[index].liverIdType = $(domEle).val()
+                });
+                $(".personList ul li input.liverIdNo").each(function (index, domEle) {
+                    personRow[index].liverIdNo = $(domEle).val()
+                });
+                $(".personsList").val(JSON.stringify(personRow));
+
+                $(".feeList ul li select.feeType").each(function (index, domEle) {
+                    roomRow[index].feeType = $(domEle).val()
+                });
+                $(".feeList ul li select.feePayType").each(function (index, domEle) {
+                    roomRow[index].feePayType = $(domEle).val()
+                });
+                $(".feeList ul li input.feeAmount").each(function (index, domEle) {
+                    roomRow[index].feeAmount = $(domEle).val()
+                });
+                $(".feesList").val(JSON.stringify(roomRow))
+                return true;
+            });
+        });
+    </script>
+</div>

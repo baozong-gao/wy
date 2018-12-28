@@ -1,0 +1,170 @@
+.bg_png {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-width: 1200px;
+  min-height: 600px;
+}
+
+body {
+  background-image: url("../img/bg.png");
+  background-size: 100% 100%;
+}
+
+.content {
+  position: relative;
+  height: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+.content .middle {
+  width: 680px;
+  height: 360px;
+  border-radius: 4px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+.content .middle i.logo {
+  position: absolute;
+  width: 466px;
+  height: 52px;
+  margin-top: -94px;
+  background: url(../img/logo@2x.png) no-repeat;
+  background-size: 100%;
+}
+.content .middle .ad {
+  -webkit-box-flex: 1;
+          flex: 1;
+  /*background: url("../img/convenient@2x.png") no-repeat;*/
+  /*background-size: 100%;*/
+}
+
+.content .middle .ad .swiper-wrapper{
+  width: 100%;
+  height: 100%;
+}
+
+.content .middle .ad .swiper-wrapper .swiper-slide{
+  width: 100%;
+  height: 100%;
+}
+
+.content .middle .ad .swiper-wrapper .swiper-slide img{
+  width: 100%;
+  height: 100%;
+}
+
+.content .middle .form {
+  -webkit-box-flex: 1;
+          flex: 1;
+  position: relative;
+  height: 100%;
+  background-color: white;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: center;
+          align-items: center;
+}
+.content .middle .form .title {
+  font: 20px/28px 'PingFangSC-Semibold';
+  color: #333;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+.content .middle .form input {
+  outline: 0;
+  border: 0;
+  border-radius: 2px;
+  border: 1px solid #e0e0e0;
+  width: 300px;
+  height: 46px;
+  padding-left: 10px;
+  font: 14px/20px 'PingFangSC-Regular';
+  margin-top: 13px;
+}
+.content .middle .form input::-webkit-input-placeholder {
+  color: #999;
+}
+.content .middle .form .errorMsg {
+  font: 12px/17px 'PingFangSC-Regular';
+  color: #fe493f;
+  margin-top: 12px;
+  text-align: center;
+  max-width: 340px;
+  height: 20px;
+}
+.content .middle .form .secure {
+  display: -webkit-box;
+  display: flex;
+  height: 46px;
+  width: 300px;
+  margin-top: 13px;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+.content .middle .form .secure .code {
+  margin-top: 0;
+  width: 188px;
+  height: 100%;
+}
+.content .middle .form .secure span {
+  width: 102px;
+  height: 46px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  border: 1px solid #e0e0e0;
+  font: 14px/20px 'PingFangSC-Regular';
+  color: #2476E9;
+}
+.content .middle .form button {
+  width: 300px;
+  height: 46px;
+  background-color: #2476E9;
+  border-radius: 2px;
+  color: white;
+  font: 18px/25px 'PingFangSC-Medium';
+  margin-top: 20px;
+}
+.content .bottom_txt {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  position: absolute;
+  bottom: 29px;
+  text-align: center;
+  color: white;
+}
+.content .bottom_txt .contact {
+  font: 14px/20px 'PingFangSC-Regular';
+}
+.content .bottom_txt .copyright {
+  margin-top: 10px;
+  font: 12px/17px 'PingFangSC-Regular';
+}

@@ -1,0 +1,170 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+
+    <div class="pageTitle">
+        合同管理 <i class="dot"></i> 居民小区合同
+    </div>
+
+    <div class="content">
+        <form id="form">
+            <div class="title">合同信息</div>
+            <div>
+                <ul>
+                    <li>
+                        <label for="roomId">房间信息：</label>
+                        <input type="text" id="roomId" name="roomId" disabled="true" class="roomId">
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <label for="contractTemplateId">合同模板：</label>
+                        <select class="selectpicker" title="请选择合同模板" id="contractTemplateId" th:placeholder="请选择合同模板">
+                            <option value="100001">合同模板1</option>
+                            <option value="100001">合同模板2</option>
+                            <option value="100001">合同模板3</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="htDate">合同起止：</label>
+                        <input  lay-verify="required" name="contractStartDate" type="text"  id="htDate">
+                    </li>
+                </ul>
+            </div>
+            <div class="title">缴费信息<a class="addItem" href="javascript:"><img src="/img/increase@2x1.png" alt="" class="addImg">添加</a></div>
+            <div class="paymentMsgDiv">
+                <ul>
+                    <li>
+                        <label for="feeType">费用类型：</label>
+                        <select class="feeType" title="请选择缴费周期" id="feeType" name="feeType">
+                            <option value="FWZJ">租金</option>
+                            <option value="FWYJ">押金</option>
+                            <option value="FWDJ">定金</option>
+                            <option value="WYF">物业费</option>
+                            <option value="TCF">停车费</option>
+                            <option value="WXF">维修费</option>
+                            <option value="OTHER">其他费用</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="feePayType">缴费周期：</label>
+                        <select class="feePayType" id="feePayType" name="feePayType">
+                            <option value="ONETIME">单次</option>
+                            <option value="PERIOD">周期性</option>
+                        </select>
+                    </li>
+                    <li style="position: relative">
+                        <label for="feeAmount">金额：</label>
+                        <input type="text" id="feeAmount" name="feeAmount" placeholder="请输入缴费金额" class="feeAmount">
+                        <span style="position: relative;right: 25px;" class="moneySign">元</span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <button class="submit" type="button" lay-submit="" onclick="doNextFun()">下一步</button>
+            </div>
+        </form>
+    </div>
+
+
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/lib/layui/layui.all.js"></script>
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/contract_residence.css">
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        var roomDao = [[${roomDao}]];
+        $('#roomId').val(roomDao.roomDesc);
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#htDate',
+            range: '~'
+        });
+    });
+    var paymentMsg = [{feeType: '',feePayType: '',feeAmount: ''}];
+    $(".addItem").bind("click",function(){
+        paymentMsg.push({feeType:'',feePayType:'',feeAmount:''});
+        addMorePaymentMsg();
+    });
+
+    $(".paymentMsgDiv").delegate(".delete", "click", function() {
+       /* paymentMsg.splice($(this).parents("ul").index(), 1);*/
+        $(this).parents("ul").remove()
+    });
+
+    function addMorePaymentMsg(){
+        paymentMsg1 =
+                '<ul>'+
+                    '<li>'+
+                    '<label>费用类型:</label>'+
+                    '<select class="feeType" title="请选择缴费周期" style="margin-left: 12px">'+
+                    '<option value="FWZJ">租金</option>' +
+                    '<option value="FWYJ">押金</option>' +
+                    '<option value="FWDJ">定金</option>' +
+                    '<option value="WYF">物业费</option>' +
+                    '<option value="TCF">停车费</option>' +
+                    '<option value="WXF">维修费</option>' +
+                    '<option value="OTHER">其他费用</option>' +
+                    '</select>'+
+                    '</li>'+
+                    '<li>'+
+                    '<label>费用周期：</label>'+
+                    '<select class="feePayType" style="margin-left: 4px">' +
+                    '<option value="ONETIME">单次</option>' +
+                    '<option value="PERIOD">周期性</option>' +
+                    '</select>' +
+                    '</li>' +
+                    '<li>' +
+                    '<label>金额：</label>' +
+                    '<input type="text" placeholder="请输入缴费金额" class="feeAmount" style="margin-left: 4px">' +
+                    '<span style="position: relative;right: 25px;" class="moneySign">元</span>'+
+                    '</li>' +
+                    '<li style="width: 40px"><a href="javascript:;" class="delete"></a></li>'+
+                '</ul>'
+            $('.paymentMsgDiv').append(paymentMsg1);
+    }
+
+    function doNextFun(){
+        $(".paymentMsgDiv ul li select.feeType").each(function(index,element){
+            paymentMsg[index].feeType = $(element).val()
+        });
+        $(".paymentMsgDiv ul li select.feePayType").each(function(index,element){
+            paymentMsg[index].feePayType = $(element).val()
+        });
+        $(".paymentMsgDiv ul li input.feeAmount").each(function(index,element){
+            paymentMsg[index].feeAmount = $(element).val()*100
+        });
+        var AllPaymentMsg = $(".paymentMsgDiv").val(JSON.stringify(paymentMsg));
+        var contractTemplateId = $("#contractTemplateId").val();
+        var htDate = $("#htDate").val();
+        var _itemDic = {};
+        _itemDic.contractTemplateId = contractTemplateId;
+        _itemDic.htDate = htDate;
+        _itemDic.companyId = [[${roomDao}]].companyId;
+        _itemDic.info = JSON.stringify(paymentMsg);
+        _itemDic.roomId = [[${roomDao}]].id;
+        $.ajax({
+            type:"POST",
+            dataType:"JSON",
+            data:_itemDic,
+            url:"/contract/residence/addContract",
+            success:function(obj){
+                if(obj.code === "200"){
+                    layer.msg("新增成功");
+                    window.history.back();
+                }else{
+                    layer.msg(obj.msg);
+                }
+            },error :function () {
+                layer.msg("服务器内部错误");
+            }
+        })
+    }
+</script>
+</div>
+</body>
+</html>
